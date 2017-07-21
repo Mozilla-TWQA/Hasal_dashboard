@@ -1,18 +1,19 @@
 """
 
 Usage:
-  dashboard.py [--query-data]
+  dashboard.py [--query-data] [--deploy_mode]
   dashboard.py (-h | --help)
 
 Options:
   -h --help                 Show this screen.
   --query_data              Query data from pf
+  --deploy_mode             Automatically deploy to Github every half an hour
 """
 
 import os
 import csv
 import json
-import datetime
+import datetime, time
 import subprocess, sys
 from docopt import docopt
 from shutil import copyfile
@@ -26,6 +27,7 @@ BUILD_DIR = './docs'
 JS_DIR = os.path.join(BUILD_DIR,'js')
 BROWSER_SET = ['firefox', 'chrome']
 MACHINE_SET = ['windows8-64', 'windows10-64']
+DEPLOY_TIME_INTERVAL = 30 # mins
 
 class Dashboard(object):
     def __init__(self, **kwargs):
@@ -266,13 +268,45 @@ def create_db():
 
     os.remove('tmp.txt')
 
+def deploy_mode():
+    my_dashboard = Dashboard()
+    while(True):
+        print "Starting deploy process ..."
+
+        print "Start query data ..."
+        create_db()
+        print "Done query data!"
+
+        print "Create website ..."
+        my_dashboard.run()
+        print "Done create website!"
+
+        # push to github
+        cmd = 'git add ./docs/*'
+        retcode = subprocess.call(cmd, shell=True)
+        if retcode != 0: sys.exit(retcode)
+
+        cmd = 'git commit -mg \'auto deploy on {}\''.format(datetime.datetime.now().strftime('%H:%M:%S'))
+        retcode = subprocess.call(cmd, shell=True)
+        if retcode != 0: sys.exit(retcode)
+
+        cmd = 'git push origin master'
+        retcode = subprocess.call(cmd, shell=True)
+        if retcode != 0: sys.exit(retcode)
+        print "Git push success"
+
+        print "Time to sleep ... Bye"
+        time.sleep(60*DEPLOY_TIME_INTERVAL)
+
 def main():
     arguments = docopt(__doc__)
-    if arguments['--query-data']:
-        create_db()
-
-    my_dashboard = Dashboard()
-    my_dashboard.run()
+    if arguments['--deploy_mode']:
+        deploy_mode()
+    else:
+        if arguments['--query-data']:
+            create_db()
+        my_dashboard = Dashboard()
+        my_dashboard.run()
 
 if __name__ == '__main__':
     main()
