@@ -234,14 +234,14 @@ class Dashboard(object):
                     outfile.write('\t<h1>windows8</h1>\n')
                     outfile.write('\t<table>\n')
                     m = 'windows8-64'
-                    for set in self.set_page_dict[m].keys():
+                    for set in sorted(self.set_page_dict[m].keys()):
                         outfile.write('\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(self.set_page_dict[m][set],set,m))
                     outfile.write('\t</table>\n')
                 elif '<!--windows10-64 here-->' in row:
                     outfile.write('\t<h1>windows10</h1>\n')
                     outfile.write('\t<table>\n')
                     m = 'windows10-64'
-                    for set in self.set_page_dict[m].keys():
+                    for set in sorted(self.set_page_dict[m].keys()):
                         outfile.write('\t\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(self.set_page_dict[m][set],set,m))
                     outfile.write('\t</table>\n')
                 else:
