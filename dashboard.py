@@ -1,13 +1,13 @@
 """
 
 Usage:
-  dashboard.py [--query-data] [--deploy_mode]
+  dashboard.py [--query-data] [--deploy]
   dashboard.py (-h | --help)
 
 Options:
   -h --help                 Show this screen.
   --query_data              Query data from pf
-  --deploy_mode             Automatically deploy to Github every half an hour
+  --deploy                  Automatically deploy to Github every half an hour
 """
 
 import os
@@ -271,7 +271,7 @@ def create_db():
 def deploy_mode():
     my_dashboard = Dashboard()
     while(True):
-        print "Starting deploy process ..."
+        print "Start deploy process ..."
 
         print "Start query data ..."
         create_db()
@@ -286,7 +286,7 @@ def deploy_mode():
         retcode = subprocess.call(cmd, shell=True)
         if retcode != 0: sys.exit(retcode)
 
-        cmd = 'git commit -mg \'auto deploy on {}\''.format(datetime.datetime.now().strftime('%H:%M:%S'))
+        cmd = 'git commit -m \'auto deploy on {}\''.format(datetime.datetime.now().strftime('%H:%M:%S'))
         retcode = subprocess.call(cmd, shell=True)
         if retcode != 0: sys.exit(retcode)
 
@@ -300,7 +300,7 @@ def deploy_mode():
 
 def main():
     arguments = docopt(__doc__)
-    if arguments['--deploy_mode']:
+    if arguments['--deploy']:
         deploy_mode()
     else:
         if arguments['--query-data']:
