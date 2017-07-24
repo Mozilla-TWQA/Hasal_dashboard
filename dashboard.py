@@ -400,7 +400,7 @@ def main():
     if arguments['--deploy']:
         my_dashboard.deploy()
     else:
-        my_dashboard.run(arguments['--queryg'])
+        my_dashboard.run(arguments['--query'])
 
 
 if __name__ == '__main__':
