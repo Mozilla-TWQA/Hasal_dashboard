@@ -23,6 +23,7 @@ from shutil import copyfile
 SET_CONFIG = './set_config.json'
 SUITE_CONFIG = './suite_config.json'
 HASAL_CSV = './hasal_data.csv'
+GITHUB_CONFIG = 'github.key'
 
 TEMPLATE_DIR = 'template'
 JS_DIR = 'js'
@@ -51,6 +52,9 @@ class Dashboard(object):
         self.browsers = list()
         self.machines = list()
         self.ref_date = ''
+
+        self.github_username = ''
+        self.github_token = ''
 
         with open(SET_CONFIG) as data_file:
             self.set_contain = json.load(data_file)
@@ -93,7 +97,9 @@ class Dashboard(object):
         cmd = 'git commit -m \'auto deploy on {}\''.format(datetime.datetime.now().strftime('%H:%M:%S'))
         self.call_subprocess(cmd)
 
-        cmd = 'git push origin master'
+        _u = self.github_username
+        _k = self.github_token
+        cmd = 'git push https://{}:{}@github.com/MarkYan/Hasal_dashboard.git master'.format(_u, _k)
         self.call_subprocess(cmd)
         print "Git push success"
 
@@ -384,15 +390,20 @@ class Dashboard(object):
         self.create_pages()
         self.create_index()
 
+    def github_hook(self):
+        with open(GITHUB_CONFIG, 'r') as f:
+            self.github_username = f.readline().strip()
+            self.github_token = f.readline().strip()
+
     def deploy(self):
         """ gen website and push to github automatically """
+        self.github_hook()
         while (True):
             print "Start deploy process ..."
             self.run(True)
             self.commit_push_to_github()
             print "Time to sleep ... Bye"
             time.sleep(60 * DEPLOY_TIME_INTERVAL)
-
 
 def main():
     arguments = docopt(__doc__)
