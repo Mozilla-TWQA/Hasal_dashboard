@@ -79,6 +79,17 @@ body,html {
     height: 19.6vh;
 }
 
+.gauge_div {
+    width: 18.6vw;
+    height: 17.3vh;
+}
+
+.gauge_title {
+    font-size:19px;
+    color:#bfbfbf;
+    text-align: center;
+}
+
 .gauge_left {
     float: left;
     /*background-color: #bd1550;*/

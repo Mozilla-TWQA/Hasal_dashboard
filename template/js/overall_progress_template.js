@@ -8,7 +8,7 @@ var GAUGE_MACHINE_VAR = {
 
     pane: {
         center: ['50%', '100%'],
-        size: '150%',
+        size: '200%',
         startAngle: -90,
         endAngle: 90,
         background: {
@@ -34,11 +34,6 @@ var GAUGE_MACHINE_VAR = {
         minorTickInterval: null,
         tickAmount: 0,
         tickPixelInterval: 0,
-        title: {
-            y: -70,
-            text: '{{MACHINE}}', //code add here
-            style: {'font-size':'19px', 'color':'#E0E0E3'}
-        },
         labels: {
             enabled: false
         },
