@@ -47,6 +47,7 @@ class Dashboard(object):
         self.hasal_ds = dict()
         self.count_ds = dict()
         self.suite_ds = dict()
+
         self.set_page_dict = dict()
         self.suites = list()
         self.browsers = list()
@@ -68,6 +69,11 @@ class Dashboard(object):
             os.makedirs(os.path.join(BUILD_DIR, JS_DIR))
         if not os.path.exists(os.path.join(BUILD_DIR, CSS_DIR)):
             os.makedirs(os.path.join(BUILD_DIR, CSS_DIR))
+
+    def reset_ds(self):
+        self.hasal_ds.clear()
+        self.count_ds.clear()
+        self.suite_ds.clear()
 
     def analyze_today_data(self):
         _t = self.ref_date
@@ -308,8 +314,10 @@ class Dashboard(object):
                     # TODO:must alert
                     pass
                 else:
+                    print '{} : {}'.format(_s, self.count_ds[_s][machine][_b][r_date])
                     finished_jobs += self.count_ds[_s][machine][_b][r_date]
 
+        print 'for {} f:{} t:{}'.format(machine,finished_jobs,total_jobs)
         return finished_jobs * 100 / total_jobs
 
     def create_gauge_js(self, machine):
@@ -384,6 +392,7 @@ class Dashboard(object):
         """ generate website """
         if query_data or not os.path.isfile(HASAL_CSV):
             self.query_data()
+        self.reset_ds()
         self.analyze_csv()
         self.get_ref_date()
         self.analyze_today_data()
