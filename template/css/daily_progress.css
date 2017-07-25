@@ -1,0 +1,54 @@
+body,html {
+    margin:0;
+    padding:0;
+    background-color: #000000;
+}
+
+.row {
+}
+
+.block_right, .block_left {
+    height: 98.8vh;
+    width: 49.2vw;
+    margin-top: 0.6vh; margin-bottom: 0.6vh;
+    margin-left: 0.4vw; margin-right: 0.4vw;
+    background-color: #1a1a1a;
+}
+
+.block_left {
+    float: left;
+}
+
+.block_right {
+    float: right;
+}
+
+.title {
+    height: 2.5vh;
+    margin:0px;
+    padding: 5px;
+    color: #E0E0E3;
+    font-size: 20px;
+    text-align: center;
+}
+
+.chart {
+    width: 48vw;
+    height: 93vh;
+    margin-left: 0.6vw; margin-right: 0.6vw;
+    margin-bottom: 1vh; margin-top: 0.4vh;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+table, th,td {
+    border: 1px solid;
+    border-color: #a6a6a6;
+    color: #bfbfbf;
+    font-size: 18px;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
