@@ -46,7 +46,6 @@ class Dashboard(object):
     def __init__(self):
         self.hasal_ds = dict()
         self.count_ds = dict()
-        self.suite_ds = dict()
 
         self.set_page_dict = dict()
         self.suites = list()
@@ -73,21 +72,6 @@ class Dashboard(object):
     def reset_ds(self):
         self.hasal_ds.clear()
         self.count_ds.clear()
-        self.suite_ds.clear()
-
-    def analyze_today_data(self):
-        _t = self.ref_date
-        for _m in MACHINE_SET:
-            self.suite_ds[_m] = {}
-            for _sk in self.suite_contain.keys():
-                self.suite_ds[_m][_sk] = {}
-                for _s in self.suite_contain[_sk]:
-                    self.suite_ds[_m][_sk][_s] = {}
-                    for _b in BROWSER_SET:
-                        if _t not in self.count_ds[_s][_m][_b].keys():
-                            self.suite_ds[_m][_sk][_s][_b] = 0
-                        else:
-                            self.suite_ds[_m][_sk][_s][_b] = 1
 
     def call_subprocess(self, cmd):
         ret_code = subprocess.call(cmd, shell=True)
@@ -219,22 +203,28 @@ class Dashboard(object):
             ret = color['yellow']
         return ret
 
-
-    def print_footer_td_output(self, C, f_num, total, outfile):
-        line = '<td style="color: {}">{}{}</td>'.format(self.get_td_color(f_num, total),C,f_num)
+    def print_footer_td_output(self, _print, f_num, total, outfile):
+        line = '<td style="color: {}">{}</td>'.format(self.get_td_color(f_num, total),_print)
         outfile.write(line)
 
     def render_footer_table(self, machine, outfile):
         _m = machine
+        _rt = self.ref_date
         BROWSER_OUT = {'firefox':'F','chrome':'C'}
         for _sk in sorted(self.suite_contain.keys()):
             total_case = len(self.suite_contain[_sk])
             for _b in BROWSER_SET:
+                _print = ''
                 skb_count = 0
-                for _s in self.suite_contain[_sk]:
-                    if self.suite_ds[_m][_sk][_s][_b] == 1:
-                        skb_count += 1
-                self.print_footer_td_output(BROWSER_OUT[_b], skb_count, total_case, outfile)
+                _print += BROWSER_OUT[_b]
+                for _s in sorted(self.suite_contain[_sk]):
+                    if _rt in self.count_ds[_s][_m][_b].keys():
+                        _print += str(self.count_ds[_s][_m][_b][_rt])
+                        if self.count_ds[_s][_m][_b][_rt] >= 6:
+                            skb_count += 1
+                    else:
+                        _print += '-'
+                self.print_footer_td_output(_print, skb_count, total_case, outfile)
 
     def create_set_html(self, machine, set_name):
         set_html_file = '{}_{}_set.html'.format(set_name, machine)
@@ -299,7 +289,7 @@ class Dashboard(object):
 
         self.ref_date = ref_date.strftime("%Y-%m-%d %H-%M-%S-000000")
 
-    def get_overall_working_prgress(self, machine):
+    def get_overall_working_progress(self, machine):
         total_jobs = 0
         finished_jobs = 0
         for _s in self.count_ds.keys():
@@ -314,14 +304,11 @@ class Dashboard(object):
                     # TODO:must alert
                     pass
                 else:
-                    print '{} : {}'.format(_s, self.count_ds[_s][machine][_b][r_date])
                     finished_jobs += self.count_ds[_s][machine][_b][r_date]
-
-        print 'for {} f:{} t:{}'.format(machine,finished_jobs,total_jobs)
         return finished_jobs * 100 / total_jobs
 
     def create_gauge_js(self, machine):
-        percentage = self.get_overall_working_prgress(machine)
+        percentage = self.get_overall_working_progress(machine)
         create_js = os.path.join(BUILD_DIR, JS_DIR, '{}_gauge.js'.format(machine[:-3]))
         with open(create_js, 'w') as outfile, open(os.path.join(TEMPLATE_DIR, JS_DIR, GAUGE_TEMP_JS), 'r') as infile:
             for row in infile:
@@ -388,6 +375,53 @@ class Dashboard(object):
         os.remove('tmp.txt')
         print "Done query data!"
 
+    def get_suite_color(self, count):
+        color = {'red': '#bd1550', 'green': '#75D701', 'yellow': '#E8A317'}
+        if count >= 6:
+            ret = color['green']
+        elif count <= 0:
+            ret = color['red']
+        else:
+            ret = color['yellow']
+        return ret
+
+    def write_suite_all_row(self, machine, outfile):
+        _rt = self.ref_date
+        _m = machine
+        for _sk in sorted(self.suite_contain.keys()):
+            _rows = len(self.suite_contain[_sk])
+            isfirst = True
+            for _s in sorted(self.suite_contain[_sk]):
+                outfile.write('<tr>')
+                if isfirst:
+                    outfile.write('<td rowspan="{}">{}</td>'.format(_rows,_sk))
+                    isfirst = False
+
+                outfile.write('<td style="text-align: left">{}</td>'.format(_s))
+
+                for _b in BROWSER_SET:
+                    if _rt in self.count_ds[_s][_m][_b].keys():
+                        _val = self.count_ds[_s][_m][_b][_rt]
+                        outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val),_val))
+                    else:
+                        outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0),0))
+                outfile.write('</tr>')
+
+
+    def create_suite_progress_all(self):
+        copyfile(os.path.join(TEMPLATE_DIR, CSS_DIR, 'daily_progress.css'), os.path.join(BUILD_DIR, CSS_DIR, 'daily_progress.css'))
+
+        suites_out = os.path.join(BUILD_DIR, 'daily_progress_all.html')
+        suites_template = './template/daily_progress_all.html'
+        with open(suites_out, 'w') as outfile, open(suites_template, 'r') as infile:
+            for row in infile:
+                if '<!--windows8 goes here-->' in row:
+                    self.write_suite_all_row('windows8-64',outfile)
+                elif '<!--windows10 goes here-->' in row:
+                    self.write_suite_all_row('windows10-64',outfile)
+                else:
+                    outfile.write(row)
+
     def run(self, query_data):
         """ generate website """
         if query_data or not os.path.isfile(HASAL_CSV):
@@ -395,9 +429,9 @@ class Dashboard(object):
         self.reset_ds()
         self.analyze_csv()
         self.get_ref_date()
-        self.analyze_today_data()
         self.create_pages()
         self.create_index()
+        self.create_suite_progress_all()
 
     def github_hook(self):
         with open(GITHUB_CONFIG, 'r') as f:

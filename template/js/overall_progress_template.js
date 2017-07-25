@@ -2,7 +2,7 @@ var GAUGE_MACHINE_VAR = {
     chart: {
         type: 'solidgauge',
         backgroundColor: '#1a1a1a',
-        height: '165px'
+        height: '185px'
     },
 
     title: null,
