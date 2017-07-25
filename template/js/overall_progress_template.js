@@ -1,8 +1,7 @@
 var GAUGE_MACHINE_VAR = {
     chart: {
         type: 'solidgauge',
-        backgroundColor: '#1a1a1a',
-        height: '185px'
+        backgroundColor: '#1a1a1a'
     },
 
     title: null,
