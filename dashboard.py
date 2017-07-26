@@ -102,12 +102,11 @@ class Dashboard(object):
                     latest_date = datetime.datetime.strptime(latest_date, "%Y-%m-%d %H-%M-%S-000000")
                     if (latest_date - ref_date).total_seconds() > 0:
                         ref_date = latest_date
+
         self.ref_date = ref_date.strftime("%Y-%m-%d %H-%M-%S-000000")
 
     def analyze_csv(self):
         """ read csv and parse data """
-        self.get_ref_date()
-
         for m in MACHINE_SET:
             self.set_page_dict[m] = {}
 
@@ -397,6 +396,7 @@ class Dashboard(object):
             self.query_data()
         self.reset_ds()
         self.analyze_csv()
+        self.get_ref_date()
         self.create_pages()
         self.create_index()
         self.create_suite_progress_all()
