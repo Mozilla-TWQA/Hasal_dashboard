@@ -69,32 +69,45 @@ class Dashboard(object):
         if not os.path.exists(os.path.join(BUILD_DIR, CSS_DIR)):
             os.makedirs(os.path.join(BUILD_DIR, CSS_DIR))
 
-    def reset_ds(self):
-        self.hasal_ds.clear()
-        self.count_ds.clear()
-
-    def call_subprocess(self, cmd):
-        ret_code = subprocess.call(cmd, shell=True)
-        if ret_code != 0:
-            sys.exit(ret_code)
+    def load_github_accout(self):
+        with open(GITHUB_CONFIG, 'r') as f:
+            self.github_username = f.readline().strip()
+            self.github_token = f.readline().strip()
 
     def commit_push_to_github(self):
         """ commit and push to github """
         print "Start commit and push to github ..."
         cmd = 'git add ./docs/*'
-        self.call_subprocess(cmd)
+        call_subprocess(cmd)
 
         cmd = 'git commit -m \'auto deploy on {}\''.format(datetime.datetime.now().strftime('%H:%M:%S'))
-        self.call_subprocess(cmd)
+        call_subprocess(cmd)
 
         _u = self.github_username
         _k = self.github_token
         cmd = 'git push https://{}:{}@github.com/MarkYan/Hasal_dashboard.git master'.format(_u, _k)
-        self.call_subprocess(cmd)
+        call_subprocess(cmd)
         print "Git push success"
+
+    def reset_ds(self):
+        self.hasal_ds.clear()
+        self.count_ds.clear()
+
+    def get_ref_date(self):
+        ref_date = datetime.datetime(2015, 1, 13, 12, 0, 0)
+        for _s in self.count_ds.keys():
+            for _m in MACHINE_SET:
+                for _b in self.count_ds[_s][_m].keys():
+                    latest_date = sorted(self.count_ds[_s][_m][_b].keys(), reverse=True)[0]
+                    latest_date = datetime.datetime.strptime(latest_date, "%Y-%m-%d %H-%M-%S-000000")
+                    if (latest_date - ref_date).total_seconds() > 0:
+                        ref_date = latest_date
+        self.ref_date = ref_date.strftime("%Y-%m-%d %H-%M-%S-000000")
 
     def analyze_csv(self):
         """ read csv and parse data """
+        self.get_ref_date()
+
         for m in MACHINE_SET:
             self.set_page_dict[m] = {}
 
@@ -137,9 +150,9 @@ class Dashboard(object):
     def write_data_for_case(self, outfile_js, case_name, machine, browser):
         outfile_js.write('\t\tname: \'{}\',\n'.format(browser))
         outfile_js.write('\t\tdata: [\n')
-        for time in sorted(self.hasal_ds[case_name][machine][browser].keys()):
-            for value in sorted(self.hasal_ds[case_name][machine][browser][time]):
-                _t = datetime.datetime.strptime(time, "%Y-%m-%d %H-%M-%S-000000") + datetime.timedelta(hours=8)
+        for _time in sorted(self.hasal_ds[case_name][machine][browser].keys()):
+            for value in sorted(self.hasal_ds[case_name][machine][browser][_time]):
+                _t = datetime.datetime.strptime(_time, "%Y-%m-%d %H-%M-%S-000000") + datetime.timedelta(hours=8)
                 _y = _t.year
                 _m = _t.month
                 _d = _t.day
@@ -165,34 +178,6 @@ class Dashboard(object):
                     else:
                         outfile_js.write(row_js)
 
-    # def get_color(self, num):
-    #     color = {'red': '#bd1550', 'green': '#75D701', 'yellow': '#E8A317'}
-    #     if num >= 6:
-    #         ret = color['green']
-    #     elif num >= 1:
-    #         ret = color['yellow']
-    #     else:
-    #         ret = color['red']
-    #     return ret
-
-    # def get_each_suites_count(self, machine, suite, browser):
-    #     if self.ref_date not in self.count_ds[suite][machine][browser].keys():
-    #         ret = 0
-    #     else:
-    #         ret = self.count_ds[suite][machine][browser][self.ref_date]
-    #     return ret
-
-    # def render_table(self, machine, set_name, outfile):
-    #     for case in self.set_contain[set_name]:
-    #         _cm = '{}_{}'.format(case, machine[:-3])
-    #         _f = self.get_each_suites_count(machine, case, 'firefox')
-    #         _c = self.get_each_suites_count(machine, case, 'chrome')
-    #         outfile.write('\t\t\t\t\t<tr>\n')
-    #         outfile.write('\t\t\t\t\t\t<td>{}</td>\n'.format(_cm))
-    #         outfile.write('\t\t\t\t\t\t<td style="color: {}">{}/6</td>\n'.format(self.get_color(_f), _f))
-    #         outfile.write('\t\t\t\t\t\t<td style="color: {}">{}/6</td>\n'.format(self.get_color(_c), _c))
-    #         outfile.write('\t\t\t\t\t</tr>\n')
-
     def get_td_color(self, f_num, total):
         color = {'red': '#bd1550', 'green': '#75D701', 'yellow': '#E8A317'}
         if f_num > total or f_num <= 0:
@@ -204,19 +189,19 @@ class Dashboard(object):
         return ret
 
     def print_footer_td_output(self, _print, f_num, total, outfile):
-        line = '<td style="color: {}">{}</td>'.format(self.get_td_color(f_num, total),_print)
+        line = '<td style="color: {}">{}</td>'.format(self.get_td_color(f_num, total), _print)
         outfile.write(line)
 
     def render_footer_table(self, machine, outfile):
         _m = machine
         _rt = self.ref_date
-        BROWSER_OUT = {'firefox':'F','chrome':'C'}
+        shorten_browser = {'firefox': 'F', 'chrome': 'C'}
         for _sk in sorted(self.suite_contain.keys()):
             total_case = len(self.suite_contain[_sk])
             for _b in BROWSER_SET:
                 _print = ''
                 skb_count = 0
-                _print += BROWSER_OUT[_b]
+                _print += shorten_browser[_b]
                 for _s in sorted(self.suite_contain[_sk]):
                     if _rt in self.count_ds[_s][_m][_b].keys():
                         _print += str(self.count_ds[_s][_m][_b][_rt])
@@ -260,34 +245,19 @@ class Dashboard(object):
                     outfile.write(row.replace('{{REFRESH_TIME}}', '{}'.format(now)))
 
                 elif '{{LATEST_DATA_TIME}}' in row:
-                    time = self.ref_date
-                    latest_date = datetime.datetime.strptime(time, "%Y-%m-%d %H-%M-%S-000000").strftime(
+                    ref_date = self.ref_date
+                    latest_date = datetime.datetime.strptime(ref_date, "%Y-%m-%d %H-%M-%S-000000").strftime(
                         "%Y-%m-%d %H:%M:%S")
                     outfile.write(row.replace('{{LATEST_DATA_TIME}}', '{}').format(latest_date))
 
                 elif '<!--WIN8 TD GO HERE-->' in row:
-                    self.render_footer_table('windows8-64',outfile)
+                    self.render_footer_table('windows8-64', outfile)
 
                 elif '<!--WIN10 TD GO HERE-->' in row:
-                    self.render_footer_table('windows10-64',outfile)
-
-                # elif '<!--SUITE PROGRESS GOES HERE-->' in row:
-                #     self.render_table(machine, set_name, outfile)
+                    self.render_footer_table('windows10-64', outfile)
 
                 else:
                     outfile.write(row)
-
-    def get_ref_date(self):
-        ref_date = datetime.datetime(2015, 1, 13, 12, 0, 0)
-        for _s in self.count_ds.keys():
-            for _m in MACHINE_SET:
-                for _b in self.count_ds[_s][_m].keys():
-                    latest_date = sorted(self.count_ds[_s][_m][_b].keys(), reverse=True)[0]
-                    latest_date = datetime.datetime.strptime(latest_date, "%Y-%m-%d %H-%M-%S-000000")
-                    if (latest_date - ref_date).total_seconds() > 0:
-                        ref_date = latest_date
-
-        self.ref_date = ref_date.strftime("%Y-%m-%d %H-%M-%S-000000")
 
     def get_overall_working_progress(self, machine):
         total_jobs = 0
@@ -342,38 +312,22 @@ class Dashboard(object):
                     outfile.write('\t<h1>windows8</h1>\n')
                     outfile.write('\t<table>\n')
                     m = 'windows8-64'
-                    for set in sorted(self.set_page_dict[m].keys()):
+                    for set_name in sorted(self.set_page_dict[m].keys()):
                         outfile.write(
-                            '\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(self.set_page_dict[m][set], set,
+                            '\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(self.set_page_dict[m][set_name], set_name,
                                                                                      m))
                     outfile.write('\t</table>\n')
                 elif '<!--windows10-64 here-->' in row:
                     outfile.write('\t<h1>windows10</h1>\n')
                     outfile.write('\t<table>\n')
                     m = 'windows10-64'
-                    for set in sorted(self.set_page_dict[m].keys()):
+                    for set_name in sorted(self.set_page_dict[m].keys()):
                         outfile.write(
-                            '\t\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(self.set_page_dict[m][set], set,
+                            '\t\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(self.set_page_dict[m][set_name], set_name,
                                                                                        m))
                     outfile.write('\t</table>\n')
                 else:
                     outfile.write(row)
-
-    def query_data(self):
-        """ query data and gen a csv file """
-        tmp_file = 'tmp.txt'
-
-        print "Start query data from pf ..."
-        cmd = 'python query_data_from_perfherder.py > tmp.txt'
-        self.call_subprocess(cmd)
-
-        with open(tmp_file) as fin, open(HASAL_CSV, 'w') as fout:
-            o = csv.writer(fout)
-            o.writerow(['suite_name', '_', 'browser_type', 'machine_platform', 'date', 'time', 'value'])
-            for line in fin:
-                o.writerow(line.split())
-        os.remove('tmp.txt')
-        print "Done query data!"
 
     def get_suite_color(self, count):
         color = {'red': '#bd1550', 'green': '#75D701', 'yellow': '#E8A317'}
@@ -394,7 +348,7 @@ class Dashboard(object):
             for _s in sorted(self.suite_contain[_sk]):
                 outfile.write('<tr>')
                 if isfirst:
-                    outfile.write('<td rowspan="{}">{}</td>'.format(_rows,_sk))
+                    outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk))
                     isfirst = False
 
                 outfile.write('<td style="text-align: left">{}</td>'.format(_s))
@@ -402,11 +356,10 @@ class Dashboard(object):
                 for _b in BROWSER_SET:
                     if _rt in self.count_ds[_s][_m][_b].keys():
                         _val = self.count_ds[_s][_m][_b][_rt]
-                        outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val),_val))
+                        outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val), _val))
                     else:
-                        outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0),0))
+                        outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0), 0))
                 outfile.write('</tr>')
-
 
     def create_suite_progress_all(self):
         copyfile(os.path.join(TEMPLATE_DIR, CSS_DIR, 'daily_progress.css'), os.path.join(BUILD_DIR, CSS_DIR, 'daily_progress.css'))
@@ -416,11 +369,27 @@ class Dashboard(object):
         with open(suites_out, 'w') as outfile, open(suites_template, 'r') as infile:
             for row in infile:
                 if '<!--windows8 goes here-->' in row:
-                    self.write_suite_all_row('windows8-64',outfile)
+                    self.write_suite_all_row('windows8-64', outfile)
                 elif '<!--windows10 goes here-->' in row:
-                    self.write_suite_all_row('windows10-64',outfile)
+                    self.write_suite_all_row('windows10-64', outfile)
                 else:
                     outfile.write(row)
+
+    def query_data(self):
+        """ query data and gen a csv file """
+        tmp_file = 'tmp.txt'
+
+        print "Start query data from pf ..."
+        cmd = 'python query_data_from_perfherder.py > {}'.format(tmp_file)
+        call_subprocess(cmd)
+
+        with open(tmp_file) as fin, open(HASAL_CSV, 'w') as fout:
+            o = csv.writer(fout)
+            o.writerow(['suite_name', '_', 'browser_type', 'machine_platform', 'date', 'time', 'value'])
+            for line in fin:
+                o.writerow(line.split())
+        os.remove(tmp_file)
+        print "Done query data!"
 
     def run(self, query_data):
         """ generate website """
@@ -428,25 +397,26 @@ class Dashboard(object):
             self.query_data()
         self.reset_ds()
         self.analyze_csv()
-        self.get_ref_date()
         self.create_pages()
         self.create_index()
         self.create_suite_progress_all()
 
-    def github_hook(self):
-        with open(GITHUB_CONFIG, 'r') as f:
-            self.github_username = f.readline().strip()
-            self.github_token = f.readline().strip()
-
     def deploy(self):
         """ gen website and push to github automatically """
-        self.github_hook()
-        while (True):
+        self.load_github_accout()
+        while True:
             print "Start deploy process ..."
             self.run(True)
             self.commit_push_to_github()
             print "Time to sleep ... Bye"
             time.sleep(60 * DEPLOY_TIME_INTERVAL)
+
+
+def call_subprocess(cmd):
+    ret_code = subprocess.call(cmd, shell=True)
+    if ret_code != 0:
+        sys.exit(ret_code)
+
 
 def main():
     arguments = docopt(__doc__)
