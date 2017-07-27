@@ -2,6 +2,10 @@ body,html {
     margin:0;
     padding:0;
     background-color: #000000;
+    /*background-image: url("../img/d2_bkg.jpg");*/
+    /*background-attachment: fixed;*/
+    /*background-position: center;*/
+    /*background-size: cover;*/
 }
 
 .row {
