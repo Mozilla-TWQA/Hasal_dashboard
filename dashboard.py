@@ -41,7 +41,6 @@ MACHINE_SET = ['windows8-64', 'windows10-64']
 
 DEPLOY_TIME_INTERVAL = 30  # mins
 
-
 class Dashboard(object):
     def __init__(self):
         self.hasal_ds = dict()
@@ -153,7 +152,7 @@ class Dashboard(object):
             for value in sorted(self.hasal_ds[case_name][machine][browser][_time]):
                 _t = datetime.datetime.strptime(_time, "%Y-%m-%d %H-%M-%S-000000") + datetime.timedelta(hours=8)
                 _y = _t.year
-                _m = _t.month
+                _m = _t.month - 1
                 _d = _t.day
                 outfile_js.write('\t\t\t[Date.UTC({}, {}, {}), {}],\n'.format(_y, _m, _d, value))
         outfile_js.write('\t\t]')
@@ -379,7 +378,7 @@ class Dashboard(object):
         tmp_file = 'tmp.txt'
 
         print "Start query data from pf ..."
-        cmd = 'python query_data_from_perfherder.py > {}'.format(tmp_file)
+        cmd = 'python query_data_from_perfherder.py --interval=2419200 > {}'.format(tmp_file)
         call_subprocess(cmd)
 
         with open(tmp_file) as fin, open(HASAL_CSV, 'w') as fout:
