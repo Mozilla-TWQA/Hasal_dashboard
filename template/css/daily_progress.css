@@ -9,6 +9,27 @@ body,html {
     width: 98vw;
 }
 
+.row_date {
+}
+
+.date_right, .date_left {
+    height: 2.3vh;
+    width: 47.8vw;
+    font-size: 15px;
+    color: #ffffff;
+    margin-left: 0.6vw; margin-right: 0.6vw;
+}
+
+.date_left {
+    float: left;
+    text-align: left;
+}
+
+.date_right {
+    float: right;
+    text-align: right;
+}
+
 .block_right, .block_left {
     height: 96.8vh;
     width: 48.2vw;
@@ -29,7 +50,7 @@ body,html {
     height: 2.5vh;
     margin:0px;
     padding: 5px;
-    color: #E0E0E3;
+    color: #ffffff;
     font-size: 20px;
     text-align: center;
 }
@@ -46,7 +67,7 @@ body,html {
 table, th,td {
     border: 1px solid;
     border-color: #a6a6a6;
-    color: #bfbfbf;
+    color: #ffffff;
     font-size: 18px;
 }
 

@@ -40,7 +40,7 @@ SET_TEMP_CSS = 'set_page.css'
 BROWSER_SET = ['firefox', 'chrome']
 MACHINE_SET = ['windows8-64', 'windows10-64']
 
-DEPLOY_TIME_INTERVAL = 30  # mins
+DEPLOY_TIME_INTERVAL = 15  # mins
 
 class Dashboard(object):
     def __init__(self):
@@ -329,7 +329,7 @@ class Dashboard(object):
                     outfile.write(row)
 
     def get_suite_color(self, count):
-        color = {'red': '#bd1550', 'green': '#75D701', 'yellow': '#E8A317'}
+        color = {'red': '#ff0000', 'green': '#00ff00', 'yellow': '#ffff00'}
         if count >= 6:
             ret = color['green']
         elif count <= 0:
@@ -366,6 +366,30 @@ class Dashboard(object):
             "youtube_ail_type_in_search_field Median" : "type_in_search_field"
         }
 
+        task_schedule = {
+            "amazon_ail_hover_related_product_thumbnail Median": "",
+            "amazon_ail_select_search_suggestion Median": "",
+            "amazon_ail_type_in_search_field Median": "",
+            "facebook_ail_click_close_chat_tab Median": "",
+            "facebook_ail_click_open_chat_tab Median": "",
+            "facebook_ail_click_open_chat_tab_emoji Median": "",
+            "facebook_ail_click_photo_viewer_right_arrow Median": "",
+            "facebook_ail_scroll_home_1_txt Median": "",
+            "facebook_ail_type_comment_1_txt Median": "",
+            "facebook_ail_type_composerbox_1_txt Median": "",
+            "facebook_ail_type_message_1_txt Median": "",
+            "gdoc_ail_pagedown_10_text Median": "",
+            "gmail_ail_compose_new_mail_via_keyboard Median": "",
+            "gmail_ail_open_mail Median": "",
+            "gmail_ail_reply_mail Median": "",
+            "gmail_ail_type_in_reply_field Median": "",
+            "gsearch_ail_select_image_cat Median": "",
+            "gsearch_ail_select_search_suggestion Median": "",
+            "gsearch_ail_type_searchbox Median": "",
+            "youtube_ail_select_search_suggestion Median": "",
+            "youtube_ail_type_in_search_field Median": ""
+        }
+
         for _sk in sorted(self.suite_contain.keys()):
             _rows = len(self.suite_contain[_sk])
             isfirst = True
@@ -396,6 +420,15 @@ class Dashboard(object):
                     self.write_suite_all_row('windows8-64', outfile)
                 elif '<!--windows10 goes here-->' in row:
                     self.write_suite_all_row('windows10-64', outfile)
+                elif '{{REFRESH_TIME}}' in row:
+                    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    outfile.write(row.replace('{{REFRESH_TIME}}', '{}'.format(now)))
+
+                elif '{{LATEST_DATA_TIME}}' in row:
+                    ref_date = self.ref_date
+                    latest_date = datetime.datetime.strptime(ref_date, "%Y-%m-%d %H-%M-%S-000000").strftime(
+                        "%Y-%m-%d %H:%M:%S")
+                    outfile.write(row.replace('{{LATEST_DATA_TIME}}', '{}').format(latest_date))
                 else:
                     outfile.write(row)
 
