@@ -30,6 +30,7 @@ TEMPLATE_DIR = 'template'
 JS_DIR = 'js'
 CSS_DIR = 'css'
 BUILD_DIR = 'docs'
+IMG_DIR = 'img'
 
 SET_TEMP_HTML = 'set_template.html'
 SET_DATA_TEMP_JS = 'case_data_template.js'
@@ -40,7 +41,7 @@ SET_TEMP_CSS = 'set_page.css'
 BROWSER_SET = ['firefox', 'chrome']
 MACHINE_SET = ['windows8-64', 'windows10-64']
 
-DEPLOY_TIME_INTERVAL = 15  # mins
+DEPLOY_TIME_INTERVAL = 5  # mins
 
 task_schedule = {
     "amazon_ail_hover_related_product_thumbnail Median": ["0500", "1700"],
@@ -116,6 +117,8 @@ class Dashboard(object):
             os.makedirs(os.path.join(BUILD_DIR, JS_DIR))
         if not os.path.exists(os.path.join(BUILD_DIR, CSS_DIR)):
             os.makedirs(os.path.join(BUILD_DIR, CSS_DIR))
+        if not os.path.exists(os.path.join(BUILD_DIR, IMG_DIR)):
+            os.makedirs(os.path.join(BUILD_DIR, IMG_DIR))
 
     def load_github_accout(self):
         with open(GITHUB_CONFIG, 'r') as f:
@@ -187,6 +190,9 @@ class Dashboard(object):
                     self.count_ds[_s][_m][_b][_t] += 1
 
                 self.hasal_ds[_s][_m][_b][_t].append(_v)
+
+    def copy_img(self):
+        copyfile(os.path.join(TEMPLATE_DIR, IMG_DIR, 'd2_bkg.jpg'), os.path.join(BUILD_DIR, IMG_DIR, 'd2_bkg.jpg'))
 
     def create_highchart_theme(self):
         copyfile(os.path.join(TEMPLATE_DIR, JS_DIR, THEME_TEMP_JS), os.path.join(BUILD_DIR, JS_DIR, THEME_TEMP_JS))
@@ -406,30 +412,50 @@ class Dashboard(object):
                         ret = False
         return ret
 
-    def write_suite_all_row(self, machine, outfile):
+    def write_suite_all_row(self, outfile):
         _rt = self.ref_date
-        _m = machine
+        sk_set = ["youtube", "gmail", "gdoc", "amazon", "gsearch", "facebook"]
 
-        for _sk in sorted(self.suite_contain.keys()):
+        for _sk in sk_set:
+            print_sk = True
+            print_hour = True
             _rows = len(self.suite_contain[_sk])
-            isfirst = True
-            for _s in sorted(self.suite_contain[_sk]):
+            s_set = sorted(self.suite_contain[_sk], key=lambda x: task_schedule[x][0])
+            for i in range(len(s_set)):
                 outfile.write('<tr>')
-                if isfirst:
+                if print_sk:
                     outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk))
-                    isfirst = False
+                    print_sk = False
 
-                if self.is_under_execution(_s):
-                    outfile.write('<td style="text-align: left; background-color: #0000cc">{}</td>'.format(task_dict[_s]))
-                else:
-                    outfile.write('<td style="text-align: left">{}</td>'.format(task_dict[_s]))
-
-                for _b in BROWSER_SET:
-                    if _rt in self.count_ds[_s][_m][_b].keys():
-                        _val = self.count_ds[_s][_m][_b][_rt]
-                        outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val), _val))
+                # print hour and check if match next
+                if print_hour:
+                    if i < len(s_set)-1 and task_schedule[s_set[i]][0][:2] == task_schedule[s_set[i+1]][0][:2]:
+                        outfile.write('<td rowspan="2">{},{}</td>'.format(task_schedule[s_set[i]][0][:2],task_schedule[s_set[i]][1][:2]))
+                        print_hour = False
                     else:
-                        outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0), 0))
+                        outfile.write('<td>{},{}</td>'.format(task_schedule[s_set[i]][0][:2],task_schedule[s_set[i]][1][:2]))
+                        print_hour = True
+                else:
+                    print_hour = True
+
+                # must print minute
+                outfile.write('<td>{}</td>'.format(task_schedule[s_set[i]][0][2:]))
+
+                # print suite name also check if execute
+                if self.is_under_execution(s_set[i]):
+                    outfile.write('<td style="text-align: left; color: #00ff00">{}</td>'.format(task_dict[s_set[i]]))
+                else:
+                    outfile.write('<td style="text-align: left">{}</td>'.format(task_dict[s_set[i]]))
+
+                # print win7 and win10
+                for _m in MACHINE_SET:
+                    # print firefox and chrome
+                    for _b in BROWSER_SET:
+                        if _rt in self.count_ds[s_set[i]][_m][_b].keys():
+                            _val = self.count_ds[s_set[i]][_m][_b][_rt]
+                            outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val), _val))
+                        else:
+                            outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0), 0))
                 outfile.write('</tr>')
 
     def create_suite_progress_all(self):
@@ -439,10 +465,8 @@ class Dashboard(object):
         suites_template = './template/daily_progress_all.html'
         with open(suites_out, 'w') as outfile, open(suites_template, 'r') as infile:
             for row in infile:
-                if '<!--windows8 goes here-->' in row:
-                    self.write_suite_all_row('windows8-64', outfile)
-                elif '<!--windows10 goes here-->' in row:
-                    self.write_suite_all_row('windows10-64', outfile)
+                if '<!--rows go here-->' in row:
+                    self.write_suite_all_row(outfile)
                 elif '{{REFRESH_TIME}}' in row:
                     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     outfile.write(row.replace('{{REFRESH_TIME}}', '{}'.format(now)))
@@ -477,6 +501,7 @@ class Dashboard(object):
             self.query_data()
         self.reset_ds()
         self.analyze_csv()
+        self.copy_img()
         self.get_ref_date()
         self.create_pages()
         self.create_index()
