@@ -1,13 +1,14 @@
 """
 
 Usage:
-  dashboard.py [--query] [--deploy]
+  dashboard.py [--query] [--deploy] [--localhost]
   dashboard.py (-h | --help)
 
 Options:
   -h --help                 Show this screen.
   --query                   Query data from pf
   --deploy                  Automatically deploy to Github every half an hour
+  --localhost               Automatically deploy locally every half an hour
 """
 
 import os
@@ -340,6 +341,31 @@ class Dashboard(object):
     def write_suite_all_row(self, machine, outfile):
         _rt = self.ref_date
         _m = machine
+
+        task_dict = {
+            "amazon_ail_hover_related_product_thumbnail Median" : "hover_related_product_thumbnail",
+            "amazon_ail_select_search_suggestion Median" : "select_search_suggestion",
+            "amazon_ail_type_in_search_field Median" : "type_in_search_field",
+            "facebook_ail_click_close_chat_tab Median" : "click_close_chat_tab",
+            "facebook_ail_click_open_chat_tab Median" : "click_open_chat_tab",
+            "facebook_ail_click_open_chat_tab_emoji Median" : "click_open_chat_tab_emoji",
+            "facebook_ail_click_photo_viewer_right_arrow Median" : "click_photo_viewer_right_arrow",
+            "facebook_ail_scroll_home_1_txt Median" : "scroll_home_1_txt",
+            "facebook_ail_type_comment_1_txt Median" : "type_comment_1_txt",
+            "facebook_ail_type_composerbox_1_txt Median" : "type_composerbox_1_txt",
+            "facebook_ail_type_message_1_txt Median" : "type_message_1_txt",
+            "gdoc_ail_pagedown_10_text Median" : "pagedown_10_text",
+            "gmail_ail_compose_new_mail_via_keyboard Median" : "compose_new_mail_via_keyboard",
+            "gmail_ail_open_mail Median" : "open_mail",
+            "gmail_ail_reply_mail Median" : "reply_mail",
+            "gmail_ail_type_in_reply_field Median" : "type_in_reply_field",
+            "gsearch_ail_select_image_cat Median" : "select_image_cat",
+            "gsearch_ail_select_search_suggestion Median" : "select_search_suggestion",
+            "gsearch_ail_type_searchbox Median" : "type_searchbox",
+            "youtube_ail_select_search_suggestion Median" : "select_search_suggestion",
+            "youtube_ail_type_in_search_field Median" : "type_in_search_field"
+        }
+
         for _sk in sorted(self.suite_contain.keys()):
             _rows = len(self.suite_contain[_sk])
             isfirst = True
@@ -349,7 +375,7 @@ class Dashboard(object):
                     outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk))
                     isfirst = False
 
-                outfile.write('<td style="text-align: left">{}</td>'.format(_s))
+                outfile.write('<td style="text-align: left">{}</td>'.format(task_dict[_s]))
 
                 for _b in BROWSER_SET:
                     if _rt in self.count_ds[_s][_m][_b].keys():
@@ -410,6 +436,13 @@ class Dashboard(object):
             print "Time to sleep ... Bye"
             time.sleep(60 * DEPLOY_TIME_INTERVAL)
 
+    def local_deploy(self):
+        while True:
+            print "Start deploy process ..."
+            self.run(True)
+            print "Time to sleep ... Bye"
+            time.sleep(60 * DEPLOY_TIME_INTERVAL)
+
 
 def call_subprocess(cmd):
     ret_code = subprocess.call(cmd, shell=True)
@@ -422,6 +455,8 @@ def main():
     my_dashboard = Dashboard()
     if arguments['--deploy']:
         my_dashboard.deploy()
+    elif arguments['--localhost']:
+        my_dashboard.local_deploy()
     else:
         my_dashboard.run(arguments['--query'])
 
