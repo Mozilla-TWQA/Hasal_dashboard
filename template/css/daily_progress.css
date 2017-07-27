@@ -2,10 +2,12 @@ body,html {
     margin:0;
     padding:0;
     background-color: #000000;
-    background-image: url("../img/d2_bkg.jpg");
+    background-image: url("../img/d1_bkg.jpg");
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
+
+    font-family: 'Roboto';
 }
 
 .row {
@@ -41,6 +43,7 @@ body,html {
     color: #ffffff;
     font-size: 40px;
     text-align: center;
+    font-family: 'Archivo Black';
 }
 
 .chart {
@@ -54,7 +57,8 @@ body,html {
 
 table, th,td {
     border: 1px solid;
-    border-color: #66ccff;
+    /*border-color: #737373;*/
+    border-color: transparent;
     color: #ffffff;
     font-size: 18px;
 }

@@ -192,7 +192,9 @@ class Dashboard(object):
                 self.hasal_ds[_s][_m][_b][_t].append(_v)
 
     def copy_img(self):
-        copyfile(os.path.join(TEMPLATE_DIR, IMG_DIR, 'd2_bkg.jpg'), os.path.join(BUILD_DIR, IMG_DIR, 'd2_bkg.jpg'))
+        img_set = ["d2_bkg.jpg", "d1_bkg.jpg", "d3_bkg.jpg"]
+        for img in img_set:
+            copyfile(os.path.join(TEMPLATE_DIR, IMG_DIR, img), os.path.join(BUILD_DIR, IMG_DIR, img))
 
     def create_highchart_theme(self):
         copyfile(os.path.join(TEMPLATE_DIR, JS_DIR, THEME_TEMP_JS), os.path.join(BUILD_DIR, JS_DIR, THEME_TEMP_JS))
