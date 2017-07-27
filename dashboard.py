@@ -42,6 +42,54 @@ MACHINE_SET = ['windows8-64', 'windows10-64']
 
 DEPLOY_TIME_INTERVAL = 15  # mins
 
+task_schedule = {
+    "amazon_ail_hover_related_product_thumbnail Median": ["0500", "1700"],
+    "amazon_ail_select_search_suggestion Median": ["0530", "1730"],
+    "amazon_ail_type_in_search_field Median": ["0600", "1800"],
+    "facebook_ail_click_close_chat_tab Median": ["0900", "2100"],
+    "facebook_ail_click_open_chat_tab Median": ["0830", "2030"],
+    "facebook_ail_click_open_chat_tab_emoji Median": ["0800", "2000"],
+    "facebook_ail_click_photo_viewer_right_arrow Median": ["0930", "2130"],
+    "facebook_ail_scroll_home_1_txt Median": ["1000", "2200"],
+    "facebook_ail_type_comment_1_txt Median": ["1030", "2230"],
+    "facebook_ail_type_composerbox_1_txt Median": ["1100", "2300"],
+    "facebook_ail_type_message_1_txt Median": ["1130", "2330"],
+    "gdoc_ail_pagedown_10_text Median": ["0430", "1630"],
+    "gmail_ail_compose_new_mail_via_keyboard Median": ["0330", "1530"],
+    "gmail_ail_open_mail Median": ["0200", "1400"],
+    "gmail_ail_reply_mail Median": ["0300", "1500"],
+    "gmail_ail_type_in_reply_field Median": ["0400", "1600"],
+    "gsearch_ail_select_image_cat Median": ["0630", "1830"],
+    "gsearch_ail_select_search_suggestion Median": ["0700", "1900"],
+    "gsearch_ail_type_searchbox Median": ["0730", "1930"],
+    "youtube_ail_select_search_suggestion Median": ["0000", "1200"],
+    "youtube_ail_type_in_search_field Median": ["0100", "1300"]
+}
+
+task_dict = {
+    "amazon_ail_hover_related_product_thumbnail Median": "hover_related_product_thumbnail",
+    "amazon_ail_select_search_suggestion Median": "select_search_suggestion",
+    "amazon_ail_type_in_search_field Median": "type_in_search_field",
+    "facebook_ail_click_close_chat_tab Median": "click_close_chat_tab",
+    "facebook_ail_click_open_chat_tab Median": "click_open_chat_tab",
+    "facebook_ail_click_open_chat_tab_emoji Median": "click_open_chat_tab_emoji",
+    "facebook_ail_click_photo_viewer_right_arrow Median": "click_photo_viewer_right_arrow",
+    "facebook_ail_scroll_home_1_txt Median": "scroll_home_1_txt",
+    "facebook_ail_type_comment_1_txt Median": "type_comment_1_txt",
+    "facebook_ail_type_composerbox_1_txt Median": "type_composerbox_1_txt",
+    "facebook_ail_type_message_1_txt Median": "type_message_1_txt",
+    "gdoc_ail_pagedown_10_text Median": "pagedown_10_text",
+    "gmail_ail_compose_new_mail_via_keyboard Median": "compose_new_mail_via_keyboard",
+    "gmail_ail_open_mail Median": "open_mail",
+    "gmail_ail_reply_mail Median": "reply_mail",
+    "gmail_ail_type_in_reply_field Median": "type_in_reply_field",
+    "gsearch_ail_select_image_cat Median": "select_image_cat",
+    "gsearch_ail_select_search_suggestion Median": "select_search_suggestion",
+    "gsearch_ail_type_searchbox Median": "type_searchbox",
+    "youtube_ail_select_search_suggestion Median": "select_search_suggestion",
+    "youtube_ail_type_in_search_field Median": "type_in_search_field"
+}
+
 class Dashboard(object):
     def __init__(self):
         self.hasal_ds = dict()
@@ -338,57 +386,29 @@ class Dashboard(object):
             ret = color['yellow']
         return ret
 
+    def is_under_execution(self, suite):
+        now = datetime.datetime.now()
+        now_H = now.hour
+        now_M = now.minute
+
+        ret = False
+        for t in task_schedule[suite]:
+            if int(now_H) == int(t[:2]) and ret == False:
+                if t[2:] == '00':
+                    if int(now_M) < 30 and int(now_M) >= 0:
+                        ret = True
+                    else:
+                        ret = False
+                else:
+                    if int(now_M) >= 30 and int(now_M) < 60:
+                        ret = True
+                    else:
+                        ret = False
+        return ret
+
     def write_suite_all_row(self, machine, outfile):
         _rt = self.ref_date
         _m = machine
-
-        task_dict = {
-            "amazon_ail_hover_related_product_thumbnail Median" : "hover_related_product_thumbnail",
-            "amazon_ail_select_search_suggestion Median" : "select_search_suggestion",
-            "amazon_ail_type_in_search_field Median" : "type_in_search_field",
-            "facebook_ail_click_close_chat_tab Median" : "click_close_chat_tab",
-            "facebook_ail_click_open_chat_tab Median" : "click_open_chat_tab",
-            "facebook_ail_click_open_chat_tab_emoji Median" : "click_open_chat_tab_emoji",
-            "facebook_ail_click_photo_viewer_right_arrow Median" : "click_photo_viewer_right_arrow",
-            "facebook_ail_scroll_home_1_txt Median" : "scroll_home_1_txt",
-            "facebook_ail_type_comment_1_txt Median" : "type_comment_1_txt",
-            "facebook_ail_type_composerbox_1_txt Median" : "type_composerbox_1_txt",
-            "facebook_ail_type_message_1_txt Median" : "type_message_1_txt",
-            "gdoc_ail_pagedown_10_text Median" : "pagedown_10_text",
-            "gmail_ail_compose_new_mail_via_keyboard Median" : "compose_new_mail_via_keyboard",
-            "gmail_ail_open_mail Median" : "open_mail",
-            "gmail_ail_reply_mail Median" : "reply_mail",
-            "gmail_ail_type_in_reply_field Median" : "type_in_reply_field",
-            "gsearch_ail_select_image_cat Median" : "select_image_cat",
-            "gsearch_ail_select_search_suggestion Median" : "select_search_suggestion",
-            "gsearch_ail_type_searchbox Median" : "type_searchbox",
-            "youtube_ail_select_search_suggestion Median" : "select_search_suggestion",
-            "youtube_ail_type_in_search_field Median" : "type_in_search_field"
-        }
-
-        task_schedule = {
-            "amazon_ail_hover_related_product_thumbnail Median": "",
-            "amazon_ail_select_search_suggestion Median": "",
-            "amazon_ail_type_in_search_field Median": "",
-            "facebook_ail_click_close_chat_tab Median": "",
-            "facebook_ail_click_open_chat_tab Median": "",
-            "facebook_ail_click_open_chat_tab_emoji Median": "",
-            "facebook_ail_click_photo_viewer_right_arrow Median": "",
-            "facebook_ail_scroll_home_1_txt Median": "",
-            "facebook_ail_type_comment_1_txt Median": "",
-            "facebook_ail_type_composerbox_1_txt Median": "",
-            "facebook_ail_type_message_1_txt Median": "",
-            "gdoc_ail_pagedown_10_text Median": "",
-            "gmail_ail_compose_new_mail_via_keyboard Median": "",
-            "gmail_ail_open_mail Median": "",
-            "gmail_ail_reply_mail Median": "",
-            "gmail_ail_type_in_reply_field Median": "",
-            "gsearch_ail_select_image_cat Median": "",
-            "gsearch_ail_select_search_suggestion Median": "",
-            "gsearch_ail_type_searchbox Median": "",
-            "youtube_ail_select_search_suggestion Median": "",
-            "youtube_ail_type_in_search_field Median": ""
-        }
 
         for _sk in sorted(self.suite_contain.keys()):
             _rows = len(self.suite_contain[_sk])
@@ -399,7 +419,10 @@ class Dashboard(object):
                     outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk))
                     isfirst = False
 
-                outfile.write('<td style="text-align: left">{}</td>'.format(task_dict[_s]))
+                if self.is_under_execution(_s):
+                    outfile.write('<td style="text-align: left; background-color: #0000cc">{}</td>'.format(task_dict[_s]))
+                else:
+                    outfile.write('<td style="text-align: left">{}</td>'.format(task_dict[_s]))
 
                 for _b in BROWSER_SET:
                     if _rt in self.count_ds[_s][_m][_b].keys():
