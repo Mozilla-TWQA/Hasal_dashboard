@@ -192,7 +192,7 @@ class Dashboard(object):
                 self.hasal_ds[_s][_m][_b][_t].append(_v)
 
     def copy_img(self):
-        img_set = ["d2_bkg.jpg", "d1_bkg.jpg", "d3_bkg.jpg"]
+        img_set = ["d2_bkg.jpg", "d1_bkg.jpg", "d3_bkg.jpg", "d4_bkg.jpg", "d5_bkg.jpg"]
         for img in img_set:
             copyfile(os.path.join(TEMPLATE_DIR, IMG_DIR, img), os.path.join(BUILD_DIR, IMG_DIR, img))
 
@@ -384,34 +384,84 @@ class Dashboard(object):
                 else:
                     outfile.write(row)
 
-    def get_suite_color(self, count):
-        color = {'red': '#ff0000', 'green': '#00ff00', 'yellow': '#ffff00'}
-        if count >= 6:
-            ret = color['green']
-        elif count <= 0:
-            ret = color['red']
+    def in_time_range_2(self, t1, t2, rt):
+        if t1 == t2:
+            ret = True
         else:
-            ret = color['yellow']
+            t1_H = int(t1[:2])
+            t1_M = int(t1[2:])
+            t2_H = int(t2[:2])
+            t2_M = int(t2[2:])
+            rt_H = int(rt[:2])
+            rt_M = int(rt[2:])
+
+            if t1_H > t2_H or (t1_H == t2_H and t1_M > t2_M):
+                cross_date = True
+            else:
+                cross_date = False
+
+            if rt_H == t1_H and rt_M >= t1_M:
+                ret = True
+            elif rt_H == t2_H and rt_M < t2_M:
+                ret = True
+            elif cross_date and (rt_H > t1_H or rt_H < t2_H):
+                ret = True
+            elif not cross_date and (rt_H > t1_H and rt_H < t2_H):
+                ret = True
+            else:
+                ret = False
         return ret
 
-    def is_under_execution(self, suite):
+    def get_suite_color(self, count, suite):
+        color = {'red': '#ff0000', 'green': '#00ff00', 'yellow': '#ffff00'}
+        check_dict = {"0330":3, "1530":6}
+        now_HM = datetime.datetime.now().strftime("%H%M")
+        s1_HM = task_schedule[suite][0]
+        s2_HM = task_schedule[suite][1]
+
+        # task_schedule[suite][0]
+        if self.in_time_range_2(check_dict.keys()[0], s1_HM, now_HM):
+            standard = 0
+        elif self.in_time_range_2(s1_HM, s2_HM, now_HM):
+            standard = 3
+        else:
+            standard = 6
+
+        if count >= standard:
+            ret = color['green']
+        elif count < standard and count > 0:
+            ret = color['yellow']
+        else:
+            ret = color['red']
+        return ret
+
+    def in_time_range(self, t):
+        """ Input 0730 as time and check if in the duration"""
         now = datetime.datetime.now()
         now_H = now.hour
         now_M = now.minute
-
         ret = False
-        for t in task_schedule[suite]:
-            if int(now_H) == int(t[:2]) and ret == False:
-                if t[2:] == '00':
-                    if int(now_M) < 30 and int(now_M) >= 0:
-                        ret = True
-                    else:
-                        ret = False
+        if int(now_H) == int(t[:2]):
+            if t[2:] == '00':
+                if int(now_M) < 30 and int(now_M) >= 0:
+                    ret = True
                 else:
-                    if int(now_M) >= 30 and int(now_M) < 60:
-                        ret = True
-                    else:
-                        ret = False
+                    ret = False
+            else:
+                if int(now_M) >= 30 and int(now_M) < 60:
+                    ret = True
+                else:
+                    ret = False
+        return ret
+
+    def is_under_execution(self, suite):
+        """ Input suite name and check if in under execution """
+        for _tt in task_schedule[suite]:
+            if self.in_time_range(_tt):
+                ret = True
+                break
+            else:
+                ret = False
         return ret
 
     def write_suite_all_row(self, outfile):
@@ -429,19 +479,14 @@ class Dashboard(object):
                     outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk))
                     print_sk = False
 
-                # print hour and check if match next
-                if print_hour:
-                    if i < len(s_set)-1 and task_schedule[s_set[i]][0][:2] == task_schedule[s_set[i+1]][0][:2]:
-                        outfile.write('<td rowspan="2">{},{}</td>'.format(task_schedule[s_set[i]][0][:2],task_schedule[s_set[i]][1][:2]))
-                        print_hour = False
+                # print trigger time
+                for _tt in task_schedule[s_set[i]]:
+                    _tth = _tt[:2]
+                    _ttm = _tt[2:]
+                    if self.in_time_range(_tt):
+                        outfile.write('<td style="color: #00ff00">{}:{}</td>'.format(_tth, _ttm))
                     else:
-                        outfile.write('<td>{},{}</td>'.format(task_schedule[s_set[i]][0][:2],task_schedule[s_set[i]][1][:2]))
-                        print_hour = True
-                else:
-                    print_hour = True
-
-                # must print minute
-                outfile.write('<td>{}</td>'.format(task_schedule[s_set[i]][0][2:]))
+                        outfile.write('<td>{}:{}</td>'.format(_tth, _ttm))
 
                 # print suite name also check if execute
                 if self.is_under_execution(s_set[i]):
@@ -455,9 +500,9 @@ class Dashboard(object):
                     for _b in BROWSER_SET:
                         if _rt in self.count_ds[s_set[i]][_m][_b].keys():
                             _val = self.count_ds[s_set[i]][_m][_b][_rt]
-                            outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val), _val))
+                            outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val, s_set[i]), _val))
                         else:
-                            outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0), 0))
+                            outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0, s_set[i]), 0))
                 outfile.write('</tr>')
 
     def create_suite_progress_all(self):
