@@ -384,32 +384,15 @@ class Dashboard(object):
                 else:
                     outfile.write(row)
 
-    def in_time_range_2(self, t1, t2, rt):
-        if t1 == t2:
+    def in_time_range(self, t1, t2, rt):
+        _t1 = datetime.time(int(t1[:2]), int(t1[2:]))
+        _t2 = datetime.time(int(t2[:2]), int(t2[2:]))
+        _rt = datetime.time(int(rt[:2]), int(rt[2:]))
+
+        if _rt >= _t1 and _rt < _t2:
             ret = True
         else:
-            t1_H = int(t1[:2])
-            t1_M = int(t1[2:])
-            t2_H = int(t2[:2])
-            t2_M = int(t2[2:])
-            rt_H = int(rt[:2])
-            rt_M = int(rt[2:])
-
-            if t1_H > t2_H or (t1_H == t2_H and t1_M > t2_M):
-                cross_date = True
-            else:
-                cross_date = False
-
-            if rt_H == t1_H and rt_M >= t1_M:
-                ret = True
-            elif rt_H == t2_H and rt_M < t2_M:
-                ret = True
-            elif cross_date and (rt_H > t1_H or rt_H < t2_H):
-                ret = True
-            elif not cross_date and (rt_H > t1_H and rt_H < t2_H):
-                ret = True
-            else:
-                ret = False
+            ret = False
         return ret
 
     def get_suite_color(self, count, suite):
@@ -420,9 +403,9 @@ class Dashboard(object):
         s2_HM = task_schedule[suite][1]
 
         # task_schedule[suite][0]
-        if self.in_time_range_2(check_dict.keys()[0], s1_HM, now_HM):
+        if self.in_time_range(check_dict.keys()[0], s1_HM, now_HM):
             standard = 0
-        elif self.in_time_range_2(s1_HM, s2_HM, now_HM):
+        elif self.in_time_range(s1_HM, s2_HM, now_HM):
             standard = 3
         else:
             standard = 6
@@ -435,62 +418,78 @@ class Dashboard(object):
             ret = color['red']
         return ret
 
-    def in_time_range(self, t):
-        """ Input 0730 as time and check if in the duration"""
-        now = datetime.datetime.now()
-        now_H = now.hour
-        now_M = now.minute
-        ret = False
-        if int(now_H) == int(t[:2]):
-            if t[2:] == '00':
-                if int(now_M) < 30 and int(now_M) >= 0:
-                    ret = True
-                else:
-                    ret = False
-            else:
-                if int(now_M) >= 30 and int(now_M) < 60:
-                    ret = True
-                else:
-                    ret = False
-        return ret
-
     def is_under_execution(self, suite):
         """ Input suite name and check if in under execution """
-        for _tt in task_schedule[suite]:
-            if self.in_time_range(_tt):
+        now_HM = datetime.datetime.now().strftime("%H%M")
+        s_set = sorted(task_schedule.keys(), key=lambda x: task_schedule[x][0])
+        if suite == s_set[-1]:
+            next_suite = s_set[0]
+            _t1 = task_schedule[next_suite][0]
+            _t2 = task_schedule[suite][1]
+            ret = False
+            if not ret and self.in_time_range(_t1, _t2, now_HM):
                 ret = True
-                break
             else:
                 ret = False
+
+            _t1 = task_schedule[next_suite][1]
+            _t2 = task_schedule[suite][0]
+            if not ret and self.in_time_range(_t1, _t2, now_HM):
+                ret = True
+            else:
+                ret = False
+        else:
+            next_suite = s_set[s_set.index(suite)+1]
+            for (_t1, _t2) in zip(task_schedule[suite], task_schedule[next_suite]):
+                if self.in_time_range(_t1, _t2, now_HM):
+                    print suite, _t1, _t2
+                    ret = True
+                    break
+                else:
+                    ret = False
         return ret
 
     def write_suite_all_row(self, outfile):
         _rt = self.ref_date
         sk_set = ["youtube", "gmail", "gdoc", "amazon", "gsearch", "facebook"]
+        highlight_bkg = "rgb(51, 51, 204, 0.5)"
 
         for _sk in sk_set:
             print_sk = True
-            print_hour = True
             _rows = len(self.suite_contain[_sk])
             s_set = sorted(self.suite_contain[_sk], key=lambda x: task_schedule[x][0])
+
+            _sk_now = False
+            for _s in s_set:
+                if self.is_under_execution(_s):
+                    _sk_now = True
+                    break
+
             for i in range(len(s_set)):
                 outfile.write('<tr>')
                 if print_sk:
-                    outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk))
+                    if _sk_now:
+                        outfile.write('<td rowspan="{}" style="background-color: {}">{}</td>'.format(_rows, highlight_bkg, _sk))
+                    else:
+                        outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk))
                     print_sk = False
+
+                _is_exe = self.is_under_execution(s_set[i])
 
                 # print trigger time
                 for _tt in task_schedule[s_set[i]]:
                     _tth = _tt[:2]
                     _ttm = _tt[2:]
-                    if self.in_time_range(_tt):
-                        outfile.write('<td style="color: #00ff00">{}:{}</td>'.format(_tth, _ttm))
+                    # if _is_exe and self.in_time_range(st,end,_tt):
+                    #     outfile.write('<td style="color: #00ff00; background-color: {};">{}:{}</td>'.format(highlight_bkg, _tth, _ttm))
+                    if _is_exe:
+                        outfile.write('<td style="background-color: {};">{}:{}</td>'.format(highlight_bkg, _tth, _ttm))
                     else:
                         outfile.write('<td>{}:{}</td>'.format(_tth, _ttm))
 
                 # print suite name also check if execute
-                if self.is_under_execution(s_set[i]):
-                    outfile.write('<td style="text-align: left; color: #00ff00">{}</td>'.format(task_dict[s_set[i]]))
+                if _is_exe:
+                    outfile.write('<td style="background-color: {}; text-align: left; color: #00ff00">{}</td>'.format(highlight_bkg, task_dict[s_set[i]]))
                 else:
                     outfile.write('<td style="text-align: left">{}</td>'.format(task_dict[s_set[i]]))
 
@@ -500,9 +499,15 @@ class Dashboard(object):
                     for _b in BROWSER_SET:
                         if _rt in self.count_ds[s_set[i]][_m][_b].keys():
                             _val = self.count_ds[s_set[i]][_m][_b][_rt]
-                            outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val, s_set[i]), _val))
+                            if _is_exe:
+                                outfile.write('<td style="background-color: {}; color: {}">{}</td>'.format(highlight_bkg, self.get_suite_color(_val, s_set[i]), _val))
+                            else:
+                                outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val, s_set[i]), _val))
                         else:
-                            outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0, s_set[i]), 0))
+                            if _is_exe:
+                                outfile.write('<td style="background-color: {}; color : {}">{}</td>'.format(highlight_bkg, self.get_suite_color(0, s_set[i]), 0))
+                            else:
+                                outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0, s_set[i]), 0))
                 outfile.write('</tr>')
 
     def create_suite_progress_all(self):
