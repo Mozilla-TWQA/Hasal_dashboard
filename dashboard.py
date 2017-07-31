@@ -24,7 +24,11 @@ from shutil import copyfile
 SET_CONFIG = './set_config.json'
 SUITE_CONFIG = './suite_config.json'
 HASAL_CSV = './hasal_data.csv'
-GITHUB_CONFIG = 'github.key'
+
+
+BROWSER_SET = ['firefox', 'chrome']
+MACHINE_SET = ['windows8-64', 'windows10-64']
+
 
 TEMPLATE_DIR = 'template'
 JS_DIR = 'js'
@@ -38,8 +42,6 @@ GAUGE_TEMP_JS = 'overall_progress_template.js'
 THEME_TEMP_JS = 'theme.js'
 SET_TEMP_CSS = 'set_page.css'
 
-BROWSER_SET = ['firefox', 'chrome']
-MACHINE_SET = ['windows8-64', 'windows10-64']
 
 DEPLOY_TIME_INTERVAL = 5  # mins
 
@@ -91,17 +93,19 @@ task_dict = {
     "youtube_ail_type_in_search_field Median": "type_in_search_field"
 }
 
+
+def call_subprocess(cmd):
+    ret_code = subprocess.call(cmd, shell=True)
+    if ret_code != 0:
+        sys.exit(ret_code)
+
+
 class Dashboard(object):
     def __init__(self):
         self.hasal_ds = dict()
         self.count_ds = dict()
-
         self.set_page_dict = dict()
-        self.suites = list()
-        self.browsers = list()
-        self.machines = list()
         self.ref_date = ''
-
         self.github_username = ''
         self.github_token = ''
 
@@ -119,26 +123,6 @@ class Dashboard(object):
             os.makedirs(os.path.join(BUILD_DIR, CSS_DIR))
         if not os.path.exists(os.path.join(BUILD_DIR, IMG_DIR)):
             os.makedirs(os.path.join(BUILD_DIR, IMG_DIR))
-
-    def load_github_accout(self):
-        with open(GITHUB_CONFIG, 'r') as f:
-            self.github_username = f.readline().strip()
-            self.github_token = f.readline().strip()
-
-    def commit_push_to_github(self):
-        """ commit and push to github """
-        print "Start commit and push to github ..."
-        cmd = 'git add ./docs/*'
-        call_subprocess(cmd)
-
-        cmd = 'git commit -m \'auto deploy on {}\''.format(datetime.datetime.now().strftime('%H:%M:%S'))
-        call_subprocess(cmd)
-
-        _u = self.github_username
-        _k = self.github_token
-        cmd = 'git push https://{}:{}@github.com/MarkYan/Hasal_dashboard.git master'.format(_u, _k)
-        call_subprocess(cmd)
-        print "Git push success"
 
     def reset_ds(self):
         self.hasal_ds.clear()
@@ -191,10 +175,7 @@ class Dashboard(object):
 
                 self.hasal_ds[_s][_m][_b][_t].append(_v)
 
-    def copy_img(self):
-        img_set = ["d2_bkg.jpg", "d1_bkg.jpg", "d3_bkg.jpg", "d4_bkg.jpg", "d5_bkg.jpg"]
-        for img in img_set:
-            copyfile(os.path.join(TEMPLATE_DIR, IMG_DIR, img), os.path.join(BUILD_DIR, IMG_DIR, img))
+# =================================== line graph page ===================================
 
     def create_highchart_theme(self):
         copyfile(os.path.join(TEMPLATE_DIR, JS_DIR, THEME_TEMP_JS), os.path.join(BUILD_DIR, JS_DIR, THEME_TEMP_JS))
@@ -346,7 +327,7 @@ class Dashboard(object):
                 else:
                     outfile.write(row)
 
-    def create_pages(self):
+    def create_line_graph_pages(self):
         self.create_highchart_theme()
         self.create_set_css()
 
@@ -357,7 +338,9 @@ class Dashboard(object):
                 self.create_case_data_js(m, set_name)
                 self.create_gauge_js(m)
 
-    def create_index(self):
+# =================================== home page ===================================
+
+    def create_home_page(self):
         """ create the index html for dashboard """
         index_out = os.path.join(BUILD_DIR, 'index.html')
         index_template = './template/index.html'
@@ -384,6 +367,13 @@ class Dashboard(object):
                 else:
                     outfile.write(row)
 
+# =================================== Work progress page ===================================
+
+    def copy_img(self):
+        img_set = ["d2_bkg.jpg", "d1_bkg.jpg", "d3_bkg.jpg", "d4_bkg.jpg", "d5_bkg.jpg"]
+        for img in img_set:
+            copyfile(os.path.join(TEMPLATE_DIR, IMG_DIR, img), os.path.join(BUILD_DIR, IMG_DIR, img))
+
     def in_time_range(self, t1, t2, rt):
         _t1 = datetime.time(int(t1[:2]), int(t1[2:]))
         _t2 = datetime.time(int(t2[:2]), int(t2[2:]))
@@ -395,28 +385,33 @@ class Dashboard(object):
             ret = False
         return ret
 
-    def get_suite_color(self, count, suite):
-        color = {'red': '#ff0000', 'green': '#00ff00', 'yellow': '#ffff00'}
+    def get_suite_status(self, count, suite):
+        color = {'Error': '#ff0000', 'OK': '#33cc33', 'Warning': '#ffff00',
+                 'Waiting': '#595959', 'Exceed': '#009933'}
         check_dict = {"0330":3, "1530":6}
         now_HM = datetime.datetime.now().strftime("%H%M")
         s1_HM = task_schedule[suite][0]
         s2_HM = task_schedule[suite][1]
 
-        # task_schedule[suite][0]
+        status = ''
         if self.in_time_range(check_dict.keys()[0], s1_HM, now_HM):
             standard = 0
+            status = 'Waiting'
         elif self.in_time_range(s1_HM, s2_HM, now_HM):
             standard = 3
         else:
             standard = 6
 
-        if count >= standard:
-            ret = color['green']
-        elif count < standard and count > 0:
-            ret = color['yellow']
-        else:
-            ret = color['red']
-        return ret
+        if status != 'Waiting':
+            if count > standard:
+                status = 'Exceed'
+            elif count == standard:
+                status = 'OK'
+            elif count < standard and count > 0:
+                status = 'Warning'
+            else:
+                status = 'Error'
+        return status, color[status]
 
     def is_under_execution(self, suite):
         """ Input suite name and check if in under execution """
@@ -442,14 +437,13 @@ class Dashboard(object):
             next_suite = s_set[s_set.index(suite)+1]
             for (_t1, _t2) in zip(task_schedule[suite], task_schedule[next_suite]):
                 if self.in_time_range(_t1, _t2, now_HM):
-                    print suite, _t1, _t2
                     ret = True
                     break
                 else:
                     ret = False
         return ret
 
-    def write_suite_all_row(self, outfile):
+    def print_work_prgress_row(self, outfile):
         _rt = self.ref_date
         sk_set = ["youtube", "gmail", "gdoc", "amazon", "gsearch", "facebook"]
         highlight_bkg = "rgb(51, 51, 204, 0.5)"
@@ -469,9 +463,9 @@ class Dashboard(object):
                 outfile.write('<tr>')
                 if print_sk:
                     if _sk_now:
-                        outfile.write('<td rowspan="{}" style="background-color: {}">{}</td>'.format(_rows, highlight_bkg, _sk))
+                        outfile.write('<td rowspan="{}" style="background-color: {}">{}</td>'.format(_rows, highlight_bkg, _sk.capitalize()))
                     else:
-                        outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk))
+                        outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk.capitalize()))
                     print_sk = False
 
                 _is_exe = self.is_under_execution(s_set[i])
@@ -499,18 +493,20 @@ class Dashboard(object):
                     for _b in BROWSER_SET:
                         if _rt in self.count_ds[s_set[i]][_m][_b].keys():
                             _val = self.count_ds[s_set[i]][_m][_b][_rt]
+                            st, col = self.get_suite_status(_val, s_set[i])
                             if _is_exe:
-                                outfile.write('<td style="background-color: {}; color: {}">{}</td>'.format(highlight_bkg, self.get_suite_color(_val, s_set[i]), _val))
+                                outfile.write('<td style="background-color: {}; color: {}">{} ({})</td>'.format(highlight_bkg, col, st, _val))
                             else:
-                                outfile.write('<td style="color: {}">{}</td>'.format(self.get_suite_color(_val, s_set[i]), _val))
+                                outfile.write('<td style="color: {}">{} ({})</td>'.format(col, st, _val))
                         else:
                             if _is_exe:
-                                outfile.write('<td style="background-color: {}; color : {}">{}</td>'.format(highlight_bkg, self.get_suite_color(0, s_set[i]), 0))
+                                outfile.write('<td style="background-color: {}; color : {}">{} ({})</td>'.format(highlight_bkg, col, st, _val))
                             else:
-                                outfile.write('<td style="color : {}">{}</td>'.format(self.get_suite_color(0, s_set[i]), 0))
+                                outfile.write('<td style="color : {}">{} ({})</td>'.format(col, st, _val))
                 outfile.write('</tr>')
 
-    def create_suite_progress_all(self):
+    def create_work_progress_page(self):
+        self.copy_img()
         copyfile(os.path.join(TEMPLATE_DIR, CSS_DIR, 'daily_progress.css'), os.path.join(BUILD_DIR, CSS_DIR, 'daily_progress.css'))
 
         suites_out = os.path.join(BUILD_DIR, 'daily_progress_all.html')
@@ -518,7 +514,7 @@ class Dashboard(object):
         with open(suites_out, 'w') as outfile, open(suites_template, 'r') as infile:
             for row in infile:
                 if '<!--rows go here-->' in row:
-                    self.write_suite_all_row(outfile)
+                    self.print_work_prgress_row(outfile)
                 elif '{{REFRESH_TIME}}' in row:
                     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     outfile.write(row.replace('{{REFRESH_TIME}}', '{}'.format(now)))
@@ -530,6 +526,8 @@ class Dashboard(object):
                     outfile.write(row.replace('{{LATEST_DATA_TIME}}', '{}').format(latest_date))
                 else:
                     outfile.write(row)
+
+#================================= End =================================
 
     def query_data(self):
         """ query data and gen a csv file """
@@ -547,51 +545,80 @@ class Dashboard(object):
         os.remove(tmp_file)
         print "Done query data!"
 
+
     def run(self, query_data):
         """ generate website """
+
+        # read csv and analyze
         if query_data or not os.path.isfile(HASAL_CSV):
             self.query_data()
         self.reset_ds()
         self.analyze_csv()
-        self.copy_img()
         self.get_ref_date()
-        self.create_pages()
-        self.create_index()
-        self.create_suite_progress_all()
 
-    def deploy(self):
+        # create web-pages
+        self.create_line_graph_pages()
+        self.create_work_progress_page()
+        self.create_home_page()
+
+
+class Publisher(object):
+    def __init__(self):
+        self.__github_username = ''
+        self.__github_token = ''
+        self.dashboard = Dashboard()
+
+    def __load_github_accout(self):
+        github_config = 'github.key'
+        with open(github_config, 'r') as f:
+            self.__github_username = f.readline().strip()
+            self.__github_token = f.readline().strip()
+
+    def __commit_push_to_github(self):
+        """ commit and push to github """
+        print "Start commit and push to github ..."
+        cmd = 'git add ./docs/*'
+        call_subprocess(cmd)
+
+        cmd = 'git commit -m \'auto deploy on {}\''.format(datetime.datetime.now().strftime('%H:%M:%S'))
+        call_subprocess(cmd)
+
+        _u = self.__github_username
+        _k = self.__github_token
+        cmd = 'git push https://{}:{}@github.com/MarkYan/Hasal_dashboard.git master'.format(_u, _k)
+        call_subprocess(cmd)
+        print "Git push success"
+
+    def single_run(self, query):
+        self.dashboard.run(query)
+
+    def githubio_mode(self):
         """ gen website and push to github automatically """
-        self.load_github_accout()
+        self.__load_github_accout()
         while True:
             print "Start deploy process ..."
-            self.run(True)
-            self.commit_push_to_github()
+            self.dashboard.run(True)
+            self.__commit_push_to_github()
             print "Time to sleep ... Bye"
             time.sleep(60 * DEPLOY_TIME_INTERVAL)
 
-    def local_deploy(self):
+    def local_mode(self):
         while True:
             print "Start deploy process ..."
-            self.run(True)
+            self.dashboard.run(True)
             print "Time to sleep ... Bye"
             time.sleep(60 * DEPLOY_TIME_INTERVAL)
-
-
-def call_subprocess(cmd):
-    ret_code = subprocess.call(cmd, shell=True)
-    if ret_code != 0:
-        sys.exit(ret_code)
 
 
 def main():
     arguments = docopt(__doc__)
-    my_dashboard = Dashboard()
+    publisher = Publisher()
     if arguments['--deploy']:
-        my_dashboard.deploy()
+        publisher.githubio_mode()
     elif arguments['--localhost']:
-        my_dashboard.local_deploy()
+        publisher.local_mode()
     else:
-        my_dashboard.run(arguments['--query'])
+        publisher.single_run(arguments['--query'])
 
 
 if __name__ == '__main__':
