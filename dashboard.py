@@ -108,6 +108,11 @@ class Dashboard(object):
         self.ref_date = ''
         self.github_username = ''
         self.github_token = ''
+        self.schedule_space = list()
+
+        for x in task_schedule.values():
+            self.schedule_space.extend(x)
+        self.schedule_space = sorted(self.schedule_space)
 
         with open(SET_CONFIG) as data_file:
             self.set_contain = json.load(data_file)
@@ -273,8 +278,8 @@ class Dashboard(object):
                         outfile.write(
                             '\t<script language="JavaScript" src="./js/{}_gauge.js"></script>\n'.format(m[:-3]))
                         outfile.write(
-                            '\t<script language="JavaScript">$(function() {{$(\'#container-{}\').highcharts({}_gauge_data);}});</script>\n'.format(
-                                m[:-3], m[:-3]))
+                            '\t<script language="JavaScript">$(function() {{$(\'#container-{}\').highcharts(\
+                            {}_gauge_data);}});</script>\n'.format(m[:-3], m[:-3]))
 
                 elif '{{REFRESH_TIME}}' in row:
                     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -352,8 +357,8 @@ class Dashboard(object):
                     m = 'windows8-64'
                     for set_name in sorted(self.set_page_dict[m].keys()):
                         outfile.write(
-                            '\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(self.set_page_dict[m][set_name], set_name,
-                                                                                     m))
+                            '\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(
+                                self.set_page_dict[m][set_name], set_name, m))
                     outfile.write('\t</table>\n')
                 elif '<!--windows10-64 here-->' in row:
                     outfile.write('\t<h1>windows10</h1>\n')
@@ -361,8 +366,8 @@ class Dashboard(object):
                     m = 'windows10-64'
                     for set_name in sorted(self.set_page_dict[m].keys()):
                         outfile.write(
-                            '\t\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(self.set_page_dict[m][set_name], set_name,
-                                                                                       m))
+                            '\t\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(
+                                self.set_page_dict[m][set_name], set_name, m))
                     outfile.write('\t</table>\n')
                 else:
                     outfile.write(row)
@@ -379,7 +384,7 @@ class Dashboard(object):
         _t2 = datetime.time(int(t2[:2]), int(t2[2:]))
         _rt = datetime.time(int(rt[:2]), int(rt[2:]))
 
-        if _rt >= _t1 and _rt < _t2:
+        if _t1 <= _rt < _t2:
             ret = True
         else:
             ret = False
@@ -388,16 +393,16 @@ class Dashboard(object):
     def get_suite_status(self, count, suite):
         color = {'Error': '#ff0000', 'OK': '#33cc33', 'Warning': '#ffff00',
                  'Waiting': '#595959', 'Exceed': '#009933'}
-        check_dict = {"0330":3, "1530":6}
-        now_HM = datetime.datetime.now().strftime("%H%M")
-        s1_HM = task_schedule[suite][0]
-        s2_HM = task_schedule[suite][1]
+        check_dict = {"0330": 3, "1530": 6}
+        now_hm = datetime.datetime.now().strftime("%H%M")
+        s1_hm = task_schedule[suite][0]
+        s2_hm = task_schedule[suite][1]
 
         status = ''
-        if self.in_time_range(check_dict.keys()[0], s1_HM, now_HM):
+        if self.in_time_range(check_dict.keys()[0], s1_hm, now_hm):
             standard = 0
             status = 'Waiting'
-        elif self.in_time_range(s1_HM, s2_HM, now_HM):
+        elif self.in_time_range(s1_hm, s2_hm, now_hm):
             standard = 3
         else:
             standard = 6
@@ -407,7 +412,7 @@ class Dashboard(object):
                 status = 'Exceed'
             elif count == standard:
                 status = 'OK'
-            elif count < standard and count > 0:
+            elif standard > count > 0:
                 status = 'Warning'
             else:
                 status = 'Error'
@@ -415,28 +420,29 @@ class Dashboard(object):
 
     def is_under_execution(self, suite):
         """ Input suite name and check if in under execution """
-        now_HM = datetime.datetime.now().strftime("%H%M")
+        ret = ''
+        now_hm = datetime.datetime.now().strftime("%H%M")
         s_set = sorted(task_schedule.keys(), key=lambda x: task_schedule[x][0])
         if suite == s_set[-1]:
             next_suite = s_set[0]
             _t1 = task_schedule[next_suite][0]
             _t2 = task_schedule[suite][1]
             ret = False
-            if not ret and self.in_time_range(_t1, _t2, now_HM):
+            if not ret and self.in_time_range(_t1, _t2, now_hm):
                 ret = True
             else:
                 ret = False
 
             _t1 = task_schedule[next_suite][1]
             _t2 = task_schedule[suite][0]
-            if not ret and self.in_time_range(_t1, _t2, now_HM):
+            if not ret and self.in_time_range(_t1, _t2, now_hm):
                 ret = True
             else:
                 ret = False
         else:
             next_suite = s_set[s_set.index(suite)+1]
             for (_t1, _t2) in zip(task_schedule[suite], task_schedule[next_suite]):
-                if self.in_time_range(_t1, _t2, now_HM):
+                if self.in_time_range(_t1, _t2, now_hm):
                     ret = True
                     break
                 else:
@@ -446,7 +452,8 @@ class Dashboard(object):
     def print_work_prgress_row(self, outfile):
         _rt = self.ref_date
         sk_set = ["youtube", "gmail", "gdoc", "amazon", "gsearch", "facebook"]
-        highlight_bkg = "rgb(51, 51, 204, 0.5)"
+        highlight_bkg = "rgb(0, 153, 255, 0.5)"
+        running_color = "rgb(102, 255, 255)"
 
         for _sk in sk_set:
             print_sk = True
@@ -463,7 +470,8 @@ class Dashboard(object):
                 outfile.write('<tr>')
                 if print_sk:
                     if _sk_now:
-                        outfile.write('<td rowspan="{}" style="background-color: {}">{}</td>'.format(_rows, highlight_bkg, _sk.capitalize()))
+                        outfile.write('<td rowspan="{}" style="background-color: {}">{}</td>'.format(
+                            _rows, highlight_bkg, _sk.capitalize()))
                     else:
                         outfile.write('<td rowspan="{}">{}</td>'.format(_rows, _sk.capitalize()))
                     print_sk = False
@@ -471,19 +479,30 @@ class Dashboard(object):
                 _is_exe = self.is_under_execution(s_set[i])
 
                 # print trigger time
-                for _tt in task_schedule[s_set[i]]:
+                for j in range(len(task_schedule[s_set[i]])):
+                    _tt = task_schedule[s_set[i]][j]
                     _tth = _tt[:2]
                     _ttm = _tt[2:]
-                    # if _is_exe and self.in_time_range(st,end,_tt):
-                    #     outfile.write('<td style="color: #00ff00; background-color: {};">{}:{}</td>'.format(highlight_bkg, _tth, _ttm))
-                    if _is_exe:
-                        outfile.write('<td style="background-color: {};">{}:{}</td>'.format(highlight_bkg, _tth, _ttm))
+
+                    if _tt == self.schedule_space[-1]:
+                        _next = self.schedule_space[0]
+                    else:
+                        _next = self.schedule_space[self.schedule_space.index(_tt)+1]
+
+                    now_HM = datetime.datetime.now().strftime("%H%M")
+                    if _is_exe and self.in_time_range(_tt, _next, now_HM):
+                        outfile.write('<td style="color: {}; background-color: {};">{}:{}</td>'.format(
+                            running_color, highlight_bkg, _tth, _ttm))
+                    elif _is_exe:
+                        outfile.write('<td style="background-color: {};">{}:{}</td>'.format(
+                            highlight_bkg, _tth, _ttm))
                     else:
                         outfile.write('<td>{}:{}</td>'.format(_tth, _ttm))
 
                 # print suite name also check if execute
                 if _is_exe:
-                    outfile.write('<td style="background-color: {}; text-align: left; color: #00ff00">{}</td>'.format(highlight_bkg, task_dict[s_set[i]]))
+                    outfile.write('<td style="background-color: {}; text-align: left; color: {}">{}</td>'.format(
+                        highlight_bkg, running_color, task_dict[s_set[i]]))
                 else:
                     outfile.write('<td style="text-align: left">{}</td>'.format(task_dict[s_set[i]]))
 
@@ -495,19 +514,33 @@ class Dashboard(object):
                             _val = self.count_ds[s_set[i]][_m][_b][_rt]
                             st, col = self.get_suite_status(_val, s_set[i])
                             if _is_exe:
-                                outfile.write('<td style="background-color: {}; color: {}">{} ({})</td>'.format(highlight_bkg, col, st, _val))
+                                if st == 'Success' or st == 'Exceed':
+                                    outfile.write(
+                                        '<td style="background-color: {}; color: {}">{} ({})</td>'.format(
+                                            highlight_bkg, col, st, _val))
+                                else:
+                                    outfile.write(
+                                        '<td style="background-color: {}; color: {}">\
+                                        <marquee width=100px scrollamount="3">Running ({})</marquee>\
+                                        </td>'.format(
+                                            highlight_bkg, running_color, _val))
                             else:
                                 outfile.write('<td style="color: {}">{} ({})</td>'.format(col, st, _val))
                         else:
+                            # no data
                             if _is_exe:
-                                outfile.write('<td style="background-color: {}; color : {}">{} ({})</td>'.format(highlight_bkg, col, st, _val))
+                                outfile.write('<td style="background-color: {}; color: {}">\
+                                    <marquee width=100px scrollamount="3">Running (0)</marquee>\
+                                    </td>'.format(
+                                    highlight_bkg, running_color))
                             else:
-                                outfile.write('<td style="color : {}">{} ({})</td>'.format(col, st, _val))
+                                outfile.write('<td style="color : {}">{} ({})</td>'.format(col, st, 0))
                 outfile.write('</tr>')
 
     def create_work_progress_page(self):
         self.copy_img()
-        copyfile(os.path.join(TEMPLATE_DIR, CSS_DIR, 'daily_progress.css'), os.path.join(BUILD_DIR, CSS_DIR, 'daily_progress.css'))
+        copyfile(os.path.join(TEMPLATE_DIR, CSS_DIR, 'daily_progress.css'), os.path.join(
+            BUILD_DIR, CSS_DIR, 'daily_progress.css'))
 
         suites_out = os.path.join(BUILD_DIR, 'daily_progress_all.html')
         suites_template = './template/daily_progress_all.html'
