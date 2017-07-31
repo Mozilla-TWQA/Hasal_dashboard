@@ -391,8 +391,8 @@ class Dashboard(object):
         return ret
 
     def get_suite_status(self, count, suite):
-        color = {'Error': '#ff0000', 'OK': '#33cc33', 'Warning': '#ffff00',
-                 'Waiting': '#595959', 'Exceed': '#009933'}
+        color = {'Error': '#ff0000', 'OK': '#33cc33', 'Pending': '#ffff00',
+                 'Waiting': '#595959'}
         check_dict = {"0330": 3, "1530": 6}
         now_hm = datetime.datetime.now().strftime("%H%M")
         s1_hm = task_schedule[suite][0]
@@ -408,12 +408,10 @@ class Dashboard(object):
             standard = 6
 
         if status != 'Waiting':
-            if count > standard:
-                status = 'Exceed'
-            elif count == standard:
+            if count >= standard:
                 status = 'OK'
             elif standard > count > 0:
-                status = 'Warning'
+                status = 'Pending'
             else:
                 status = 'Error'
         return status, color[status]
@@ -453,7 +451,7 @@ class Dashboard(object):
         _rt = self.ref_date
         sk_set = ["youtube", "gmail", "gdoc", "amazon", "gsearch", "facebook"]
         highlight_bkg = "rgb(0, 153, 255, 0.5)"
-        running_color = "rgb(102, 255, 255)"
+        running_color = "#00ccff"
 
         for _sk in sk_set:
             print_sk = True
@@ -528,6 +526,7 @@ class Dashboard(object):
                                 outfile.write('<td style="color: {}">{} ({})</td>'.format(col, st, _val))
                         else:
                             # no data
+                            st, col = self.get_suite_status(0, s_set[i])
                             if _is_exe:
                                 outfile.write('<td style="background-color: {}; color: {}">\
                                     <marquee width=100px scrollamount="3">Running (0)</marquee>\
