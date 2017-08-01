@@ -384,10 +384,18 @@ class Dashboard(object):
         _t2 = datetime.time(int(t2[:2]), int(t2[2:]))
         _rt = datetime.time(int(rt[:2]), int(rt[2:]))
 
-        if _t1 <= _rt < _t2:
-            ret = True
+        if _t1 > _t2:
+            if _t1 <= _rt <= datetime.time(23,59):
+                ret = True
+            elif datetime.time(0,0) <= _rt < _t2 :
+                ret = True
+            else:
+                ret = False
         else:
-            ret = False
+            if _t1 <= _rt < _t2:
+                ret = True
+            else:
+                ret = False
         return ret
 
     def get_suite_status(self, count, suite):
@@ -504,36 +512,32 @@ class Dashboard(object):
                 else:
                     outfile.write('<td style="text-align: left">{}</td>'.format(task_dict[s_set[i]]))
 
-                # print win7 and win10
+                # win7 and win10
                 for _m in MACHINE_SET:
-                    # print firefox and chrome
+                    # firefox and chrome
                     for _b in BROWSER_SET:
+
+                        # get count
                         if _rt in self.count_ds[s_set[i]][_m][_b].keys():
                             _val = self.count_ds[s_set[i]][_m][_b][_rt]
-                            st, col = self.get_suite_status(_val, s_set[i])
-                            if _is_exe:
-                                if st == 'Success' or st == 'Exceed':
-                                    outfile.write(
-                                        '<td style="background-color: {}; color: {}">{} ({})</td>'.format(
-                                            highlight_bkg, col, st, _val))
-                                else:
-                                    outfile.write(
-                                        '<td style="background-color: {}; color: {}">\
-                                        <marquee width=100px scrollamount="3">Running ({})</marquee>\
-                                        </td>'.format(
-                                            highlight_bkg, running_color, _val))
-                            else:
-                                outfile.write('<td style="color: {}">{} ({})</td>'.format(col, st, _val))
                         else:
-                            # no data
-                            st, col = self.get_suite_status(0, s_set[i])
-                            if _is_exe:
-                                outfile.write('<td style="background-color: {}; color: {}">\
-                                    <marquee width=100px scrollamount="3">Running (0)</marquee>\
-                                    </td>'.format(
-                                    highlight_bkg, running_color))
+                            _val = 0
+
+                        # print status
+                        st, col = self.get_suite_status(_val, s_set[i])
+                        if _is_exe:
+                            if st == 'OK':
+                                outfile.write(
+                                    '<td style="background-color: {}; color: {}">{} ({})</td>'.format(
+                                        highlight_bkg, col, st, _val))
                             else:
-                                outfile.write('<td style="color : {}">{} ({})</td>'.format(col, st, 0))
+                                outfile.write(
+                                    '<td style="background-color: {}; color: {}">\
+                                    <marquee width=100px scrollamount="3">Running ({})</marquee>\
+                                    </td>'.format(
+                                        highlight_bkg, running_color, _val))
+                        else:
+                            outfile.write('<td style="color: {}">{} ({})</td>'.format(col, st, _val))
                 outfile.write('</tr>')
 
     def create_work_progress_page(self):
