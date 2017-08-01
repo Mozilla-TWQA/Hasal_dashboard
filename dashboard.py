@@ -106,6 +106,7 @@ def in_time_range(t1, t2, rt):
     if rt == 'now':
         now_hm = datetime.datetime.now().strftime("%H%M")
         _rt = datetime.time(int(now_hm[:2]), int(now_hm[2:]))
+        # _rt = datetime.time(12, 30)
     else:
         _rt = datetime.time(int(rt[:2]), int(rt[2:]))
 
@@ -407,14 +408,22 @@ class Dashboard(object):
         color = {'Error': '#ff0000', 'OK': '#33cc33', 'Pending': '#ffff00',
                  'Waiting': '#595959'}
         check_dict = {"0330": 3, "1530": 6}
+
         s1_hm = task_schedule[suite][0]
         s2_hm = task_schedule[suite][1]
 
+        if check_dict.keys()[0] > s1_hm:
+            ft_hm = s2_hm
+            sd_hm = s1_hm
+        else:
+            ft_hm = s1_hm
+            sd_hm = s2_hm
+
         status = ''
-        if in_time_range(check_dict.keys()[0], s1_hm, 'now'):
+        if in_time_range(check_dict.keys()[0], ft_hm, 'now'):
             standard = 0
             status = 'Waiting'
-        elif in_time_range(s1_hm, s2_hm, 'now'):
+        elif in_time_range(ft_hm, sd_hm, 'now'):
             standard = 3
         else:
             standard = 6
