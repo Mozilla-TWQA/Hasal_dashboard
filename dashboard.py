@@ -100,6 +100,30 @@ def call_subprocess(cmd):
         sys.exit(ret_code)
 
 
+def in_time_range(t1, t2, rt):
+    _t1 = datetime.time(int(t1[:2]), int(t1[2:]))
+    _t2 = datetime.time(int(t2[:2]), int(t2[2:]))
+    if rt == 'now':
+        now_hm = datetime.datetime.now().strftime("%H%M")
+        _rt = datetime.time(int(now_hm[:2]), int(now_hm[2:]))
+    else:
+        _rt = datetime.time(int(rt[:2]), int(rt[2:]))
+
+    if _t1 > _t2:
+        if _t1 <= _rt and _rt <= datetime.time(23, 59):
+            ret = True
+        elif datetime.time(0, 0) <= _rt and _rt < _t2:
+            ret = True
+        else:
+            ret = False
+    else:
+        if _t1 <= _rt and _rt < _t2:
+            ret = True
+        else:
+            ret = False
+    return ret
+
+
 class Dashboard(object):
     def __init__(self):
         self.hasal_ds = dict()
@@ -379,38 +403,18 @@ class Dashboard(object):
         for img in img_set:
             copyfile(os.path.join(TEMPLATE_DIR, IMG_DIR, img), os.path.join(BUILD_DIR, IMG_DIR, img))
 
-    def in_time_range(self, t1, t2, rt):
-        _t1 = datetime.time(int(t1[:2]), int(t1[2:]))
-        _t2 = datetime.time(int(t2[:2]), int(t2[2:]))
-        _rt = datetime.time(int(rt[:2]), int(rt[2:]))
-
-        if _t1 > _t2:
-            if _t1 <= _rt <= datetime.time(23,59):
-                ret = True
-            elif datetime.time(0,0) <= _rt < _t2 :
-                ret = True
-            else:
-                ret = False
-        else:
-            if _t1 <= _rt < _t2:
-                ret = True
-            else:
-                ret = False
-        return ret
-
     def get_suite_status(self, count, suite):
         color = {'Error': '#ff0000', 'OK': '#33cc33', 'Pending': '#ffff00',
                  'Waiting': '#595959'}
         check_dict = {"0330": 3, "1530": 6}
-        now_hm = datetime.datetime.now().strftime("%H%M")
         s1_hm = task_schedule[suite][0]
         s2_hm = task_schedule[suite][1]
 
         status = ''
-        if self.in_time_range(check_dict.keys()[0], s1_hm, now_hm):
+        if in_time_range(check_dict.keys()[0], s1_hm, 'now'):
             standard = 0
             status = 'Waiting'
-        elif self.in_time_range(s1_hm, s2_hm, now_hm):
+        elif in_time_range(s1_hm, s2_hm, 'now'):
             standard = 3
         else:
             standard = 6
@@ -426,29 +430,22 @@ class Dashboard(object):
 
     def is_under_execution(self, suite):
         """ Input suite name and check if in under execution """
-        ret = ''
-        now_hm = datetime.datetime.now().strftime("%H%M")
+        ret = False
         s_set = sorted(task_schedule.keys(), key=lambda x: task_schedule[x][0])
         if suite == s_set[-1]:
             next_suite = s_set[0]
-            _t1 = task_schedule[next_suite][0]
-            _t2 = task_schedule[suite][1]
-            ret = False
-            if not ret and self.in_time_range(_t1, _t2, now_hm):
-                ret = True
-            else:
-                ret = False
-
-            _t1 = task_schedule[next_suite][1]
-            _t2 = task_schedule[suite][0]
-            if not ret and self.in_time_range(_t1, _t2, now_hm):
+            _t1 = task_schedule[suite][0]
+            _t2 = task_schedule[next_suite][1]
+            _t3 = task_schedule[suite][1]
+            _t4 = task_schedule[next_suite][0]
+            if in_time_range(_t1, _t2, 'now') or in_time_range(_t3, _t4, 'now'):
                 ret = True
             else:
                 ret = False
         else:
             next_suite = s_set[s_set.index(suite)+1]
             for (_t1, _t2) in zip(task_schedule[suite], task_schedule[next_suite]):
-                if self.in_time_range(_t1, _t2, now_hm):
+                if in_time_range(_t1, _t2, 'now'):
                     ret = True
                     break
                 else:
@@ -495,8 +492,7 @@ class Dashboard(object):
                     else:
                         _next = self.schedule_space[self.schedule_space.index(_tt)+1]
 
-                    now_HM = datetime.datetime.now().strftime("%H%M")
-                    if _is_exe and self.in_time_range(_tt, _next, now_HM):
+                    if _is_exe and in_time_range(_tt, _next, 'now'):
                         outfile.write('<td style="color: {}; background-color: {};">{}:{}</td>'.format(
                             running_color, highlight_bkg, _tth, _ttm))
                     elif _is_exe:
@@ -563,7 +559,7 @@ class Dashboard(object):
                 else:
                     outfile.write(row)
 
-#================================= End =================================
+# ================================= End =================================
 
     def query_data(self):
         """ query data and gen a csv file """
@@ -580,7 +576,6 @@ class Dashboard(object):
                 o.writerow(line.split())
         os.remove(tmp_file)
         print "Done query data!"
-
 
     def run(self, query_data):
         """ generate website """
