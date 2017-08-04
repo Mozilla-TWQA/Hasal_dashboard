@@ -185,6 +185,8 @@ class Dashboard(object):
 
                 if row['suite_name'] == 'suite_name':
                     continue
+                elif _m not in MACHINE_SET or _b not in BROWSER_SET:
+                    continue
 
                 if _s not in self.hasal_ds.keys():
                     self.hasal_ds[_s] = {}
