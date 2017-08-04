@@ -163,10 +163,13 @@ class Dashboard(object):
         for _s in self.count_ds.keys():
             for _m in self.count_ds[_s].keys():
                 for _b in self.count_ds[_s][_m].keys():
-                    latest_date = sorted(self.count_ds[_s][_m][_b].keys(), reverse=True)[0]
-                    latest_date = datetime.datetime.strptime(latest_date, "%Y-%m-%d %H-%M-%S-000000")
-                    if (latest_date - ref_date).total_seconds() > 0:
-                        ref_date = latest_date
+                    if not self.count_ds[_s][_m][_b].keys():
+                        continue
+                    else:
+                        latest_date = sorted(self.count_ds[_s][_m][_b].keys(), reverse=True)[0]
+                        latest_date = datetime.datetime.strptime(latest_date, "%Y-%m-%d %H-%M-%S-000000")
+                        if (latest_date - ref_date).total_seconds() > 0:
+                            ref_date = latest_date
         self.ref_date = ref_date.strftime("%Y-%m-%d %H-%M-%S-000000")
 
     def analyze_csv(self):
@@ -188,15 +191,18 @@ class Dashboard(object):
                 elif _m not in MACHINE_SET or _b not in BROWSER_SET:
                     continue
 
+                # initialize structure
                 if _s not in self.hasal_ds.keys():
                     self.hasal_ds[_s] = {}
                     self.count_ds[_s] = {}
-                if _m not in self.hasal_ds[_s].keys():
-                    self.hasal_ds[_s][_m] = {}
-                    self.count_ds[_s][_m] = {}
-                if _b not in self.hasal_ds[_s][_m].keys():
-                    self.hasal_ds[_s][_m][_b] = {}
-                    self.count_ds[_s][_m][_b] = {}
+
+                    for _m in MACHINE_SET:
+                        self.hasal_ds[_s][_m] = {}
+                        self.count_ds[_s][_m] = {}
+
+                        for _b in BROWSER_SET:
+                            self.hasal_ds[_s][_m][_b] = {}
+                            self.count_ds[_s][_m][_b] = {}
 
                 if _t not in self.hasal_ds[_s][_m][_b].keys():
                     self.hasal_ds[_s][_m][_b][_t] = []
@@ -571,12 +577,12 @@ class Dashboard(object):
 
 # ================================= End =================================
 
-    def query_data(self):
+    def query_data(self, interval):
         """ query data and gen a csv file """
         tmp_file = 'tmp.txt'
 
         print "Start query data from pf ..."
-        cmd = 'python query_data_from_perfherder.py --interval=2419200 > {}'.format(tmp_file)
+        cmd = 'python query_data_from_perfherder.py --interval={} > {}'.format(interval, tmp_file)
         call_subprocess(cmd)
 
         with open(tmp_file) as fin, open(HASAL_CSV, 'w') as fout:
@@ -589,10 +595,12 @@ class Dashboard(object):
 
     def run(self, query_data):
         """ generate website """
+        one_month = '2419200'
+        three_days = '259200'
 
         # read csv and analyze
         if query_data or not os.path.isfile(HASAL_CSV):
-            self.query_data()
+            self.query_data(three_days)
         self.reset_ds()
         self.analyze_csv()
         self.get_ref_date()
