@@ -161,13 +161,12 @@ class Dashboard(object):
     def get_ref_date(self):
         ref_date = datetime.datetime(2015, 1, 13, 12, 0, 0)
         for _s in self.count_ds.keys():
-            for _m in MACHINE_SET:
+            for _m in self.count_ds[_s].keys():
                 for _b in self.count_ds[_s][_m].keys():
                     latest_date = sorted(self.count_ds[_s][_m][_b].keys(), reverse=True)[0]
                     latest_date = datetime.datetime.strptime(latest_date, "%Y-%m-%d %H-%M-%S-000000")
                     if (latest_date - ref_date).total_seconds() > 0:
                         ref_date = latest_date
-
         self.ref_date = ref_date.strftime("%Y-%m-%d %H-%M-%S-000000")
 
     def analyze_csv(self):
