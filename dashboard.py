@@ -1,25 +1,10 @@
-"""
-
-Usage:
-  dashboard.py [--query] [--deploy] [--localhost]
-  dashboard.py (-h | --help)
-
-Options:
-  -h --help                 Show this screen.
-  --query                   Query data from pf
-  --deploy                  Automatically deploy to Github every half an hour
-  --localhost               Automatically deploy locally every half an hour
-"""
-
 import os
 import csv
-import sys
 import json
-import time
 import datetime
-import subprocess
-from docopt import docopt
 from shutil import copyfile
+from lib.common.logConfig import get_logger
+from lib.common.processcallConfig import call_subprocess
 
 SET_CONFIG = './set_config.json'
 SUITE_CONFIG = './suite_config.json'
@@ -41,9 +26,6 @@ SET_DATA_TEMP_JS = 'case_data_template.js'
 GAUGE_TEMP_JS = 'overall_progress_template.js'
 THEME_TEMP_JS = 'theme.js'
 SET_TEMP_CSS = 'set_page.css'
-
-
-DEPLOY_TIME_INTERVAL = 5  # mins
 
 task_schedule = {
     "amazon_ail_hover_related_product_thumbnail Median": ["0500", "1700"],
@@ -94,10 +76,6 @@ task_dict = {
 }
 
 
-def call_subprocess(cmd):
-    ret_code = subprocess.call(cmd, shell=True)
-    if ret_code != 0:
-        sys.exit(ret_code)
 
 
 def in_time_range(t1, t2, rt):
@@ -126,7 +104,7 @@ def in_time_range(t1, t2, rt):
 
 
 class Dashboard(object):
-    def __init__(self):
+    def __init__(self, enable_advance):
         self.hasal_ds = dict()
         self.count_ds = dict()
         self.set_page_dict = dict()
@@ -134,6 +112,9 @@ class Dashboard(object):
         self.github_username = ''
         self.github_token = ''
         self.schedule_space = list()
+
+        # init logger
+        self.logger = get_logger(__file__, enable_advance)
 
         for x in task_schedule.values():
             self.schedule_space.extend(x)
@@ -581,7 +562,7 @@ class Dashboard(object):
         """ query data and gen a csv file """
         tmp_file = 'tmp.txt'
 
-        print "Start query data from pf ..."
+        self.logger.info("Start query data from pf, might takes a while ...")
         cmd = 'python query_data_from_perfherder.py --interval={} > {}'.format(interval, tmp_file)
         call_subprocess(cmd)
 
@@ -591,7 +572,7 @@ class Dashboard(object):
             for line in fin:
                 o.writerow(line.split())
         os.remove(tmp_file)
-        print "Done query data!"
+        self.logger.info("Done query data!")
 
     def run(self, query_data):
         """ generate website """
@@ -609,66 +590,3 @@ class Dashboard(object):
         self.create_line_graph_pages()
         self.create_work_progress_page()
         self.create_home_page()
-
-
-class Publisher(object):
-    def __init__(self):
-        self.__github_username = ''
-        self.__github_token = ''
-        self.dashboard = Dashboard()
-
-    def __load_github_accout(self):
-        github_config = 'github.key'
-        with open(github_config, 'r') as f:
-            self.__github_username = f.readline().strip()
-            self.__github_token = f.readline().strip()
-
-    def __commit_push_to_github(self):
-        """ commit and push to github """
-        print "Start commit and push to github ..."
-        cmd = 'git add ./docs/*'
-        call_subprocess(cmd)
-
-        cmd = 'git commit -m \'auto deploy on {}\''.format(datetime.datetime.now().strftime('%H:%M:%S'))
-        call_subprocess(cmd)
-
-        _u = self.__github_username
-        _k = self.__github_token
-        cmd = 'git push https://{}:{}@github.com/MarkYan/Hasal_dashboard.git master'.format(_u, _k)
-        call_subprocess(cmd)
-        print "Git push success"
-
-    def single_run(self, query):
-        self.dashboard.run(query)
-
-    def githubio_mode(self):
-        """ gen website and push to github automatically """
-        self.__load_github_accout()
-        while True:
-            print "Start deploy process ..."
-            self.dashboard.run(True)
-            self.__commit_push_to_github()
-            print "Time to sleep ... Bye"
-            time.sleep(60 * DEPLOY_TIME_INTERVAL)
-
-    def local_mode(self):
-        while True:
-            print "Start deploy process ..."
-            self.dashboard.run(True)
-            print "Time to sleep ... Bye"
-            time.sleep(60 * DEPLOY_TIME_INTERVAL)
-
-
-def main():
-    arguments = docopt(__doc__)
-    publisher = Publisher()
-    if arguments['--deploy']:
-        publisher.githubio_mode()
-    elif arguments['--localhost']:
-        publisher.local_mode()
-    else:
-        publisher.single_run(arguments['--query'])
-
-
-if __name__ == '__main__':
-    main()

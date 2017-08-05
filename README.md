@@ -1,15 +1,17 @@
 # Hasal Dashboard
 ## Installation
-* Linux
+* Linux or Mac
 ```
 .\bootstrap.sh
 ```
 ## Usage
 ```
-  dashboard.py [--query] [--deploy]
-  dashboard.py (-h | --help)
+  publisher.py [--query] [--deploy] [--localhost] [--debug]
+  publisher.py (-h | --help)
 
   -h --help                 Show this screen.
-  --query                   Query data from pf
-  --deploy                  Automatically deploy to Github every half an hour
+  --query                   Query data from Treeherder
+  --deploy                  Automatically deploy to Github every 5 minutes
+  --localhost               Automatically deploy locally every 5 minutes
+  --debug                   Log in debug level
 ```
