@@ -13,13 +13,14 @@ Options:
 
 """
 
-import time
 import datetime
+import time
+
 from docopt import docopt
-from dashboard import Dashboard
+
 from lib.common.logConfig import get_logger
 from lib.common.processcallConfig import call_subprocess
-
+from pages.dashboard import Dashboard
 
 DEPLOY_TIME_INTERVAL = 5  # mins
 
