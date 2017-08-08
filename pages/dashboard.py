@@ -116,11 +116,11 @@ class Dashboard(object):
     def run(self, query_data):
         """ generate website """
         one_month = '2419200'
-        three_days = '259200'
+        # three_days = '259200'
 
         # read csv and analyze
         if query_data or not os.path.isfile(HASAL_CSV):
-            self.query_data(three_days)
+            self.query_data(one_month)
         self.reset_ds()
         self.analyze_csv()
         self.get_ref_date()
