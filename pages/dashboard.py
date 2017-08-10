@@ -8,6 +8,7 @@ from lib.common.sutieConfig import *
 from pages.progressPage import ProgressPage
 from pages.graphPage import GraphPage
 from pages.indexPage import IndexPage
+from pages.pendingList import PendingList
 
 
 class Dashboard(object):
@@ -15,11 +16,14 @@ class Dashboard(object):
         self.progress_page = ProgressPage(self, enable_advance)
         self.graph_page = GraphPage(self, enable_advance)
         self.index_page = IndexPage(self, enable_advance)
+        self.pending_list = PendingList(self, enable_advance)
+        self.queryRange = 2419200 # one month
 
         self.value_ds = dict()
         self.count_ds = dict()
         self.set_page_dict = dict()
-        self.ref_date = ''
+        self.ref_date = (datetime.date.today() -
+                         datetime.timedelta(days=1)).strftime("%Y-%m-%d")
         self.schedule_space = list()
 
         # init logger
@@ -43,20 +47,6 @@ class Dashboard(object):
         self.value_ds.clear()
         self.count_ds.clear()
 
-    def get_ref_date(self):
-        ref_date = datetime.datetime(2015, 1, 13, 12, 0, 0)
-        for _s in self.count_ds.keys():
-            for _m in self.count_ds[_s].keys():
-                for _b in self.count_ds[_s][_m].keys():
-                    if not self.count_ds[_s][_m][_b].keys():
-                        continue
-                    else:
-                        latest_date = sorted(self.count_ds[_s][_m][_b].keys(), reverse=True)[0]
-                        latest_date = datetime.datetime.strptime(latest_date, "%Y-%m-%d %H-%M-%S-000000")
-                        if (latest_date - ref_date).total_seconds() > 0:
-                            ref_date = latest_date
-        self.ref_date = ref_date.strftime("%Y-%m-%d %H-%M-%S-000000")
-
     def analyze_csv(self):
         """ read csv and parse data """
         for m in MACHINE_SET:
@@ -68,7 +58,8 @@ class Dashboard(object):
                 _s = '{} {}'.format(row['suite_name'], row['_'])
                 _m = row['machine_platform']
                 _b = row['browser_type']
-                _t = '{} {}'.format(row['date'], row['time'])
+                _d = row['date']
+                # _t = '{} {}'.format(row['date'], row['time'])
                 _v = row['value']
 
                 if row['suite_name'] == 'suite_name':
@@ -89,13 +80,14 @@ class Dashboard(object):
                             self.value_ds[_s][_m][_b] = {}
                             self.count_ds[_s][_m][_b] = {}
 
-                if _t not in self.value_ds[_s][_m][_b].keys():
-                    self.value_ds[_s][_m][_b][_t] = []
-                    self.count_ds[_s][_m][_b][_t] = 1
+                # TODO: fix date
+                if _d not in self.value_ds[_s][_m][_b].keys():
+                    self.value_ds[_s][_m][_b][_d] = []
+                    self.count_ds[_s][_m][_b][_d] = 1
                 else:
-                    self.count_ds[_s][_m][_b][_t] += 1
+                    self.count_ds[_s][_m][_b][_d] += 1
 
-                self.value_ds[_s][_m][_b][_t].append(_v)
+                self.value_ds[_s][_m][_b][_d].append(_v)
 
     def query_data(self, interval):
         """ query data and gen a csv file """
@@ -115,17 +107,15 @@ class Dashboard(object):
 
     def run(self, query_data):
         """ generate website """
-        one_month = '2419200'
-        # three_days = '259200'
 
         # read csv and analyze
         if query_data or not os.path.isfile(HASAL_CSV):
-            self.query_data(one_month)
+            self.query_data(self.queryRange)
         self.reset_ds()
         self.analyze_csv()
-        self.get_ref_date()
 
         # create web-pages
-        self.graph_page.create_page()
+        # self.graph_page.create_page()
         self.progress_page.create_page()
         self.index_page.create_page()
+        self.pending_list.create_page()

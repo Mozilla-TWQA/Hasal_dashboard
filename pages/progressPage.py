@@ -179,8 +179,6 @@ class ProgressPage(object):
 
                 elif '{{LATEST_DATA_TIME}}' in row:
                     ref_date = self.dashboard.ref_date
-                    latest_date = datetime.datetime.strptime(ref_date, "%Y-%m-%d %H-%M-%S-000000").strftime(
-                        "%Y-%m-%d %H:%M:%S")
-                    outfile.write(row.replace('{{LATEST_DATA_TIME}}', '{}').format(latest_date))
+                    outfile.write(row.replace('{{LATEST_DATA_TIME}}', '{}').format(ref_date))
                 else:
                     outfile.write(row)

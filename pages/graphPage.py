@@ -118,9 +118,7 @@ class GraphPage(object):
 
                 elif '{{LATEST_DATA_TIME}}' in row:
                     ref_date = self.dashboard.ref_date
-                    latest_date = datetime.datetime.strptime(ref_date, "%Y-%m-%d %H-%M-%S-000000").strftime(
-                        "%Y-%m-%d %H:%M:%S")
-                    outfile.write(row.replace('{{LATEST_DATA_TIME}}', '{}').format(latest_date))
+                    outfile.write(row.replace('{{LATEST_DATA_TIME}}', '{}').format(ref_date))
 
                 elif '<!--WIN8 TD GO HERE-->' in row:
                     self.render_footer_table('windows8-64', outfile)
@@ -146,7 +144,9 @@ class GraphPage(object):
                     # TODO:must alert
                     pass
                 else:
-                    finished_jobs += self.dashboard.count_ds[_s][machine][_b][r_date]
+                    for date in self.dashboard.count_ds[_s][machine][_b].keys():
+                        if r_date in date:
+                            finished_jobs += self.dashboard.count_ds[_s][machine][_b][date]
         return finished_jobs * 100 / total_jobs
 
     def create_gauge_js(self, machine):
