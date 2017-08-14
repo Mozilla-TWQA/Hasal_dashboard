@@ -10,6 +10,9 @@ class GraphPage(object):
     def __init__(self, dashboard, enable_advance):
         self.dashboard = dashboard
 
+        for m in MACHINE_SET:
+            self.set_page_dict[m] = {}
+
         # init logger
         self.logger = get_logger(__file__, enable_advance)
 
@@ -86,7 +89,7 @@ class GraphPage(object):
     def create_set_html(self, machine, set_name):
         set_html_file = '{}_{}_set.html'.format(set_name, machine)
         set_html_dir = os.path.join(BUILD_DIR, set_html_file)
-        self.dashboard.set_page_dict[machine][set_name] = set_html_file
+        self.set_page_dict[machine][set_name] = set_html_file
         with open(set_html_dir, 'w') as outfile, open(os.path.join(TEMPLATE_DIR, SET_TEMP_HTML), 'r') as infile:
             for row in infile:
                 if '{{TITLE_NAME}}' in row:
@@ -137,16 +140,12 @@ class GraphPage(object):
                 total_jobs += 6
 
                 # check time
-                # latest_date = sorted(self.count_ds[_s][machine][_b].keys(),reverse=True)[0]
-                # finished_jobs += self.count_ds[_s][machine][_b][latest_date]
                 r_date = self.dashboard.ref_date
                 if r_date not in self.dashboard.count_ds[_s][machine][_b].keys():
-                    # TODO:must alert
+                    # reference date is not in count_ds
                     pass
                 else:
-                    for date in self.dashboard.count_ds[_s][machine][_b].keys():
-                        if r_date in date:
-                            finished_jobs += self.dashboard.count_ds[_s][machine][_b][date]
+                    finished_jobs += self.dashboard.count_ds[_s][machine][_b][r_date]
         return finished_jobs * 100 / total_jobs
 
     def create_gauge_js(self, machine):

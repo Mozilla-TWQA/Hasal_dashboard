@@ -20,19 +20,21 @@ class IndexPage(object):
                     outfile.write('\t<h1>windows8</h1>\n')
                     outfile.write('\t<table>\n')
                     m = 'windows8-64'
-                    for set_name in sorted(self.dashboard.set_page_dict[m].keys()):
-                        outfile.write(
-                            '\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(
-                                self.dashboard.set_page_dict[m][set_name], set_name, m))
+                    # TODO: FIX ERROR
+                    # for set_name in sorted(self.dashboard.set_page_dict[m].keys()):
+                    #     outfile.write(
+                    #         '\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(
+                    #             self.dashboard.set_page_dict[m][set_name], set_name, m))
                     outfile.write('\t</table>\n')
                 elif '<!--windows10-64 here-->' in row:
                     outfile.write('\t<h1>windows10</h1>\n')
                     outfile.write('\t<table>\n')
                     m = 'windows10-64'
-                    for set_name in sorted(self.dashboard.set_page_dict[m].keys()):
-                        outfile.write(
-                            '\t\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(
-                                self.dashboard.set_page_dict[m][set_name], set_name, m))
+                    # TODO: FIX ERROR
+                    # for set_name in sorted(self.dashboard.set_page_dict[m].keys()):
+                    #     outfile.write(
+                    #         '\t\t<tr><td><a href="{}">{} on {}</a></td></tr>\n'.format(
+                    #             self.dashboard.set_page_dict[m][set_name], set_name, m))
                     outfile.write('\t</table>\n')
                 else:
                     outfile.write(row)

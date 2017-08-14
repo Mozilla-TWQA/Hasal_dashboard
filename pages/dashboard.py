@@ -13,22 +13,32 @@ from pages.pendingList import PendingList
 
 class Dashboard(object):
     def __init__(self, enable_advance):
-        self.progress_page = ProgressPage(self, enable_advance)
-        self.graph_page = GraphPage(self, enable_advance)
-        self.index_page = IndexPage(self, enable_advance)
-        self.pending_list = PendingList(self, enable_advance)
-        self.queryRange = 2419200 # one month
+        self.queryRange = 2419200  # one month
 
+        # load page classes
+        # self.graph_page = GraphPage(self, enable_advance)
+        self.progress_page = ProgressPage(self, enable_advance)
+        self.pending_list = PendingList(self, enable_advance)
+        self.index_page = IndexPage(self, enable_advance)
+
+        # value_ds is a data structure that save
+        # a list of values with keys, suite name,
+        # machine type, browser type, and datetime
+        # which precision to second.
+        # Ex. self.value_ds[_s][_m][_b][_t] = list()
         self.value_ds = dict()
+
+        # count_ds is a data structure that save
+        # values count of date with keys, suite name,
+        # machine type, browser type, and date.
+        # Ex. self.count_ds[_s][_m][_b][_d] = 3
         self.count_ds = dict()
-        self.set_page_dict = dict()
+        self.reset_value_and_count()
+
         self.ref_date = (datetime.date.today() -
                          datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+
         self.schedule_space = list()
-
-        # init logger
-        self.logger = get_logger(__file__, enable_advance)
-
         for x in task_schedule.values():
             self.schedule_space.extend(x)
         self.schedule_space = sorted(self.schedule_space)
@@ -43,15 +53,24 @@ class Dashboard(object):
         if not os.path.exists(os.path.join(BUILD_DIR, IMG_DIR)):
             os.makedirs(os.path.join(BUILD_DIR, IMG_DIR))
 
-    def reset_ds(self):
+        # init logger
+        self.logger = get_logger(__file__, enable_advance)
+
+    def reset_value_and_count(self):
         self.value_ds.clear()
         self.count_ds.clear()
+        for s in task_dict.keys():
+            self.value_ds[s] = {}
+            self.count_ds[s] = {}
+            for m in MACHINE_SET:
+                self.value_ds[s][m] = {}
+                self.count_ds[s][m] = {}
+                for b in BROWSER_SET:
+                    self.value_ds[s][m][b] = {}
+                    self.count_ds[s][m][b] = {}
 
     def analyze_csv(self):
         """ read csv and parse data """
-        for m in MACHINE_SET:
-            self.set_page_dict[m] = {}
-
         with open(HASAL_CSV) as f:
             r = csv.DictReader(f)
             for row in r:
@@ -59,7 +78,7 @@ class Dashboard(object):
                 _m = row['machine_platform']
                 _b = row['browser_type']
                 _d = row['date']
-                # _t = '{} {}'.format(row['date'], row['time'])
+                _t = '{} {}'.format(row['date'], row['time'])
                 _v = row['value']
 
                 if row['suite_name'] == 'suite_name':
@@ -67,27 +86,16 @@ class Dashboard(object):
                 elif _m not in MACHINE_SET or _b not in BROWSER_SET:
                     continue
 
-                # initialize structure
-                if _s not in self.value_ds.keys():
-                    self.value_ds[_s] = {}
-                    self.count_ds[_s] = {}
+                # create new key if not exist
+                if _t not in self.value_ds[_s][_m][_b].keys():
+                    self.value_ds[_s][_m][_b][_t] = []
 
-                    for _m in MACHINE_SET:
-                        self.value_ds[_s][_m] = {}
-                        self.count_ds[_s][_m] = {}
+                if _d not in self.count_ds[_s][_m][_b].keys():
+                    self.count_ds[_s][_m][_b][_d] = 0
 
-                        for _b in BROWSER_SET:
-                            self.value_ds[_s][_m][_b] = {}
-                            self.count_ds[_s][_m][_b] = {}
-
-                # TODO: fix date
-                if _d not in self.value_ds[_s][_m][_b].keys():
-                    self.value_ds[_s][_m][_b][_d] = []
-                    self.count_ds[_s][_m][_b][_d] = 1
-                else:
-                    self.count_ds[_s][_m][_b][_d] += 1
-
-                self.value_ds[_s][_m][_b][_d].append(_v)
+                # save data
+                self.count_ds[_s][_m][_b][_d] += 1
+                self.value_ds[_s][_m][_b][_t].append(_v)
 
     def query_data(self, interval):
         """ query data and gen a csv file """
@@ -106,16 +114,16 @@ class Dashboard(object):
         self.logger.info("Done query data!")
 
     def run(self, query_data):
-        """ generate website """
+        # reset data structure
+        self.reset_value_and_count()
 
         # read csv and analyze
         if query_data or not os.path.isfile(HASAL_CSV):
             self.query_data(self.queryRange)
-        self.reset_ds()
         self.analyze_csv()
 
         # create web-pages
         # self.graph_page.create_page()
         self.progress_page.create_page()
-        self.index_page.create_page()
         self.pending_list.create_page()
+        self.index_page.create_page()
