@@ -9,6 +9,7 @@ from lib.common.logConfig import get_logger
 class GraphPage(object):
     def __init__(self, dashboard, enable_advance):
         self.dashboard = dashboard
+        self.set_page_dict = dict()
 
         for m in MACHINE_SET:
             self.set_page_dict[m] = {}
@@ -55,16 +56,20 @@ class GraphPage(object):
 
     def get_td_color(self, f_num, total):
         color = {'red': '#bd1550', 'green': '#75D701', 'yellow': '#E8A317'}
-        if f_num > total or f_num <= 0:
+        if f_num <= 0:
+            status = 'Error'
             ret = color['red']
-        elif f_num == total:
-            ret = color['green']
-        else:
+        elif f_num < total:
+            status = 'Pending'
             ret = color['yellow']
-        return ret
+        else:
+            status = 'OK'
+            ret = color['green']
+        return status, ret
 
     def print_footer_td_output(self, _print, f_num, total, outfile):
-        line = '<td style="color: {}">{}</td>'.format(self.get_td_color(f_num, total), _print)
+        status, color = self.get_td_color(f_num, total)
+        line = '<td style="color: {}">{}</td>'.format(color, status)
         outfile.write(line)
 
     def render_footer_table(self, machine, outfile):
@@ -98,13 +103,12 @@ class GraphPage(object):
                 elif '<!--TIME CHART JS CODE ADD HERE-->' in row:
                     for counter, case_name in enumerate(set_contain[set_name]):
                         outfile.write(
-                            '\t<script language="JavaScript" src="./js/{}_{}.js"></script>\n'.format(case_name[:-7],
-                                                                                                     machine[:-3]))
+                            '\t<script language="JavaScript" src="./js/{}_{}.js"></script>\n'.format(
+                                case_name[:-7], machine[:-3]))
                         outfile.write('\t<script language="JavaScript">\n')
                         outfile.write(
-                            "\t\t$(function () {{Highcharts.chart('container{}', {}_{});}});\n".format(counter + 1,
-                                                                                                       case_name[:-7],
-                                                                                                       machine[:-3]))
+                            "\t\t$(function () {{Highcharts.chart('container{}', {}_{});}});\n".format(
+                                counter + 1, case_name[:-7], machine[:-3]))
                         outfile.write('\t</script>\n')
 
                 elif '<!--GAUGE JS CODE ADD HERE-->' in row:
@@ -145,7 +149,10 @@ class GraphPage(object):
                     # reference date is not in count_ds
                     pass
                 else:
-                    finished_jobs += self.dashboard.count_ds[_s][machine][_b][r_date]
+                    if self.dashboard.count_ds[_s][machine][_b][r_date] > 6:
+                        finished_jobs += 6
+                    else:
+                        finished_jobs += self.dashboard.count_ds[_s][machine][_b][r_date]
         return finished_jobs * 100 / total_jobs
 
     def create_gauge_js(self, machine):

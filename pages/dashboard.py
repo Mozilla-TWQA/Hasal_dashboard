@@ -5,18 +5,21 @@ from lib.common.logConfig import get_logger
 from lib.common.nameConfig import *
 from lib.common.processcallConfig import call_subprocess
 from lib.common.sutieConfig import *
+from dateutil import tz
 from pages.progressPage import ProgressPage
 from pages.graphPage import GraphPage
 from pages.indexPage import IndexPage
 from pages.pendingList import PendingList
 
+from_zone = tz.tzutc()
+to_zone = tz.tzlocal()
 
 class Dashboard(object):
     def __init__(self, enable_advance):
         self.queryRange = 2419200  # one month
 
         # load page classes
-        # self.graph_page = GraphPage(self, enable_advance)
+        self.graph_page = GraphPage(self, enable_advance)
         self.progress_page = ProgressPage(self, enable_advance)
         self.pending_list = PendingList(self, enable_advance)
         self.index_page = IndexPage(self, enable_advance)
@@ -77,8 +80,16 @@ class Dashboard(object):
                 _s = '{} {}'.format(row['suite_name'], row['_'])
                 _m = row['machine_platform']
                 _b = row['browser_type']
-                _d = row['date']
                 _t = '{} {}'.format(row['date'], row['time'])
+
+                # Transfer date and time queried from PF (UTC)
+                # to local time.
+                utc = datetime.datetime.strptime(_t, "%Y-%m-%d %H-%M-%S-000000")
+                utc = utc.replace(tzinfo=from_zone)
+                central = utc.astimezone(to_zone)
+                _t = central.strftime("%Y-%m-%d %H-%M-%S-000000")
+                _d = central.strftime("%Y-%m-%d")
+
                 _v = row['value']
 
                 if row['suite_name'] == 'suite_name':
@@ -123,7 +134,7 @@ class Dashboard(object):
         self.analyze_csv()
 
         # create web-pages
-        # self.graph_page.create_page()
+        self.graph_page.create_page()
         self.progress_page.create_page()
         self.pending_list.create_page()
-        self.index_page.create_page()
+        self.index_page.create_page(self.graph_page.set_page_dict)
