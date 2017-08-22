@@ -53,7 +53,11 @@ class Publisher(object):
         _k = self.__github_token
         cmd = 'git push https://{}:{}@github.com/MarkYan/Hasal_dashboard.git master'.format(_u, _k)
         call_subprocess(cmd)
-        print "Git push success"
+        print "Git push to MK success"
+
+        cmd = 'git push https://{}:{}@github.com/Mozilla-TWQA/Hasal_dashboard.git master'.format(_u, _k)
+        call_subprocess(cmd)
+        print "Git push to TWQA success"
 
     def __wait_for_next_query(self, rest_minutes):
         division = 5
