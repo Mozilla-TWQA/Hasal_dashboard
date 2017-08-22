@@ -16,7 +16,8 @@ to_zone = tz.tzlocal()
 
 class Dashboard(object):
     def __init__(self, enable_advance):
-        self.queryRange = 2419200  # one month
+        # self.queryRange = 2419200  # one month
+        self.queryRange = 14515200 # half year
 
         # load page classes
         self.graph_page = GraphPage(self, enable_advance)
@@ -82,6 +83,11 @@ class Dashboard(object):
                 _b = row['browser_type']
                 _t = '{} {}'.format(row['date'], row['time'])
 
+                if _s not in task_dict.keys():
+                    continue
+                elif _m not in MACHINE_SET or _b not in BROWSER_SET:
+                    continue
+
                 # Transfer date and time queried from PF (UTC)
                 # to local time.
                 utc = datetime.datetime.strptime(_t, "%Y-%m-%d %H-%M-%S-000000")
@@ -92,10 +98,7 @@ class Dashboard(object):
 
                 _v = row['value']
 
-                if row['suite_name'] == 'suite_name':
-                    continue
-                elif _m not in MACHINE_SET or _b not in BROWSER_SET:
-                    continue
+
 
                 # create new key if not exist
                 if _t not in self.value_ds[_s][_m][_b].keys():
