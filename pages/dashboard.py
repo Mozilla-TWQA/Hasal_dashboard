@@ -61,6 +61,8 @@ class Dashboard(object):
         self.logger = get_logger(__file__, enable_advance)
 
     def reset_value_and_count(self):
+        self.ref_date = (datetime.date.today() -
+                         datetime.timedelta(days=1)).strftime("%Y-%m-%d")
         self.value_ds.clear()
         self.count_ds.clear()
         for s in task_dict.keys():
