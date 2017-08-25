@@ -768,6 +768,7 @@ var facebook_ail_type_message_1_txt_windows10 = {
 			[Date.UTC(2017, 7, 25), 11.110000],
 			[Date.UTC(2017, 7, 25), 33.330000],
 			[Date.UTC(2017, 7, 25), 33.330000],
+			[Date.UTC(2017, 7, 25), 33.330000],
 			[Date.UTC(2017, 7, 25), 5.560000],
 		]    }, {
 		name: 'chrome',
