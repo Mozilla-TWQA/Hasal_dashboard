@@ -985,6 +985,7 @@ var youtube_ail_type_in_search_field_windows8 = {
 			[Date.UTC(2017, 6, 2), 33.330000],
 			[Date.UTC(2017, 6, 2), 33.330000],
 			[Date.UTC(2017, 6, 2), 33.330000],
+			[Date.UTC(2017, 6, 4), 11.110000],
 			[Date.UTC(2017, 6, 4), 22.220000],
 			[Date.UTC(2017, 6, 4), 22.220000],
 			[Date.UTC(2017, 6, 4), 22.220000],
