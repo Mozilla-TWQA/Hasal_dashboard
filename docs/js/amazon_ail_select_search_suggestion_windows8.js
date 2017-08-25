@@ -980,6 +980,7 @@ var amazon_ail_select_search_suggestion_windows8 = {
 			[Date.UTC(2017, 6, 2), 22.220000],
 			[Date.UTC(2017, 6, 2), 22.220000],
 			[Date.UTC(2017, 6, 4), 11.110000],
+			[Date.UTC(2017, 6, 4), 11.110000],
 			[Date.UTC(2017, 6, 4), 22.220000],
 			[Date.UTC(2017, 6, 4), 22.220000],
 			[Date.UTC(2017, 6, 4), 22.220000],
