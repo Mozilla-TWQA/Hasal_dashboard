@@ -880,6 +880,7 @@ var facebook_ail_type_composerbox_1_txt_windows8 = {
 			[Date.UTC(2017, 7, 25), 66.670000],
 			[Date.UTC(2017, 7, 26), 55.560000],
 			[Date.UTC(2017, 7, 26), 66.670000],
+			[Date.UTC(2017, 7, 26), 66.670000],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -1474,6 +1475,7 @@ var facebook_ail_type_composerbox_1_txt_windows8 = {
 			[Date.UTC(2017, 7, 25), 33.330000],
 			[Date.UTC(2017, 7, 25), 44.440000],
 			[Date.UTC(2017, 7, 25), 44.440000],
+			[Date.UTC(2017, 7, 26), 22.220000],
 			[Date.UTC(2017, 7, 26), 22.220000],
 			[Date.UTC(2017, 7, 26), 33.330000],
 			[Date.UTC(2017, 7, 26), 44.440000],
