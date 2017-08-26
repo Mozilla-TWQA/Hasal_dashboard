@@ -440,6 +440,7 @@ var gdoc_ail_pagedown_10_text_windows10 = {
 			[Date.UTC(2017, 7, 25), 55.560000],
 			[Date.UTC(2017, 7, 25), 66.670000],
 			[Date.UTC(2017, 7, 26), 66.670000],
+			[Date.UTC(2017, 7, 26), 66.670000],
 		]    }, {
 		name: 'chrome',
 		data: [
