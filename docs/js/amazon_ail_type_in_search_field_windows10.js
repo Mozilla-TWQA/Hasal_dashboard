@@ -1231,5 +1231,6 @@ var amazon_ail_type_in_search_field_windows10 = {
 			[Date.UTC(2017, 7, 25), 5.560000],
 			[Date.UTC(2017, 7, 25), 5.560000],
 			[Date.UTC(2017, 7, 25), 5.560000],
+			[Date.UTC(2017, 7, 26), 5.560000],
 		]    }]
 }
