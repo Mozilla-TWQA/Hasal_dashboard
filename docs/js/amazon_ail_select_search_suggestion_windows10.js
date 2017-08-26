@@ -1271,6 +1271,7 @@ var amazon_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 7, 25), 5.560000],
 			[Date.UTC(2017, 7, 25), 5.560000],
 			[Date.UTC(2017, 7, 26), 33.330000],
+			[Date.UTC(2017, 7, 26), 33.330000],
 			[Date.UTC(2017, 7, 26), 44.440000],
 		]    }]
 }
