@@ -431,5 +431,6 @@ var gmail_ail_compose_new_mail_via_keyboard_windows8 = {
 			[Date.UTC(2017, 7, 27), 155.560000],
 			[Date.UTC(2017, 7, 27), 177.780000],
 			[Date.UTC(2017, 7, 27), 177.780000],
+			[Date.UTC(2017, 7, 28), 144.440000],
 		]    }]
 }
