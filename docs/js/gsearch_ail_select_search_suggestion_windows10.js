@@ -913,6 +913,7 @@ var gsearch_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 6, 28), 144.440000],
 			[Date.UTC(2017, 6, 28), 155.560000],
 			[Date.UTC(2017, 6, 28), 5.560000],
+			[Date.UTC(2017, 6, 30), 11.110000],
 			[Date.UTC(2017, 6, 30), 5.560000],
 			[Date.UTC(2017, 6, 30), 5.560000],
 			[Date.UTC(2017, 6, 31), 5.560000],
