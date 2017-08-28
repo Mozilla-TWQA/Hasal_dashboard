@@ -247,5 +247,6 @@ var gsearch_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 7, 27), 5.560000],
 			[Date.UTC(2017, 7, 28), 22.220000],
 			[Date.UTC(2017, 7, 28), 5.560000],
+			[Date.UTC(2017, 7, 28), 5.560000],
 		]    }]
 }
