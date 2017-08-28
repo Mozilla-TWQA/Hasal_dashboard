@@ -226,6 +226,7 @@ var gmail_ail_compose_new_mail_via_keyboard_windows8 = {
 			[Date.UTC(2017, 7, 27), 233.330000],
 			[Date.UTC(2017, 7, 27), 244.440000],
 			[Date.UTC(2017, 7, 28), 211.110000],
+			[Date.UTC(2017, 7, 28), 222.220000],
 			[Date.UTC(2017, 7, 28), 233.330000],
 		]    }, {
 		name: 'chrome',
