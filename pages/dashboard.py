@@ -16,8 +16,10 @@ to_zone = tz.tzlocal()
 
 class Dashboard(object):
     def __init__(self, enable_advance):
+        # self.queryRange = 604800  # 7 days
+        self.queryRange = 1209600  # 14 days
         # self.queryRange = 2419200  # one month
-        self.queryRange = 14515200 # half year
+        # self.queryRange = 14515200  # half year
 
         # load page classes
         self.graph_page = GraphPage(self, enable_advance)

@@ -28,7 +28,7 @@ class GraphPage(object):
         outfile_js.write('\t\tdata: [\n')
         for _time in sorted(self.dashboard.value_ds[case_name][machine][browser].keys()):
             for value in sorted(self.dashboard.value_ds[case_name][machine][browser][_time]):
-                _t = datetime.datetime.strptime(_time, "%Y-%m-%d %H-%M-%S-000000") + datetime.timedelta(hours=8)
+                _t = datetime.datetime.strptime(_time, "%Y-%m-%d %H-%M-%S-000000")
                 _y = _t.year
                 _m = _t.month - 1
                 _d = _t.day
