@@ -43,12 +43,6 @@ var gsearch_ail_select_search_suggestion_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 7, 15), 11.110000],
-			[Date.UTC(2017, 7, 15), 22.220000],
-			[Date.UTC(2017, 7, 15), 22.220000],
-			[Date.UTC(2017, 7, 15), 22.220000],
-			[Date.UTC(2017, 7, 15), 33.330000],
-			[Date.UTC(2017, 7, 15), 44.440000],
 			[Date.UTC(2017, 7, 16), 11.110000],
 			[Date.UTC(2017, 7, 16), 22.220000],
 			[Date.UTC(2017, 7, 16), 22.220000],
@@ -179,12 +173,6 @@ var gsearch_ail_select_search_suggestion_windows8 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 7, 15), 22.220000],
-			[Date.UTC(2017, 7, 15), 22.220000],
-			[Date.UTC(2017, 7, 15), 22.220000],
-			[Date.UTC(2017, 7, 15), 33.330000],
-			[Date.UTC(2017, 7, 15), 33.330000],
-			[Date.UTC(2017, 7, 15), 33.330000],
 			[Date.UTC(2017, 7, 16), 22.220000],
 			[Date.UTC(2017, 7, 16), 22.220000],
 			[Date.UTC(2017, 7, 16), 22.220000],
