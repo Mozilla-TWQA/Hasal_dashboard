@@ -232,6 +232,7 @@ var gmail_ail_open_mail_windows8 = {
 			[Date.UTC(2017, 7, 30), 222.220000],
 			[Date.UTC(2017, 7, 30), 255.560000],
 			[Date.UTC(2017, 7, 30), 300.000000],
+			[Date.UTC(2017, 7, 31), 200.000000],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -424,5 +425,6 @@ var gmail_ail_open_mail_windows8 = {
 			[Date.UTC(2017, 7, 30), 211.110000],
 			[Date.UTC(2017, 7, 30), 222.220000],
 			[Date.UTC(2017, 7, 31), 244.440000],
+			[Date.UTC(2017, 7, 31), 266.670000],
 		]    }]
 }
