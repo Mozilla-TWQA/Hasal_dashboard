@@ -43,12 +43,6 @@ var facebook_ail_type_composerbox_1_txt_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 7, 17), 22.220000],
-			[Date.UTC(2017, 7, 17), 33.330000],
-			[Date.UTC(2017, 7, 17), 33.330000],
-			[Date.UTC(2017, 7, 17), 33.330000],
-			[Date.UTC(2017, 7, 17), 33.330000],
-			[Date.UTC(2017, 7, 17), 44.440000],
 			[Date.UTC(2017, 7, 18), 22.220000],
 			[Date.UTC(2017, 7, 18), 22.220000],
 			[Date.UTC(2017, 7, 18), 22.220000],
@@ -222,12 +216,6 @@ var facebook_ail_type_composerbox_1_txt_windows8 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 7, 17), 22.220000],
-			[Date.UTC(2017, 7, 17), 22.220000],
-			[Date.UTC(2017, 7, 17), 33.330000],
-			[Date.UTC(2017, 7, 17), 33.330000],
-			[Date.UTC(2017, 7, 17), 33.330000],
-			[Date.UTC(2017, 7, 17), 33.330000],
 			[Date.UTC(2017, 7, 18), 22.220000],
 			[Date.UTC(2017, 7, 18), 22.220000],
 			[Date.UTC(2017, 7, 18), 22.220000],
