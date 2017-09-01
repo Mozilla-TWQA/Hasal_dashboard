@@ -114,6 +114,9 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 7, 21), 433.330000],
 			[Date.UTC(2017, 7, 21), 455.560000],
 			[Date.UTC(2017, 7, 21), 466.670000],
+			[Date.UTC(2017, 7, 21), 477.780000],
+			[Date.UTC(2017, 7, 21), 477.780000],
+			[Date.UTC(2017, 7, 21), 577.780000],
 			[Date.UTC(2017, 7, 21), 788.890000],
 			[Date.UTC(2017, 7, 22), 400.000000],
 			[Date.UTC(2017, 7, 22), 400.000000],
@@ -199,6 +202,8 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 7, 31), 433.330000],
 			[Date.UTC(2017, 7, 31), 455.560000],
 			[Date.UTC(2017, 7, 31), 500.000000],
+			[Date.UTC(2017, 8, 1), 422.220000],
+			[Date.UTC(2017, 8, 1), 433.330000],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -276,6 +281,7 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 7, 21), 500.000000],
 			[Date.UTC(2017, 7, 21), 500.000000],
 			[Date.UTC(2017, 7, 21), 500.000000],
+			[Date.UTC(2017, 7, 21), 500.000000],
 			[Date.UTC(2017, 7, 21), 511.110000],
 			[Date.UTC(2017, 7, 21), 544.440000],
 			[Date.UTC(2017, 7, 21), 544.440000],
@@ -293,6 +299,7 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 7, 22), 455.560000],
 			[Date.UTC(2017, 7, 22), 466.670000],
 			[Date.UTC(2017, 7, 22), 477.780000],
+			[Date.UTC(2017, 7, 22), 488.890000],
 			[Date.UTC(2017, 7, 22), 511.110000],
 			[Date.UTC(2017, 7, 22), 511.110000],
 			[Date.UTC(2017, 7, 22), 511.110000],
@@ -372,5 +379,7 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 7, 31), 544.440000],
 			[Date.UTC(2017, 7, 31), 555.560000],
 			[Date.UTC(2017, 7, 31), 600.000000],
+			[Date.UTC(2017, 8, 1), 422.220000],
+			[Date.UTC(2017, 8, 1), 500.000000],
 		]    }]
 }
