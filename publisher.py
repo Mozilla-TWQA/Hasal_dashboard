@@ -10,7 +10,6 @@ Options:
   --deploy                  Automatically deploy to Github every 5 minutes
   --localhost               Automatically deploy locally every 5 minutes
   --debug                   Log in debug level
-
 """
 
 import datetime

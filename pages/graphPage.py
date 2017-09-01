@@ -6,6 +6,34 @@ from shutil import copyfile
 from lib.common.logConfig import get_logger
 
 
+def create_highchart_theme():
+    copyfile(os.path.join(TEMPLATE_DIR, JS_DIR, THEME_TEMP_JS), os.path.join(BUILD_DIR, JS_DIR, THEME_TEMP_JS))
+
+
+def create_set_css():
+    copyfile(os.path.join(TEMPLATE_DIR, CSS_DIR, SET_TEMP_CSS), os.path.join(BUILD_DIR, CSS_DIR, SET_TEMP_CSS))
+
+
+def get_td_color(f_num, total):
+    color = {'red': '#bd1550', 'green': '#75D701', 'yellow': '#E8A317'}
+    if f_num <= 0:
+        status = 'Error'
+        ret = color['red']
+    elif f_num < total:
+        status = 'Pending'
+        ret = color['yellow']
+    else:
+        status = 'OK'
+        ret = color['green']
+    return status, ret
+
+
+def print_footer_td_output(_print, f_num, total, outfile):
+    status, color = get_td_color(f_num, total)
+    line = '<td style="color: {}">{}</td>'.format(color, status)
+    outfile.write(line)
+
+
 class GraphPage(object):
     def __init__(self, dashboard, enable_advance):
         self.dashboard = dashboard
@@ -16,12 +44,6 @@ class GraphPage(object):
 
         # init logger
         self.logger = get_logger(__file__, enable_advance)
-
-    def create_highchart_theme(self):
-        copyfile(os.path.join(TEMPLATE_DIR, JS_DIR, THEME_TEMP_JS), os.path.join(BUILD_DIR, JS_DIR, THEME_TEMP_JS))
-
-    def create_set_css(self):
-        copyfile(os.path.join(TEMPLATE_DIR, CSS_DIR, SET_TEMP_CSS), os.path.join(BUILD_DIR, CSS_DIR, SET_TEMP_CSS))
 
     def write_data_for_case(self, outfile_js, case_name, machine, browser):
         outfile_js.write('\t\tname: \'{}\',\n'.format(browser))
@@ -54,24 +76,6 @@ class GraphPage(object):
                     else:
                         outfile_js.write(row_js)
 
-    def get_td_color(self, f_num, total):
-        color = {'red': '#bd1550', 'green': '#75D701', 'yellow': '#E8A317'}
-        if f_num <= 0:
-            status = 'Error'
-            ret = color['red']
-        elif f_num < total:
-            status = 'Pending'
-            ret = color['yellow']
-        else:
-            status = 'OK'
-            ret = color['green']
-        return status, ret
-
-    def print_footer_td_output(self, _print, f_num, total, outfile):
-        status, color = self.get_td_color(f_num, total)
-        line = '<td style="color: {}">{}</td>'.format(color, status)
-        outfile.write(line)
-
     def render_footer_table(self, machine, outfile):
         _m = machine
         _rt = self.dashboard.ref_date
@@ -89,7 +93,7 @@ class GraphPage(object):
                             skb_count += 1
                     else:
                         _print += '-'
-                self.print_footer_td_output(_print, skb_count, total_case, outfile)
+                print_footer_td_output(_print, skb_count, total_case, outfile)
 
     def create_set_html(self, machine, set_name):
         set_html_file = '{}_{}_set.html'.format(set_name, machine)
@@ -170,8 +174,8 @@ class GraphPage(object):
                     outfile.write(row)
 
     def create_page(self):
-        self.create_highchart_theme()
-        self.create_set_css()
+        create_highchart_theme()
+        create_set_css()
 
         # create web_page with machine
         for m in MACHINE_SET:

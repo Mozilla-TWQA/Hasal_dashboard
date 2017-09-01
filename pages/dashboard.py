@@ -14,6 +14,7 @@ from pages.pendingList import PendingList
 from_zone = tz.tzutc()
 to_zone = tz.tzlocal()
 
+
 class Dashboard(object):
     def __init__(self, enable_advance):
         # self.queryRange = 604800  # 7 days
@@ -101,8 +102,6 @@ class Dashboard(object):
                 _d = central.strftime("%Y-%m-%d")
 
                 _v = row['value']
-
-
 
                 # create new key if not exist
                 if _t not in self.value_ds[_s][_m][_b].keys():

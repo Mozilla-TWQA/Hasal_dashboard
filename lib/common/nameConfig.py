@@ -14,6 +14,7 @@ CSS_DIR = 'css'
 BUILD_DIR = 'docs'
 IMG_DIR = 'img'
 
+
 SET_TEMP_HTML = 'set_template.html'
 SET_DATA_TEMP_JS = 'case_data_template.js'
 GAUGE_TEMP_JS = 'overall_progress_template.js'

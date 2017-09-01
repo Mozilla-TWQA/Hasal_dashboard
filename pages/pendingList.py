@@ -1,6 +1,5 @@
 import os
 import datetime
-from lib.common.nameConfig import *
 from lib.common.sutieConfig import *
 from lib.common.nameConfig import *
 from lib.common.logConfig import get_logger
@@ -8,6 +7,17 @@ from lib.common.logConfig import get_logger
 
 def to_date(daytime):
     return datetime.datetime.strptime(daytime, "%Y-%m-%d %H-%M-%S-000000").strftime("%Y-%m-%d")
+
+
+def print_row(count, date, _s, _m, _b, mis, outfile):
+    outfile.write('<tr>')
+    outfile.write('<td>{}</td>'.format(count))
+    outfile.write('<td>{}</td>'.format(date))
+    outfile.write('<td>{}</td>'.format(_s))
+    outfile.write('<td>{}</td>'.format(_m))
+    outfile.write('<td>{}</td>'.format(_b))
+    outfile.write('<td>{}</td>'.format(mis))
+    outfile.write('</tr>')
 
 
 class PendingList(object):
@@ -19,16 +29,6 @@ class PendingList(object):
 
         # init logger
         self.logger = get_logger(__file__, enable_advance)
-
-    def __print_row(self, count, date, _s, _m, _b, mis, outfile):
-        outfile.write('<tr>')
-        outfile.write('<td>{}</td>'.format(count))
-        outfile.write('<td>{}</td>'.format(date))
-        outfile.write('<td>{}</td>'.format(_s))
-        outfile.write('<td>{}</td>'.format(_m))
-        outfile.write('<td>{}</td>'.format(_b))
-        outfile.write('<td>{}</td>'.format(mis))
-        outfile.write('</tr>')
 
     def __write_row(self, outfile):
         count = 1
@@ -43,7 +43,7 @@ class PendingList(object):
                             pending = 6
 
                         if pending > 0:
-                            self.__print_row(count, _d, _s, _m, _b, pending, outfile)
+                            print_row(count, _d, _s, _m, _b, pending, outfile)
                             count += 1
 
     def create_page(self):

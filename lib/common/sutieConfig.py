@@ -47,12 +47,12 @@ task_dict = {
 }
 
 suite_contain = {
-  "amazon":[
+  "amazon": [
     "amazon_ail_type_in_search_field Median",
     "amazon_ail_select_search_suggestion Median",
     "amazon_ail_hover_related_product_thumbnail Median"
   ],
-  "facebook":[
+  "facebook": [
     "facebook_ail_type_composerbox_1_txt Median",
     "facebook_ail_click_open_chat_tab Median",
     "facebook_ail_type_comment_1_txt Median",
@@ -62,56 +62,56 @@ suite_contain = {
     "facebook_ail_type_message_1_txt Median",
     "facebook_ail_scroll_home_1_txt Median"
   ],
-  "gdoc":[
+  "gdoc": [
     "gdoc_ail_pagedown_10_text Median"
   ],
-  "gmail":[
+  "gmail": [
     "gmail_ail_type_in_reply_field Median",
     "gmail_ail_reply_mail Median",
     "gmail_ail_open_mail Median",
     "gmail_ail_compose_new_mail_via_keyboard Median"
   ],
-  "gsearch":[
+  "gsearch": [
     "gsearch_ail_select_search_suggestion Median",
     "gsearch_ail_type_searchbox Median",
     "gsearch_ail_select_image_cat Median"
   ],
-  "youtube":[
+  "youtube": [
     "youtube_ail_select_search_suggestion Median",
     "youtube_ail_type_in_search_field Median"
   ]
 }
 
 set_contain = {
-  "gmail":[
+  "gmail": [
     "gmail_ail_type_in_reply_field Median",
     "gmail_ail_reply_mail Median",
     "gmail_ail_open_mail Median",
     "gmail_ail_compose_new_mail_via_keyboard Median"
   ],
-  "gdoc_gsearch":[
+  "gdoc_gsearch": [
     "gsearch_ail_select_search_suggestion Median",
     "gdoc_ail_pagedown_10_text Median",
     "gsearch_ail_type_searchbox Median",
     "gsearch_ail_select_image_cat Median"
   ],
-  "facebook1":[
+  "facebook1": [
     "facebook_ail_type_composerbox_1_txt Median",
     "facebook_ail_click_open_chat_tab Median",
     "facebook_ail_type_comment_1_txt Median",
     "facebook_ail_click_photo_viewer_right_arrow Median"
   ],
-  "facebook2":[
+  "facebook2": [
     "facebook_ail_click_open_chat_tab_emoji Median",
     "facebook_ail_click_close_chat_tab Median",
     "facebook_ail_type_message_1_txt Median",
     "facebook_ail_scroll_home_1_txt Median"
   ],
-  "youtube":[
+  "youtube": [
     "youtube_ail_select_search_suggestion Median",
     "youtube_ail_type_in_search_field Median"
   ],
-  "amazon":[
+  "amazon": [
     "amazon_ail_type_in_search_field Median",
     "amazon_ail_select_search_suggestion Median",
     "amazon_ail_hover_related_product_thumbnail Median"

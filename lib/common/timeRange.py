@@ -14,7 +14,6 @@ def in_time_range(t1, t2, rt):
     if rt == 'now':
         now_hm = datetime.datetime.now().strftime("%H%M")
         _rt = datetime.time(int(now_hm[:2]), int(now_hm[2:]))
-        # _rt = datetime.time(12, 30)
     else:
         _rt = datetime.time(int(rt[:2]), int(rt[2:]))
 
