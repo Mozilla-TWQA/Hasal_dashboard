@@ -159,8 +159,12 @@ var facebook_ail_click_open_chat_tab_emoji_windows8 = {
 			[Date.UTC(2017, 8, 2), 66.670000],
 			[Date.UTC(2017, 8, 2), 66.670000],
 			[Date.UTC(2017, 8, 2), 77.780000],
+			[Date.UTC(2017, 8, 3), 44.440000],
+			[Date.UTC(2017, 8, 3), 55.560000],
 			[Date.UTC(2017, 8, 3), 55.560000],
 			[Date.UTC(2017, 8, 3), 66.670000],
+			[Date.UTC(2017, 8, 3), 66.670000],
+			[Date.UTC(2017, 8, 3), 77.780000],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -267,6 +271,7 @@ var facebook_ail_click_open_chat_tab_emoji_windows8 = {
 			[Date.UTC(2017, 8, 2), 66.670000],
 			[Date.UTC(2017, 8, 2), 66.670000],
 			[Date.UTC(2017, 8, 2), 77.780000],
+			[Date.UTC(2017, 8, 3), 44.440000],
 			[Date.UTC(2017, 8, 3), 44.440000],
 			[Date.UTC(2017, 8, 3), 55.560000],
 			[Date.UTC(2017, 8, 3), 66.670000],
