@@ -3,41 +3,18 @@ import datetime
 from lib.common.nameConfig import *
 from shutil import copyfile
 from lib.common.logConfig import get_logger
-from lib.common.timeRange import in_time_range
 from lib.common.sutieConfig import *
 
 
-def get_suite_status(count, suite):
-    color = {'Error': '#ff0000', 'OK': '#33cc33', 'Pending': '#ffff00',
-             'Waiting': '#595959'}
-    check_dict = {"0330": 3, "1530": 6}
-
-    s1_hm = task_schedule[suite][0]
-    s2_hm = task_schedule[suite][1]
-
-    if check_dict.keys()[0] > s1_hm:
-        ft_hm = s2_hm
-        sd_hm = s1_hm
+def get_suite_status(count):
+    color = {'Error': '#ff0000', 'OK': '#33cc33', 'Pending': '#ffff00'}
+    standard = 6
+    if count >= standard:
+        status = 'OK'
+    elif standard > count > 0:
+        status = 'Pending'
     else:
-        ft_hm = s1_hm
-        sd_hm = s2_hm
-
-    status = ''
-    if in_time_range(check_dict.keys()[0], ft_hm, 'now'):
-        standard = 0
-        status = 'Waiting'
-    elif in_time_range(ft_hm, sd_hm, 'now'):
-        standard = 3
-    else:
-        standard = 6
-
-    if status != 'Waiting':
-        if count >= standard:
-            status = 'OK'
-        elif standard > count > 0:
-            status = 'Pending'
-        else:
-            status = 'Error'
+        status = 'Error'
     return status, color[status]
 
 
@@ -91,7 +68,7 @@ class ProgressPage(object):
                             _val = 0
 
                         # print status
-                        st, col = get_suite_status(_val, s_set[i])
+                        st, col = get_suite_status(_val)
                         outfile.write('<td style="color: {}">{} ({})</td>'.format(col, st, _val))
                 outfile.write('</tr>')
 

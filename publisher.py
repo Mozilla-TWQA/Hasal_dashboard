@@ -21,7 +21,7 @@ from lib.common.logConfig import get_logger
 from lib.common.processcallConfig import call_subprocess
 from pages.dashboard import Dashboard
 
-DEPLOY_TIME_INTERVAL = 5  # mins
+DEPLOY_TIME_INTERVAL = 30  # mins
 
 
 class Publisher(object):
