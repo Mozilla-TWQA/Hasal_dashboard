@@ -125,6 +125,7 @@ var amazon_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 8, 4), 11.110000],
 			[Date.UTC(2017, 8, 4), 22.220000],
 			[Date.UTC(2017, 8, 4), 22.220000],
+			[Date.UTC(2017, 8, 4), 5.560000],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -207,5 +208,6 @@ var amazon_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 8, 2), 5.560000],
 			[Date.UTC(2017, 8, 2), 5.560000],
 			[Date.UTC(2017, 8, 2), 5.560000],
+			[Date.UTC(2017, 8, 4), 5.560000],
 		]    }]
 }
