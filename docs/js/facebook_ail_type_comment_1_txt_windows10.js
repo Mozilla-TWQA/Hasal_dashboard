@@ -123,6 +123,7 @@ var facebook_ail_type_comment_1_txt_windows10 = {
 			[Date.UTC(2017, 8, 2), 22.220000],
 			[Date.UTC(2017, 8, 2), 22.220000],
 			[Date.UTC(2017, 8, 2), 22.220000],
+			[Date.UTC(2017, 8, 3), 5.560000],
 			[Date.UTC(2017, 8, 4), 11.110000],
 			[Date.UTC(2017, 8, 4), 33.330000],
 		]    }, {
@@ -212,6 +213,7 @@ var facebook_ail_type_comment_1_txt_windows10 = {
 			[Date.UTC(2017, 8, 3), 22.220000],
 			[Date.UTC(2017, 8, 3), 22.220000],
 			[Date.UTC(2017, 8, 3), 22.220000],
+			[Date.UTC(2017, 8, 3), 5.560000],
 			[Date.UTC(2017, 8, 3), 5.560000],
 			[Date.UTC(2017, 8, 3), 5.560000],
 			[Date.UTC(2017, 8, 3), 5.560000],
