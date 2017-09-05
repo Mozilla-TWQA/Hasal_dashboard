@@ -43,12 +43,6 @@ var facebook_ail_click_open_chat_tab_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 7, 22), 122.220000],
-			[Date.UTC(2017, 7, 22), 133.330000],
-			[Date.UTC(2017, 7, 22), 33.330000],
-			[Date.UTC(2017, 7, 22), 44.440000],
-			[Date.UTC(2017, 7, 22), 44.440000],
-			[Date.UTC(2017, 7, 22), 55.560000],
 			[Date.UTC(2017, 7, 23), 155.560000],
 			[Date.UTC(2017, 7, 23), 44.440000],
 			[Date.UTC(2017, 7, 23), 44.440000],
