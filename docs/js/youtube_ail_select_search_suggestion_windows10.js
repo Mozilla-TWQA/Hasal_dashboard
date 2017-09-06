@@ -134,6 +134,7 @@ var youtube_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 8, 5), 22.220000],
 			[Date.UTC(2017, 8, 5), 5.560000],
 			[Date.UTC(2017, 8, 5), 5.560000],
+			[Date.UTC(2017, 8, 6), 11.110000],
 			[Date.UTC(2017, 8, 6), 44.440000],
 			[Date.UTC(2017, 8, 6), 5.560000],
 		]    }, {
@@ -226,6 +227,7 @@ var youtube_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 8, 5), 5.560000],
 			[Date.UTC(2017, 8, 5), 5.560000],
 			[Date.UTC(2017, 8, 5), 5.560000],
+			[Date.UTC(2017, 8, 6), 5.560000],
 			[Date.UTC(2017, 8, 6), 5.560000],
 		]    }]
 }
