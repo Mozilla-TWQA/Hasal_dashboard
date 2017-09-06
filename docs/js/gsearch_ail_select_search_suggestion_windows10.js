@@ -128,6 +128,7 @@ var gsearch_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 8, 5), 33.330000],
 			[Date.UTC(2017, 8, 5), 33.330000],
 			[Date.UTC(2017, 8, 5), 5.560000],
+			[Date.UTC(2017, 8, 6), 11.110000],
 			[Date.UTC(2017, 8, 6), 33.330000],
 			[Date.UTC(2017, 8, 6), 55.560000],
 		]    }, {
@@ -223,6 +224,7 @@ var gsearch_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 8, 5), 5.560000],
 			[Date.UTC(2017, 8, 5), 5.560000],
 			[Date.UTC(2017, 8, 5), 5.560000],
+			[Date.UTC(2017, 8, 6), 5.560000],
 			[Date.UTC(2017, 8, 6), 5.560000],
 		]    }]
 }
