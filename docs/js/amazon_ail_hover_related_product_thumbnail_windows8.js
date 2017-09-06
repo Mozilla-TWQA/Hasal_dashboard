@@ -140,7 +140,13 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 8, 5), 444.440000],
 			[Date.UTC(2017, 8, 5), 477.780000],
 			[Date.UTC(2017, 8, 5), 500.000000],
+			[Date.UTC(2017, 8, 6), 411.110000],
 			[Date.UTC(2017, 8, 6), 422.220000],
+			[Date.UTC(2017, 8, 6), 422.220000],
+			[Date.UTC(2017, 8, 6), 433.330000],
+			[Date.UTC(2017, 8, 6), 433.330000],
+			[Date.UTC(2017, 8, 6), 433.330000],
+			[Date.UTC(2017, 8, 6), 466.670000],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -237,5 +243,7 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 8, 5), 511.110000],
 			[Date.UTC(2017, 8, 5), 544.440000],
 			[Date.UTC(2017, 8, 5), 544.440000],
+			[Date.UTC(2017, 8, 6), 433.330000],
+			[Date.UTC(2017, 8, 6), 444.440000],
 		]    }]
 }
