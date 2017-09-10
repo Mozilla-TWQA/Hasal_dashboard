@@ -134,6 +134,9 @@ var facebook_ail_type_comment_1_txt_windows8 = {
 			[Date.UTC(2017, 8, 9), 33.330000],
 			[Date.UTC(2017, 8, 9), 44.440000],
 			[Date.UTC(2017, 8, 9), 44.440000],
+			[Date.UTC(2017, 8, 10), 100.000000],
+			[Date.UTC(2017, 8, 10), 33.330000],
+			[Date.UTC(2017, 8, 10), 33.330000],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -233,6 +236,8 @@ var facebook_ail_type_comment_1_txt_windows8 = {
 			[Date.UTC(2017, 8, 9), 77.780000],
 			[Date.UTC(2017, 8, 10), 22.220000],
 			[Date.UTC(2017, 8, 10), 22.220000],
+			[Date.UTC(2017, 8, 10), 22.220000],
+			[Date.UTC(2017, 8, 10), 33.330000],
 			[Date.UTC(2017, 8, 10), 33.330000],
 			[Date.UTC(2017, 8, 10), 44.440000],
 		]    }]
