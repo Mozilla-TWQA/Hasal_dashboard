@@ -148,6 +148,7 @@ var youtube_ail_type_in_search_field_windows8 = {
 			[Date.UTC(2017, 8, 9), 22.220000],
 			[Date.UTC(2017, 8, 9), 33.330000],
 			[Date.UTC(2017, 8, 9), 33.330000],
+			[Date.UTC(2017, 8, 10), 33.330000],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -254,5 +255,6 @@ var youtube_ail_type_in_search_field_windows8 = {
 			[Date.UTC(2017, 8, 9), 11.110000],
 			[Date.UTC(2017, 8, 9), 11.110000],
 			[Date.UTC(2017, 8, 9), 22.220000],
+			[Date.UTC(2017, 8, 10), 11.110000],
 		]    }]
 }
