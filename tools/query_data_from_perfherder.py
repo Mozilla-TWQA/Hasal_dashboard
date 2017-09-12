@@ -59,6 +59,10 @@ class QueryData(object):
         if json_obj:
             for revision in json_obj.keys():
                 if 'test' not in json_obj[revision] and 'parent_signature' not in json_obj[revision] and 'has_subtests' in json_obj[revision]:
+                    if 'extra_options' not in json_obj[revision] \
+                            or 'suite' not in json_obj[revision] \
+                            or 'machine_platform' not in json_obj[revision]:
+                        continue
                     suite_name = json_obj[revision]['suite'].strip()
                     browser_type = json_obj[revision]['extra_options'][0].strip()
                     machine_platform = json_obj[revision]['machine_platform'].strip()
