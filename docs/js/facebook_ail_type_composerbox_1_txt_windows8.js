@@ -220,5 +220,6 @@ var facebook_ail_type_composerbox_1_txt_windows8 = {
 			[Date.UTC(2017, 8, 12), 33.330000],
 			[Date.UTC(2017, 8, 12), 33.330000],
 			[Date.UTC(2017, 8, 12), 44.440000],
+			[Date.UTC(2017, 8, 13), 33.330000],
 		]    }]
 }
