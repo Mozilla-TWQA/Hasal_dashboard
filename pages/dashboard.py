@@ -86,20 +86,13 @@ class Dashboard(object):
                 _s = '{} {}'.format(row['suite_name'], row['_'])
                 _m = row['machine_platform']
                 _b = row['browser_type']
+                _d = row['date']
                 _t = '{} {}'.format(row['date'], row['time'])
 
                 if _s not in task_dict.keys():
                     continue
                 elif _m not in MACHINE_SET or _b not in BROWSER_SET:
                     continue
-
-                # Transfer date and time queried from PF (UTC)
-                # to local time.
-                utc = datetime.datetime.strptime(_t, "%Y-%m-%d %H-%M-%S-000000")
-                utc = utc.replace(tzinfo=from_zone)
-                central = utc.astimezone(to_zone)
-                _t = central.strftime("%Y-%m-%d %H-%M-%S-000000")
-                _d = central.strftime("%Y-%m-%d")
 
                 _v = row['value']
 
