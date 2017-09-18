@@ -80,6 +80,9 @@ class Dashboard(object):
 
     def analyze_csv(self):
         """ read csv and parse data """
+
+        _ref_datetime = datetime.datetime.strptime(self.ref_date, '%Y-%m-%d')
+
         with open(HASAL_CSV) as f:
             r = csv.DictReader(f)
             for row in r:
@@ -88,6 +91,11 @@ class Dashboard(object):
                 _b = row['browser_type']
                 _d = row['date']
                 _t = '{} {}'.format(row['date'], row['time'])
+
+                # find the latest date in query result (default ref_date is previous day)
+                _input_datetime = datetime.datetime.strptime(_d, '%Y-%m-%d')
+                if _input_datetime > _ref_datetime:
+                    self.ref_date = _d
 
                 if _s not in task_dict.keys():
                     continue
