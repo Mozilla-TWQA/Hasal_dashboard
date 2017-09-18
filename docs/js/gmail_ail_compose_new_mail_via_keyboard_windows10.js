@@ -114,6 +114,7 @@ var gmail_ail_compose_new_mail_via_keyboard_windows10 = {
 			[Date.UTC(2017, 8, 15), 200.000000],
 			[Date.UTC(2017, 8, 15), 200.000000],
 			[Date.UTC(2017, 8, 15), 233.330000],
+			[Date.UTC(2017, 8, 18), 166.670000],
 			[Date.UTC(2017, 8, 18), 188.890000],
 			[Date.UTC(2017, 8, 18), 200.000000],
 			[Date.UTC(2017, 8, 18), 200.000000],

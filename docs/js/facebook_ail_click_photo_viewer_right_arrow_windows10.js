@@ -146,6 +146,7 @@ var facebook_ail_click_photo_viewer_right_arrow_windows10 = {
 			[Date.UTC(2017, 8, 18), 166.670000],
 			[Date.UTC(2017, 8, 18), 55.560000],
 			[Date.UTC(2017, 8, 18), 66.670000],
+			[Date.UTC(2017, 8, 18), 66.670000],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -225,6 +226,7 @@ var facebook_ail_click_photo_viewer_right_arrow_windows10 = {
 			[Date.UTC(2017, 8, 14), 44.440000],
 			[Date.UTC(2017, 8, 14), 55.560000],
 			[Date.UTC(2017, 8, 15), 33.330000],
+			[Date.UTC(2017, 8, 18), 22.220000],
 			[Date.UTC(2017, 8, 18), 33.330000],
 			[Date.UTC(2017, 8, 18), 33.330000],
 		]    }]
