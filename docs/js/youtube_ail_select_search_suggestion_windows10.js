@@ -140,6 +140,8 @@ var youtube_ail_select_search_suggestion_windows10 = {
 			[Date.UTC(2017, 8, 17), 11.110000],
 			[Date.UTC(2017, 8, 17), 33.330000],
 			[Date.UTC(2017, 8, 17), 33.330000],
+			[Date.UTC(2017, 8, 17), 44.440000],
+			[Date.UTC(2017, 8, 18), 11.110000],
 			[Date.UTC(2017, 8, 18), 11.110000],
 			[Date.UTC(2017, 8, 18), 11.110000],
 			[Date.UTC(2017, 8, 18), 11.110000],
