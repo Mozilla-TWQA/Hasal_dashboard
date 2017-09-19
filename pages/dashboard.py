@@ -3,13 +3,13 @@ import csv
 import datetime
 from lib.common.logConfig import get_logger
 from lib.common.nameConfig import *
-from lib.common.processcallConfig import call_subprocess
 from lib.common.sutieConfig import *
 from dateutil import tz
 from pages.progressPage import ProgressPage
 from pages.graphPage import GraphPage
 from pages.indexPage import IndexPage
 from pages.pendingList import PendingList
+from tools.query_data_from_perfherder import QueryData
 
 from_zone = tz.tzutc()
 to_zone = tz.tzlocal()
@@ -116,19 +116,21 @@ class Dashboard(object):
                 self.value_ds[_s][_m][_b][_t].append(_v)
 
     def query_data(self, interval):
-        """ query data and gen a csv file """
-        tmp_file = 'tmp.txt'
+        """
+        query data and gen a csv file
+        """
+        DEFAULT_QUERY_OPTION = 'all'
 
         self.logger.info("Start query data from pf, might takes a while ...")
-        cmd = 'python tools/query_data_from_perfherder.py --interval={} > {}'.format(interval, tmp_file)
-        call_subprocess(cmd)
-
-        with open(tmp_file) as fin, open(HASAL_CSV, 'w') as fout:
-            o = csv.writer(fout)
-            o.writerow(['suite_name', '_', 'browser_type', 'machine_platform', 'date', 'time', 'value'])
-            for line in fin:
-                o.writerow(line.split())
-        os.remove(tmp_file)
+        query_data_obj = QueryData()
+        query_data_obj.query_data(query_interval=interval,
+                                  query_keyword=DEFAULT_QUERY_OPTION,
+                                  query_btype=DEFAULT_QUERY_OPTION,
+                                  query_platform=DEFAULT_QUERY_OPTION,
+                                  query_suite_name=DEFAULT_QUERY_OPTION,
+                                  query_begin_date=DEFAULT_QUERY_OPTION,
+                                  query_end_date=DEFAULT_QUERY_OPTION,
+                                  csv_filename=HASAL_CSV)
         self.logger.info("Done query data!")
 
     def run(self, query_data):
