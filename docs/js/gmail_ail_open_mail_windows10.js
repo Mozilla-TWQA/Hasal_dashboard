@@ -127,6 +127,7 @@ var gmail_ail_open_mail_windows10 = {
 			[Date.UTC(2017, 8, 16), 200.0],
 			[Date.UTC(2017, 8, 16), 200.0],
 			[Date.UTC(2017, 8, 16), 200.0],
+			[Date.UTC(2017, 8, 16), 200.0],
 			[Date.UTC(2017, 8, 16), 211.11],
 			[Date.UTC(2017, 8, 16), 211.11],
 			[Date.UTC(2017, 8, 16), 211.11],
@@ -135,6 +136,7 @@ var gmail_ail_open_mail_windows10 = {
 			[Date.UTC(2017, 8, 16), 255.56],
 			[Date.UTC(2017, 8, 16), 255.56],
 			[Date.UTC(2017, 8, 16), 255.56],
+			[Date.UTC(2017, 8, 16), 266.67],
 			[Date.UTC(2017, 8, 16), 266.67],
 			[Date.UTC(2017, 8, 16), 277.78],
 			[Date.UTC(2017, 8, 16), 288.89],
@@ -174,6 +176,7 @@ var gmail_ail_open_mail_windows10 = {
 			[Date.UTC(2017, 8, 17), 355.56],
 			[Date.UTC(2017, 8, 18), 188.89],
 			[Date.UTC(2017, 8, 18), 233.33],
+			[Date.UTC(2017, 8, 19), 277.78],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -323,5 +326,6 @@ var gmail_ail_open_mail_windows10 = {
 			[Date.UTC(2017, 8, 17), 300.0],
 			[Date.UTC(2017, 8, 19), 133.33],
 			[Date.UTC(2017, 8, 19), 211.11],
+			[Date.UTC(2017, 8, 19), 233.33],
 		]    }]
 }
