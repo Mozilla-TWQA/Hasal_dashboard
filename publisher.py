@@ -14,11 +14,10 @@ Options:
 
 import datetime
 import time
-
+import subprocess
 from docopt import docopt
 
 from lib.common.logConfig import get_logger
-from lib.common.processcallConfig import call_subprocess
 from pages.dashboard import Dashboard
 
 DEPLOY_TIME_INTERVAL = 30  # mins
@@ -43,19 +42,19 @@ class Publisher(object):
         """ commit and push to github """
         print "Start commit and push to github ..."
         cmd = 'git add ./docs/*'
-        call_subprocess(cmd)
+        subprocess.check_call(cmd, shell=True)
 
         cmd = 'git commit -m \'auto deploy on {}\''.format(datetime.datetime.now().strftime('%H:%M:%S'))
-        call_subprocess(cmd)
+        subprocess.check_call(cmd, shell=True)
 
         _u = self.__github_username
         _k = self.__github_token
         cmd = 'git push https://{}:{}@github.com/MarkYan/Hasal_dashboard.git master'.format(_u, _k)
-        call_subprocess(cmd)
+        subprocess.check_call(cmd, shell=True)
         print "Git push to MK success"
 
         cmd = 'git push https://{}:{}@github.com/Mozilla-TWQA/Hasal_dashboard.git master'.format(_u, _k)
-        call_subprocess(cmd)
+        subprocess.check_call(cmd, shell=True)
         print "Git push to TWQA success"
 
     def __wait_for_next_query(self, rest_minutes):
