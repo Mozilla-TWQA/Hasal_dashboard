@@ -78,10 +78,29 @@ class Dashboard(object):
                     self.value_ds[s][m][b] = {}
                     self.count_ds[s][m][b] = {}
 
+    def find_ref_date_from_csv(self):
+        """
+        Default ref_date is previous day, if there is any today result in CSV, then change ref_date to today.
+        @return:
+        """
+        _ref_datetime = datetime.datetime.strptime(self.ref_date, '%Y-%m-%d')
+
+        with open(HASAL_CSV) as f:
+            r = csv.DictReader(f)
+            for row in r:
+                _d = row['date']
+
+                # find the latest date in query result (default ref_date is previous day)
+                _input_datetime = datetime.datetime.strptime(_d, '%Y-%m-%d')
+                if _input_datetime > _ref_datetime:
+                    self.ref_date = _d
+        print('Current Date after analyze CSV: {}'.format(self.ref_date))
+        return self.ref_date
+
     def analyze_csv(self):
         """ read csv and parse data """
 
-        _ref_datetime = datetime.datetime.strptime(self.ref_date, '%Y-%m-%d')
+        self.find_ref_date_from_csv()
 
         with open(HASAL_CSV) as f:
             r = csv.DictReader(f)
@@ -91,11 +110,6 @@ class Dashboard(object):
                 _b = row['browser_type']
                 _d = row['date']
                 _t = '{} {}'.format(row['date'], row['time'])
-
-                # find the latest date in query result (default ref_date is previous day)
-                _input_datetime = datetime.datetime.strptime(_d, '%Y-%m-%d')
-                if _input_datetime > _ref_datetime:
-                    self.ref_date = _d
 
                 if _s not in task_dict.keys():
                     continue
