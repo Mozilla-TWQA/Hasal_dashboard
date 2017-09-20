@@ -4,6 +4,7 @@ from lib.common.nameConfig import *
 from lib.common.sutieConfig import *
 from shutil import copyfile
 from lib.common.logConfig import get_logger
+from yattag import Doc
 
 
 def create_highchart_theme():
@@ -14,27 +15,9 @@ def create_set_css():
     copyfile(os.path.join(TEMPLATE_DIR, CSS_DIR, SET_TEMP_CSS), os.path.join(BUILD_DIR, CSS_DIR, SET_TEMP_CSS))
 
 
-def get_td_color(f_num, total):
-    color = {'red': '#bd1550', 'green': '#75D701', 'yellow': '#E8A317'}
-    if f_num <= 0:
-        status = 'Error'
-        ret = color['red']
-    elif f_num < total:
-        status = 'Pending'
-        ret = color['yellow']
-    else:
-        status = 'OK'
-        ret = color['green']
-    return status, ret
-
-
-def print_footer_td_output(_print, f_num, total, outfile):
-    status, color = get_td_color(f_num, total)
-    line = '<td style="color: {}">{}</td>'.format(color, status)
-    outfile.write(line)
-
-
 class GraphPage(object):
+    DEFAULT_COUNT = 6
+
     def __init__(self, dashboard, enable_advance):
         self.dashboard = dashboard
         self.set_page_dict = dict()
@@ -76,24 +59,104 @@ class GraphPage(object):
                     else:
                         outfile_js.write(row_js)
 
-    def render_footer_table(self, machine, outfile):
-        _m = machine
-        _rt = self.dashboard.ref_date
-        shorten_browser = {'firefox': 'F', 'chrome': 'C'}
-        for _sk in sorted(suite_contain.keys()):
-            total_case = len(suite_contain[_sk])
-            for _b in BROWSER_SET:
-                _print = ''
-                skb_count = 0
-                _print += shorten_browser[_b]
-                for _s in sorted(suite_contain[_sk]):
-                    if _rt in self.dashboard.count_ds[_s][_m][_b].keys():
-                        _print += str(self.dashboard.count_ds[_s][_m][_b][_rt])
-                        if self.dashboard.count_ds[_s][_m][_b][_rt] >= 6:
-                            skb_count += 1
-                    else:
-                        _print += '-'
-                print_footer_td_output(_print, skb_count, total_case, outfile)
+    def get_min_count_of_suite(self, suite_name, platform, browser, ref_date):
+        ret_value = self.DEFAULT_COUNT
+        for case_name in suite_contain[suite_name]:
+            current_value = self.dashboard.count_ds.get(case_name, {}).get(platform, {}).get(browser, {}).get(ref_date, 0)
+            ret_value = min(ret_value, current_value)
+        return ret_value
+
+    def render_daily_progress_by_suites(self, outfile):
+        _obj_key = 'key'
+        _obj_name = 'name'
+
+        _status_ok = 'ok'
+        _status_pending = 'pending'
+        _status_error = 'error'
+        _status_obj_text = 'text'
+        _status_obj_color = 'color'
+
+        status = {
+            'ok': {
+                'text': 'OK',
+                'color': '#75D701'
+            },
+            'pending': {
+                'text': 'Pending',
+                'color': '#E8A317'
+            },
+            'error': {
+                'text': 'Error',
+                'color': '#BD1550'
+            }
+        }
+
+        platforms = [{'key': 'windows8-64',
+                      'name': 'Win7'},
+                     {'key': 'windows10-64',
+                      'name': 'Win10'}]
+        browsers = [{'key': 'firefox',
+                     'name': 'Firefox'},
+                    {'key': 'chrome',
+                     'name': 'Chrome'}]
+        suites = [{'key': 'amazon',
+                   'name': 'Amazon'},
+                  {'key': 'facebook',
+                   'name': 'Facebook'},
+                  {'key': 'gdoc',
+                   'name': 'GDoc'},
+                  {'key': 'gmail',
+                   'name': 'GMail'},
+                  {'key': 'gsearch',
+                   'name': 'GSearch'},
+                  {'key': 'youtube',
+                   'name': 'Youtube'}]
+
+        _ref_date = self.dashboard.ref_date
+
+        doc, tag, text = Doc().tagtext()
+
+        with tag('table', klass='chart'):
+            # generate 1st line
+            with tag('tr'):
+                with tag('th', ROWSPAN=2):
+                    text('-')
+                for suite_obj in sorted(suites):
+                    suite_name = suite_obj.get(_obj_name)
+                    with tag('th', COLSPAN=2):
+                        text(suite_name)
+            # generate 2nd line
+            with tag('tr'):
+                for _ in suites:
+                    # generate browser columns for each suite
+                    for browser_obj in browsers:
+                        browser_name = browser_obj.get(_obj_name)
+                        with tag('td'):
+                            text(browser_name)
+
+            # generate for each platform
+                for platform_obj in platforms:
+                    platform_key = platform_obj.get(_obj_key)
+                    platform_name = platform_obj.get(_obj_name)
+                    with tag('tr'):
+                        with tag('td'):
+                            text(platform_name)
+                        for suite_obj in sorted(suites):
+                            suite_key = suite_obj.get(_obj_key)
+                            for browser_obj in browsers:
+                                browser_key = browser_obj.get(_obj_key)
+                                min_count = self.get_min_count_of_suite(suite_key, platform_key, browser_key, _ref_date)
+                                if min_count >= self.DEFAULT_COUNT:
+                                    status_obj = status.get(_status_ok)
+                                elif min_count <= 0:
+                                    status_obj = status.get(_status_error)
+                                else:
+                                    status_obj = status.get(_status_pending)
+                                status_text = status_obj.get(_status_obj_text)
+                                status_color = status_obj.get(_status_obj_color)
+                                with tag('td', style='color: {}'.format(status_color)):
+                                    text(status_text)
+        outfile.write(doc.getvalue())
 
     def create_set_html(self, machine, set_name):
         set_html_file = '{}_{}_set.html'.format(set_name, machine)
@@ -131,11 +194,8 @@ class GraphPage(object):
                     ref_date = self.dashboard.ref_date
                     outfile.write(row.replace('{{LATEST_DATA_TIME}}', '{}').format(ref_date))
 
-                elif '<!--WIN8 TD GO HERE-->' in row:
-                    self.render_footer_table('windows8-64', outfile)
-
-                elif '<!--WIN10 TD GO HERE-->' in row:
-                    self.render_footer_table('windows10-64', outfile)
+                elif '<!-- HASAL DAILY PROGRESS BY SUITES -->' in row:
+                    self.render_daily_progress_by_suites(outfile)
 
                 else:
                     outfile.write(row)
