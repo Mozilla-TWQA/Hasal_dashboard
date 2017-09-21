@@ -272,6 +272,7 @@ var gmail_ail_reply_mail_windows8 = {
 			[Date.UTC(2017, 8, 20), 255.56],
 			[Date.UTC(2017, 8, 20), 266.67],
 			[Date.UTC(2017, 8, 20), 266.67],
+			[Date.UTC(2017, 8, 20), 266.67],
 			[Date.UTC(2017, 8, 20), 277.78],
 			[Date.UTC(2017, 8, 20), 311.11],
 		]    }, {
@@ -460,6 +461,7 @@ var gmail_ail_reply_mail_windows8 = {
 			[Date.UTC(2017, 8, 20), 177.78],
 			[Date.UTC(2017, 8, 20), 177.78],
 			[Date.UTC(2017, 8, 20), 177.78],
+			[Date.UTC(2017, 8, 20), 188.89],
 			[Date.UTC(2017, 8, 20), 188.89],
 			[Date.UTC(2017, 8, 20), 200.0],
 		]    }]
