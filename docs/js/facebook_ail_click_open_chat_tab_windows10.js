@@ -574,5 +574,6 @@ var facebook_ail_click_open_chat_tab_windows10 = {
 			[Date.UTC(2017, 8, 21), 77.78],
 			[Date.UTC(2017, 8, 21), 77.78],
 			[Date.UTC(2017, 8, 22), 33.33],
+			[Date.UTC(2017, 8, 22), 33.33],
 		]    }]
 }
