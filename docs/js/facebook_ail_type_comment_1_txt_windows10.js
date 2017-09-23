@@ -43,12 +43,6 @@ var facebook_ail_type_comment_1_txt_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 9), 11.11],
-			[Date.UTC(2017, 8, 9), 11.11],
-			[Date.UTC(2017, 8, 9), 11.11],
-			[Date.UTC(2017, 8, 9), 22.22],
-			[Date.UTC(2017, 8, 9), 22.22],
-			[Date.UTC(2017, 8, 9), 22.22],
 			[Date.UTC(2017, 8, 10), 11.11],
 			[Date.UTC(2017, 8, 10), 11.11],
 			[Date.UTC(2017, 8, 10), 22.22],

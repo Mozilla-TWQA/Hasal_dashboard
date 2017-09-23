@@ -43,12 +43,6 @@ var youtube_ail_select_search_suggestion_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 9), 33.33],
-			[Date.UTC(2017, 8, 9), 33.33],
-			[Date.UTC(2017, 8, 9), 5.56],
-			[Date.UTC(2017, 8, 9), 5.56],
-			[Date.UTC(2017, 8, 9), 5.56],
-			[Date.UTC(2017, 8, 9), 5.56],
 			[Date.UTC(2017, 8, 10), 11.11],
 			[Date.UTC(2017, 8, 10), 11.11],
 			[Date.UTC(2017, 8, 10), 11.11],

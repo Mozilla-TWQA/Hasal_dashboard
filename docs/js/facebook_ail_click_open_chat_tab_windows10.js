@@ -43,13 +43,6 @@ var facebook_ail_click_open_chat_tab_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 9), 55.56],
-			[Date.UTC(2017, 8, 9), 66.67],
-			[Date.UTC(2017, 8, 9), 66.67],
-			[Date.UTC(2017, 8, 9), 66.67],
-			[Date.UTC(2017, 8, 9), 66.67],
-			[Date.UTC(2017, 8, 9), 66.67],
-			[Date.UTC(2017, 8, 9), 66.67],
 			[Date.UTC(2017, 8, 10), 55.56],
 			[Date.UTC(2017, 8, 10), 66.67],
 			[Date.UTC(2017, 8, 10), 66.67],
@@ -385,12 +378,6 @@ var facebook_ail_click_open_chat_tab_windows10 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 8, 9), 33.33],
-			[Date.UTC(2017, 8, 9), 33.33],
-			[Date.UTC(2017, 8, 9), 33.33],
-			[Date.UTC(2017, 8, 9), 44.44],
-			[Date.UTC(2017, 8, 9), 44.44],
-			[Date.UTC(2017, 8, 9), 66.67],
 			[Date.UTC(2017, 8, 10), 33.33],
 			[Date.UTC(2017, 8, 10), 33.33],
 			[Date.UTC(2017, 8, 10), 33.33],
@@ -597,5 +584,6 @@ var facebook_ail_click_open_chat_tab_windows10 = {
 			[Date.UTC(2017, 8, 22), 11.11],
 			[Date.UTC(2017, 8, 22), 33.33],
 			[Date.UTC(2017, 8, 22), 66.67],
+			[Date.UTC(2017, 8, 22), 88.89],
 		]    }]
 }
