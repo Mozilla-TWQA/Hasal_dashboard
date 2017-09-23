@@ -43,12 +43,6 @@ var facebook_ail_type_composerbox_1_txt_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 9), 22.22],
-			[Date.UTC(2017, 8, 9), 22.22],
-			[Date.UTC(2017, 8, 9), 33.33],
-			[Date.UTC(2017, 8, 9), 33.33],
-			[Date.UTC(2017, 8, 9), 33.33],
-			[Date.UTC(2017, 8, 9), 55.56],
 			[Date.UTC(2017, 8, 10), 11.11],
 			[Date.UTC(2017, 8, 10), 11.11],
 			[Date.UTC(2017, 8, 10), 11.11],
