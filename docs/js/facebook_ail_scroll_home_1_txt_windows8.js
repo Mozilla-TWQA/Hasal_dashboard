@@ -355,6 +355,7 @@ var facebook_ail_scroll_home_1_txt_windows8 = {
 			[Date.UTC(2017, 8, 23), 44.44],
 			[Date.UTC(2017, 8, 23), 44.44],
 			[Date.UTC(2017, 8, 23), 44.44],
+			[Date.UTC(2017, 8, 23), 44.44],
 			[Date.UTC(2017, 8, 23), 55.56],
 			[Date.UTC(2017, 8, 23), 55.56],
 		]    }, {
