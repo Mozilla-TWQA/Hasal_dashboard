@@ -381,6 +381,7 @@ var amazon_ail_type_in_search_field_windows8 = {
 			[Date.UTC(2017, 8, 23), 33.33],
 			[Date.UTC(2017, 8, 24), 22.22],
 			[Date.UTC(2017, 8, 24), 22.22],
+			[Date.UTC(2017, 8, 24), 22.22],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -621,5 +622,6 @@ var amazon_ail_type_in_search_field_windows8 = {
 			[Date.UTC(2017, 8, 23), 22.22],
 			[Date.UTC(2017, 8, 24), 22.22],
 			[Date.UTC(2017, 8, 24), 22.22],
+			[Date.UTC(2017, 8, 24), 33.33],
 		]    }]
 }
