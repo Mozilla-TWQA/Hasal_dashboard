@@ -392,6 +392,7 @@ var youtube_ail_type_in_search_field_windows8 = {
 			[Date.UTC(2017, 8, 25), 22.22],
 			[Date.UTC(2017, 8, 25), 22.22],
 			[Date.UTC(2017, 8, 25), 33.33],
+			[Date.UTC(2017, 8, 25), 33.33],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -638,6 +639,8 @@ var youtube_ail_type_in_search_field_windows8 = {
 			[Date.UTC(2017, 8, 24), 22.22],
 			[Date.UTC(2017, 8, 24), 22.22],
 			[Date.UTC(2017, 8, 25), 11.11],
+			[Date.UTC(2017, 8, 25), 11.11],
+			[Date.UTC(2017, 8, 25), 22.22],
 			[Date.UTC(2017, 8, 25), 22.22],
 			[Date.UTC(2017, 8, 25), 22.22],
 			[Date.UTC(2017, 8, 25), 22.22],
