@@ -685,5 +685,6 @@ var gmail_ail_reply_mail_windows8 = {
 			[Date.UTC(2017, 8, 25), 144.44],
 			[Date.UTC(2017, 8, 25), 177.78],
 			[Date.UTC(2017, 8, 25), 188.89],
+			[Date.UTC(2017, 8, 26), 133.33],
 		]    }]
 }
