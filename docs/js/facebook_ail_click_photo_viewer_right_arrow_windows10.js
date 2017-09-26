@@ -427,5 +427,6 @@ var facebook_ail_click_photo_viewer_right_arrow_windows10 = {
 			[Date.UTC(2017, 8, 25), 33.33],
 			[Date.UTC(2017, 8, 25), 33.33],
 			[Date.UTC(2017, 8, 25), 33.33],
+			[Date.UTC(2017, 8, 25), 33.33],
 		]    }]
 }
