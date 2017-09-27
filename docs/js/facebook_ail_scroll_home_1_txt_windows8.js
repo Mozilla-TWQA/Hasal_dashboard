@@ -43,12 +43,6 @@ var facebook_ail_scroll_home_1_txt_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 13), 33.33],
-			[Date.UTC(2017, 8, 13), 44.44],
-			[Date.UTC(2017, 8, 13), 44.44],
-			[Date.UTC(2017, 8, 13), 44.44],
-			[Date.UTC(2017, 8, 13), 44.44],
-			[Date.UTC(2017, 8, 13), 55.56],
 			[Date.UTC(2017, 8, 14), 22.22],
 			[Date.UTC(2017, 8, 14), 44.44],
 			[Date.UTC(2017, 8, 14), 44.44],
@@ -389,13 +383,6 @@ var facebook_ail_scroll_home_1_txt_windows8 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 8, 13), 11.11],
-			[Date.UTC(2017, 8, 13), 11.11],
-			[Date.UTC(2017, 8, 13), 11.11],
-			[Date.UTC(2017, 8, 13), 11.11],
-			[Date.UTC(2017, 8, 13), 22.22],
-			[Date.UTC(2017, 8, 13), 22.22],
-			[Date.UTC(2017, 8, 13), 33.33],
 			[Date.UTC(2017, 8, 13), 22.22],
 			[Date.UTC(2017, 8, 14), 11.11],
 			[Date.UTC(2017, 8, 14), 22.22],
