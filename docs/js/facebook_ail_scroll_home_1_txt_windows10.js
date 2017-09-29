@@ -43,12 +43,6 @@ var facebook_ail_scroll_home_1_txt_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 15), 33.33],
-			[Date.UTC(2017, 8, 15), 33.33],
-			[Date.UTC(2017, 8, 15), 44.44],
-			[Date.UTC(2017, 8, 15), 55.56],
-			[Date.UTC(2017, 8, 15), 55.56],
-			[Date.UTC(2017, 8, 15), 55.56],
 			[Date.UTC(2017, 8, 16), 33.33],
 			[Date.UTC(2017, 8, 16), 33.33],
 			[Date.UTC(2017, 8, 16), 33.33],

@@ -43,9 +43,6 @@ var gmail_ail_reply_mail_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 15), 244.44],
-			[Date.UTC(2017, 8, 15), 255.56],
-			[Date.UTC(2017, 8, 15), 311.11],
 			[Date.UTC(2017, 8, 16), 200.0],
 			[Date.UTC(2017, 8, 16), 200.0],
 			[Date.UTC(2017, 8, 16), 200.0],
