@@ -590,5 +590,6 @@ var gsearch_ail_type_searchbox_windows8 = {
 			[Date.UTC(2017, 8, 28), 33.33],
 			[Date.UTC(2017, 8, 28), 33.33],
 			[Date.UTC(2017, 8, 28), 5.56],
+			[Date.UTC(2017, 8, 29), 22.22],
 		]    }]
 }
