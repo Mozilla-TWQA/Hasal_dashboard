@@ -43,9 +43,6 @@ var amazon_ail_type_in_search_field_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 15), 11.11],
-			[Date.UTC(2017, 8, 15), 22.22],
-			[Date.UTC(2017, 8, 15), 5.56],
 			[Date.UTC(2017, 8, 16), 11.11],
 			[Date.UTC(2017, 8, 16), 11.11],
 			[Date.UTC(2017, 8, 16), 11.11],
