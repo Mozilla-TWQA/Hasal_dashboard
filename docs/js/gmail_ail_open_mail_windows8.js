@@ -320,6 +320,7 @@ var gmail_ail_open_mail_windows8 = {
 			[Date.UTC(2017, 8, 29), 222.22],
 			[Date.UTC(2017, 8, 29), 233.33],
 			[Date.UTC(2017, 8, 30), 200.0],
+			[Date.UTC(2017, 8, 30), 222.22],
 			[Date.UTC(2017, 8, 30), 266.67],
 		]    }, {
 		name: 'chrome',
