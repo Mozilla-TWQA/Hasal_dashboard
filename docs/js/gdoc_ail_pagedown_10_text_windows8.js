@@ -651,6 +651,7 @@ var gdoc_ail_pagedown_10_text_windows8 = {
 			[Date.UTC(2017, 8, 29), 77.78],
 			[Date.UTC(2017, 8, 29), 77.78],
 			[Date.UTC(2017, 8, 29), 88.89],
+			[Date.UTC(2017, 8, 30), 111.11],
 			[Date.UTC(2017, 8, 30), 33.33],
 			[Date.UTC(2017, 8, 30), 44.44],
 		]    }]
