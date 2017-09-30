@@ -343,6 +343,7 @@ var gsearch_ail_select_image_cat_windows10 = {
 			[Date.UTC(2017, 8, 29), 88.89],
 			[Date.UTC(2017, 8, 29), 88.89],
 			[Date.UTC(2017, 8, 29), 100.0],
+			[Date.UTC(2017, 8, 29), 88.89],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -549,5 +550,6 @@ var gsearch_ail_select_image_cat_windows10 = {
 			[Date.UTC(2017, 8, 29), 88.89],
 			[Date.UTC(2017, 8, 29), 88.89],
 			[Date.UTC(2017, 8, 29), 66.67],
+			[Date.UTC(2017, 8, 29), 88.89],
 		]    }]
 }
