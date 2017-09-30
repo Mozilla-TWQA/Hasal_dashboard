@@ -43,10 +43,6 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 16), 422.22],
-			[Date.UTC(2017, 8, 16), 433.33],
-			[Date.UTC(2017, 8, 16), 433.33],
-			[Date.UTC(2017, 8, 16), 455.56],
 			[Date.UTC(2017, 8, 16), 433.33],
 			[Date.UTC(2017, 8, 16), 444.44],
 			[Date.UTC(2017, 8, 17), 388.89],

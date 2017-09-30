@@ -43,10 +43,6 @@ var gsearch_ail_select_search_suggestion_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 16), 22.22],
-			[Date.UTC(2017, 8, 16), 22.22],
-			[Date.UTC(2017, 8, 16), 22.22],
-			[Date.UTC(2017, 8, 16), 44.44],
 			[Date.UTC(2017, 8, 16), 11.11],
 			[Date.UTC(2017, 8, 16), 22.22],
 			[Date.UTC(2017, 8, 17), 11.11],
