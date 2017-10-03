@@ -232,6 +232,8 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 9, 2), 433.33],
 			[Date.UTC(2017, 9, 2), 433.33],
 			[Date.UTC(2017, 9, 2), 455.56],
+			[Date.UTC(2017, 9, 2), 411.11],
+			[Date.UTC(2017, 9, 2), 444.44],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -420,5 +422,9 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 9, 2), 500.0],
 			[Date.UTC(2017, 9, 2), 511.11],
 			[Date.UTC(2017, 9, 2), 555.56],
+			[Date.UTC(2017, 9, 2), 433.33],
+			[Date.UTC(2017, 9, 2), 433.33],
+			[Date.UTC(2017, 9, 2), 488.89],
+			[Date.UTC(2017, 9, 2), 500.0],
 		]    }]
 }
