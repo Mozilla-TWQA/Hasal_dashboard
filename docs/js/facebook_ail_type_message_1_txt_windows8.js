@@ -43,8 +43,6 @@ var facebook_ail_type_message_1_txt_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 19), 55.56],
-			[Date.UTC(2017, 8, 19), 55.56],
 			[Date.UTC(2017, 8, 20), 111.11],
 			[Date.UTC(2017, 8, 20), 22.22],
 			[Date.UTC(2017, 8, 20), 33.33],
@@ -233,8 +231,6 @@ var facebook_ail_type_message_1_txt_windows8 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 8, 19), 22.22],
-			[Date.UTC(2017, 8, 19), 88.89],
 			[Date.UTC(2017, 8, 20), 11.11],
 			[Date.UTC(2017, 8, 20), 11.11],
 			[Date.UTC(2017, 8, 20), 22.22],
