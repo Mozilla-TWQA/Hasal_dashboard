@@ -158,6 +158,8 @@ var gsearch_ail_select_image_cat_windows8 = {
 			[Date.UTC(2017, 9, 2), 100.0],
 			[Date.UTC(2017, 9, 2), 66.67],
 			[Date.UTC(2017, 9, 2), 77.78],
+			[Date.UTC(2017, 9, 3), 100.0],
+			[Date.UTC(2017, 9, 3), 122.22],
 			[Date.UTC(2017, 9, 3), 77.78],
 			[Date.UTC(2017, 9, 3), 77.78],
 			[Date.UTC(2017, 9, 3), 77.78],
@@ -288,8 +290,10 @@ var gsearch_ail_select_image_cat_windows8 = {
 			[Date.UTC(2017, 9, 2), 88.89],
 			[Date.UTC(2017, 9, 3), 100.0],
 			[Date.UTC(2017, 9, 3), 111.11],
+			[Date.UTC(2017, 9, 3), 111.11],
 			[Date.UTC(2017, 9, 3), 188.89],
 			[Date.UTC(2017, 9, 3), 188.89],
 			[Date.UTC(2017, 9, 3), 188.89],
+			[Date.UTC(2017, 9, 3), 200.0],
 		]    }]
 }
