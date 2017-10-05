@@ -44,8 +44,6 @@ var facebook_ail_click_open_chat_tab_emoji_windows8 = {
 		name: 'firefox',
 		data: [
 			[Date.UTC(2017, 8, 21), 55.56],
-			[Date.UTC(2017, 8, 21), 66.67],
-			[Date.UTC(2017, 8, 21), 55.56],
 			[Date.UTC(2017, 8, 21), 55.56],
 			[Date.UTC(2017, 8, 21), 66.67],
 			[Date.UTC(2017, 8, 21), 77.78],
@@ -212,8 +210,6 @@ var facebook_ail_click_open_chat_tab_emoji_windows8 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 8, 21), 55.56],
-			[Date.UTC(2017, 8, 21), 55.56],
 			[Date.UTC(2017, 8, 21), 44.44],
 			[Date.UTC(2017, 8, 21), 44.44],
 			[Date.UTC(2017, 8, 21), 44.44],
