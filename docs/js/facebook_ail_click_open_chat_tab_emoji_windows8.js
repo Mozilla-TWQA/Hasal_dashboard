@@ -239,6 +239,8 @@ var facebook_ail_click_open_chat_tab_emoji_windows8 = {
 			[Date.UTC(2017, 9, 7), 55.56],
 			[Date.UTC(2017, 9, 7), 66.67],
 			[Date.UTC(2017, 9, 7), 66.67],
+			[Date.UTC(2017, 9, 7), 66.67],
+			[Date.UTC(2017, 9, 7), 66.67],
 			[Date.UTC(2017, 9, 7), 77.78],
 		]    }, {
 		name: 'chrome',
