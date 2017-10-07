@@ -182,6 +182,7 @@ var gdoc_ail_pagedown_10_text_windows8 = {
 			[Date.UTC(2017, 9, 5), 55.56],
 			[Date.UTC(2017, 9, 5), 55.56],
 			[Date.UTC(2017, 9, 5), 55.56],
+			[Date.UTC(2017, 9, 5), 55.56],
 			[Date.UTC(2017, 9, 5), 66.67],
 			[Date.UTC(2017, 9, 5), 66.67],
 		]    }, {
@@ -338,6 +339,7 @@ var gdoc_ail_pagedown_10_text_windows8 = {
 			[Date.UTC(2017, 9, 5), 66.67],
 			[Date.UTC(2017, 9, 5), 66.67],
 			[Date.UTC(2017, 9, 5), 66.67],
+			[Date.UTC(2017, 9, 5), 77.78],
 			[Date.UTC(2017, 9, 5), 88.89],
 		]    }]
 }
