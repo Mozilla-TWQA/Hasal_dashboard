@@ -467,5 +467,6 @@ var facebook_ail_click_close_chat_tab_windows8 = {
 			[Date.UTC(2017, 9, 8), 66.67],
 			[Date.UTC(2017, 9, 8), 66.67],
 			[Date.UTC(2017, 9, 8), 77.78],
+			[Date.UTC(2017, 9, 9), 77.78],
 		]    }]
 }
