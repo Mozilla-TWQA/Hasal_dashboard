@@ -272,6 +272,7 @@ var facebook_ail_type_message_1_txt_windows8 = {
 			[Date.UTC(2017, 9, 8), 55.56],
 			[Date.UTC(2017, 9, 8), 33.33],
 			[Date.UTC(2017, 9, 8), 33.33],
+			[Date.UTC(2017, 9, 8), 33.33],
 			[Date.UTC(2017, 9, 8), 66.67],
 		]    }, {
 		name: 'chrome',
@@ -482,6 +483,7 @@ var facebook_ail_type_message_1_txt_windows8 = {
 			[Date.UTC(2017, 9, 8), 33.33],
 			[Date.UTC(2017, 9, 8), 33.33],
 			[Date.UTC(2017, 9, 8), 11.11],
+			[Date.UTC(2017, 9, 8), 22.22],
 			[Date.UTC(2017, 9, 8), 33.33],
 			[Date.UTC(2017, 9, 8), 33.33],
 		]    }]
