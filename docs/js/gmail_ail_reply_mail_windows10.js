@@ -43,12 +43,6 @@ var gmail_ail_reply_mail_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 8, 25), 233.33],
-			[Date.UTC(2017, 8, 25), 255.56],
-			[Date.UTC(2017, 8, 25), 266.67],
-			[Date.UTC(2017, 8, 25), 266.67],
-			[Date.UTC(2017, 8, 25), 266.67],
-			[Date.UTC(2017, 8, 25), 266.67],
 			[Date.UTC(2017, 8, 25), 200.0],
 			[Date.UTC(2017, 8, 25), 211.11],
 			[Date.UTC(2017, 8, 25), 233.33],
@@ -251,13 +245,6 @@ var gmail_ail_reply_mail_windows10 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 8, 25), 111.11],
-			[Date.UTC(2017, 8, 25), 122.22],
-			[Date.UTC(2017, 8, 25), 144.44],
-			[Date.UTC(2017, 8, 25), 155.56],
-			[Date.UTC(2017, 8, 25), 155.56],
-			[Date.UTC(2017, 8, 25), 155.56],
-			[Date.UTC(2017, 8, 25), 166.67],
 			[Date.UTC(2017, 8, 25), 100.0],
 			[Date.UTC(2017, 8, 25), 111.11],
 			[Date.UTC(2017, 8, 25), 111.11],
