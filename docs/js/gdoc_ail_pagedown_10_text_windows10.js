@@ -212,6 +212,7 @@ var gdoc_ail_pagedown_10_text_windows10 = {
 			[Date.UTC(2017, 9, 10), 55.56],
 			[Date.UTC(2017, 9, 10), 66.67],
 			[Date.UTC(2017, 9, 11), 66.67],
+			[Date.UTC(2017, 9, 11), 66.67],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -378,6 +379,7 @@ var gdoc_ail_pagedown_10_text_windows10 = {
 			[Date.UTC(2017, 9, 10), 388.89],
 			[Date.UTC(2017, 9, 10), 455.56],
 			[Date.UTC(2017, 9, 10), 66.67],
+			[Date.UTC(2017, 9, 11), 11.11],
 			[Date.UTC(2017, 9, 11), 200.0],
 			[Date.UTC(2017, 9, 11), 22.22],
 			[Date.UTC(2017, 9, 11), 55.56],
