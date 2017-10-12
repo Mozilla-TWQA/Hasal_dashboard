@@ -222,6 +222,7 @@ var facebook_ail_type_comment_1_txt_windows10 = {
 			[Date.UTC(2017, 9, 11), 33.33],
 			[Date.UTC(2017, 9, 11), 33.33],
 			[Date.UTC(2017, 9, 11), 88.89],
+			[Date.UTC(2017, 9, 12), 33.33],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -507,5 +508,6 @@ var facebook_ail_type_comment_1_txt_windows10 = {
 			[Date.UTC(2017, 9, 11), 5.56],
 			[Date.UTC(2017, 9, 11), 5.56],
 			[Date.UTC(2017, 9, 11), 5.56],
+			[Date.UTC(2017, 9, 12), 5.56],
 		]    }]
 }
