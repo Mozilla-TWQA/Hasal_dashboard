@@ -203,8 +203,6 @@ var amazon_ail_type_in_search_field_windows10 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 8, 29), 5.56],
-			[Date.UTC(2017, 8, 29), 5.56],
 			[Date.UTC(2017, 8, 30), 5.56],
 			[Date.UTC(2017, 8, 30), 5.56],
 			[Date.UTC(2017, 8, 30), 5.56],
