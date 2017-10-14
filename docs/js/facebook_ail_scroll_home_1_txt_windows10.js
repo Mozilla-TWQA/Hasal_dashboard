@@ -194,6 +194,7 @@ var facebook_ail_scroll_home_1_txt_windows10 = {
 			[Date.UTC(2017, 9, 14), 33.33],
 			[Date.UTC(2017, 9, 14), 44.44],
 			[Date.UTC(2017, 9, 14), 44.44],
+			[Date.UTC(2017, 9, 14), 44.44],
 			[Date.UTC(2017, 9, 14), 55.56],
 		]    }, {
 		name: 'chrome',
@@ -479,6 +480,7 @@ var facebook_ail_scroll_home_1_txt_windows10 = {
 			[Date.UTC(2017, 9, 13), 22.22],
 			[Date.UTC(2017, 9, 13), 44.44],
 			[Date.UTC(2017, 9, 13), 5.56],
+			[Date.UTC(2017, 9, 14), 11.11],
 			[Date.UTC(2017, 9, 14), 11.11],
 			[Date.UTC(2017, 9, 14), 11.11],
 			[Date.UTC(2017, 9, 14), 33.33],
