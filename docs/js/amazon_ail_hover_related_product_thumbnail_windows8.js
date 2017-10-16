@@ -482,5 +482,6 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 9, 15), 522.22],
 			[Date.UTC(2017, 9, 15), 544.44],
 			[Date.UTC(2017, 9, 16), 422.22],
+			[Date.UTC(2017, 9, 16), 477.78],
 		]    }]
 }
