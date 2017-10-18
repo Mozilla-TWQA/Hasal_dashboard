@@ -185,6 +185,7 @@ var youtube_ail_select_search_suggestion_windows8 = {
 			[Date.UTC(2017, 9, 17), 44.44],
 			[Date.UTC(2017, 9, 18), 33.33],
 			[Date.UTC(2017, 9, 18), 33.33],
+			[Date.UTC(2017, 9, 18), 33.33],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -316,6 +317,7 @@ var youtube_ail_select_search_suggestion_windows8 = {
 			[Date.UTC(2017, 9, 17), 33.33],
 			[Date.UTC(2017, 9, 17), 33.33],
 			[Date.UTC(2017, 9, 17), 44.44],
+			[Date.UTC(2017, 9, 18), 33.33],
 			[Date.UTC(2017, 9, 18), 44.44],
 			[Date.UTC(2017, 9, 18), 44.44],
 		]    }]
