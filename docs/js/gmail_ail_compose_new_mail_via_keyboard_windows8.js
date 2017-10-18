@@ -43,14 +43,6 @@ var gmail_ail_compose_new_mail_via_keyboard_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 9, 4), 200.0],
-			[Date.UTC(2017, 9, 4), 200.0],
-			[Date.UTC(2017, 9, 4), 211.11],
-			[Date.UTC(2017, 9, 4), 222.22],
-			[Date.UTC(2017, 9, 4), 222.22],
-			[Date.UTC(2017, 9, 4), 222.22],
-			[Date.UTC(2017, 9, 4), 244.44],
-			[Date.UTC(2017, 9, 4), 255.56],
 			[Date.UTC(2017, 9, 5), 211.11],
 			[Date.UTC(2017, 9, 5), 211.11],
 			[Date.UTC(2017, 9, 5), 211.11],
@@ -207,13 +199,6 @@ var gmail_ail_compose_new_mail_via_keyboard_windows8 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 9, 4), 122.22],
-			[Date.UTC(2017, 9, 4), 133.33],
-			[Date.UTC(2017, 9, 4), 133.33],
-			[Date.UTC(2017, 9, 4), 144.44],
-			[Date.UTC(2017, 9, 4), 155.56],
-			[Date.UTC(2017, 9, 4), 155.56],
-			[Date.UTC(2017, 9, 4), 155.56],
 			[Date.UTC(2017, 9, 5), 122.22],
 			[Date.UTC(2017, 9, 5), 133.33],
 			[Date.UTC(2017, 9, 5), 133.33],
