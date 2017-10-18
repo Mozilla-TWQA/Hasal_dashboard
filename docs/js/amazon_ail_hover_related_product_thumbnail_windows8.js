@@ -340,6 +340,7 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 9, 17), 655.56],
 			[Date.UTC(2017, 9, 17), 722.22],
 			[Date.UTC(2017, 9, 18), 422.22],
+			[Date.UTC(2017, 9, 18), 455.56],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -495,5 +496,6 @@ var amazon_ail_hover_related_product_thumbnail_windows8 = {
 			[Date.UTC(2017, 9, 17), 500.0],
 			[Date.UTC(2017, 9, 17), 511.11],
 			[Date.UTC(2017, 9, 17), 533.33],
+			[Date.UTC(2017, 9, 18), 500.0],
 		]    }]
 }
