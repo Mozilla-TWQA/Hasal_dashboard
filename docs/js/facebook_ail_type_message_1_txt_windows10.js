@@ -240,6 +240,7 @@ var facebook_ail_type_message_1_txt_windows10 = {
 			[Date.UTC(2017, 9, 18), 44.44],
 			[Date.UTC(2017, 9, 18), 44.44],
 			[Date.UTC(2017, 9, 18), 44.44],
+			[Date.UTC(2017, 9, 18), 44.44],
 			[Date.UTC(2017, 9, 18), 5.56],
 			[Date.UTC(2017, 9, 18), 55.56],
 			[Date.UTC(2017, 9, 18), 55.56],
