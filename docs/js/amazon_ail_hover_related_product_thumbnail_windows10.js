@@ -208,6 +208,7 @@ var amazon_ail_hover_related_product_thumbnail_windows10 = {
 			[Date.UTC(2017, 9, 22), 422.22],
 			[Date.UTC(2017, 9, 22), 422.22],
 			[Date.UTC(2017, 9, 22), 433.33],
+			[Date.UTC(2017, 9, 23), 433.33],
 			[Date.UTC(2017, 9, 23), 455.56],
 			[Date.UTC(2017, 9, 23), 466.67],
 		]    }, {
@@ -383,6 +384,7 @@ var amazon_ail_hover_related_product_thumbnail_windows10 = {
 			[Date.UTC(2017, 9, 22), 466.67],
 			[Date.UTC(2017, 9, 22), 500.0],
 			[Date.UTC(2017, 9, 23), 455.56],
+			[Date.UTC(2017, 9, 23), 466.67],
 			[Date.UTC(2017, 9, 23), 533.33],
 		]    }]
 }
