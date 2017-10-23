@@ -138,6 +138,7 @@ var gsearch_ail_select_image_cat_windows8 = {
 			[Date.UTC(2017, 9, 22), 77.78],
 			[Date.UTC(2017, 9, 22), 88.89],
 			[Date.UTC(2017, 9, 22), 88.89],
+			[Date.UTC(2017, 9, 23), 100.0],
 			[Date.UTC(2017, 9, 23), 111.11],
 		]    }, {
 		name: 'chrome',
