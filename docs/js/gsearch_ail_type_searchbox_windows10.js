@@ -44,9 +44,6 @@ var gsearch_ail_type_searchbox_windows10 = {
 		name: 'firefox',
 		data: [
 			[Date.UTC(2017, 9, 10), 11.11],
-			[Date.UTC(2017, 9, 10), 22.22],
-			[Date.UTC(2017, 9, 10), 5.56],
-			[Date.UTC(2017, 9, 10), 11.11],
 			[Date.UTC(2017, 9, 10), 33.33],
 			[Date.UTC(2017, 9, 10), 33.33],
 			[Date.UTC(2017, 9, 11), 22.22],
@@ -136,11 +133,6 @@ var gsearch_ail_type_searchbox_windows10 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 9, 10), 11.11],
-			[Date.UTC(2017, 9, 10), 5.56],
-			[Date.UTC(2017, 9, 10), 5.56],
-			[Date.UTC(2017, 9, 10), 5.56],
-			[Date.UTC(2017, 9, 10), 5.56],
 			[Date.UTC(2017, 9, 10), 66.67],
 			[Date.UTC(2017, 9, 11), 11.11],
 			[Date.UTC(2017, 9, 11), 11.11],
