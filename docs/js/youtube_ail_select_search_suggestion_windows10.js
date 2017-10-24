@@ -138,9 +138,6 @@ var youtube_ail_select_search_suggestion_windows10 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 9, 10), 22.22],
-			[Date.UTC(2017, 9, 10), 22.22],
-			[Date.UTC(2017, 9, 10), 22.22],
 			[Date.UTC(2017, 9, 11), 11.11],
 			[Date.UTC(2017, 9, 11), 22.22],
 			[Date.UTC(2017, 9, 11), 33.33],
