@@ -43,12 +43,6 @@ var facebook_ail_click_photo_viewer_right_arrow_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 9, 12), 100.0],
-			[Date.UTC(2017, 9, 12), 100.0],
-			[Date.UTC(2017, 9, 12), 77.78],
-			[Date.UTC(2017, 9, 12), 88.89],
-			[Date.UTC(2017, 9, 12), 88.89],
-			[Date.UTC(2017, 9, 12), 88.89],
 			[Date.UTC(2017, 9, 13), 77.78],
 			[Date.UTC(2017, 9, 13), 77.78],
 			[Date.UTC(2017, 9, 13), 77.78],
