@@ -43,12 +43,6 @@ var gsearch_ail_select_image_cat_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 9, 12), 100.0],
-			[Date.UTC(2017, 9, 12), 111.11],
-			[Date.UTC(2017, 9, 12), 111.11],
-			[Date.UTC(2017, 9, 12), 122.22],
-			[Date.UTC(2017, 9, 12), 122.22],
-			[Date.UTC(2017, 9, 12), 133.33],
 			[Date.UTC(2017, 9, 13), 100.0],
 			[Date.UTC(2017, 9, 13), 100.0],
 			[Date.UTC(2017, 9, 13), 100.0],
