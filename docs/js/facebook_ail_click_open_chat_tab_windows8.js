@@ -203,6 +203,7 @@ var facebook_ail_click_open_chat_tab_windows8 = {
 			[Date.UTC(2017, 9, 27), 300.0],
 			[Date.UTC(2017, 9, 27), 300.0],
 			[Date.UTC(2017, 9, 27), 300.0],
+			[Date.UTC(2017, 9, 27), 300.0],
 			[Date.UTC(2017, 9, 27), 311.11],
 			[Date.UTC(2017, 9, 27), 322.22],
 		]    }, {
@@ -362,5 +363,7 @@ var facebook_ail_click_open_chat_tab_windows8 = {
 			[Date.UTC(2017, 9, 27), 255.56],
 			[Date.UTC(2017, 9, 27), 277.78],
 			[Date.UTC(2017, 9, 27), 288.89],
+			[Date.UTC(2017, 9, 27), 88.89],
+			[Date.UTC(2017, 9, 27), 88.89],
 		]    }]
 }
