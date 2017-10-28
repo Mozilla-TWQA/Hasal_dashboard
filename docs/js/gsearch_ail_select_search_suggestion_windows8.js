@@ -168,6 +168,7 @@ var gsearch_ail_select_search_suggestion_windows8 = {
 			[Date.UTC(2017, 9, 27), 44.44],
 			[Date.UTC(2017, 9, 27), 11.11],
 			[Date.UTC(2017, 9, 27), 11.11],
+			[Date.UTC(2017, 9, 27), 11.11],
 			[Date.UTC(2017, 9, 27), 22.22],
 			[Date.UTC(2017, 9, 27), 22.22],
 			[Date.UTC(2017, 9, 27), 22.22],
