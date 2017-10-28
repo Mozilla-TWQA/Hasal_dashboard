@@ -169,6 +169,7 @@ var gmail_ail_open_mail_windows8 = {
 			[Date.UTC(2017, 9, 27), 222.22],
 			[Date.UTC(2017, 9, 27), 233.33],
 			[Date.UTC(2017, 9, 27), 233.33],
+			[Date.UTC(2017, 9, 27), 233.33],
 			[Date.UTC(2017, 9, 27), 255.56],
 			[Date.UTC(2017, 9, 27), 255.56],
 		]    }, {
@@ -303,5 +304,6 @@ var gmail_ail_open_mail_windows8 = {
 			[Date.UTC(2017, 9, 27), 188.89],
 			[Date.UTC(2017, 9, 27), 188.89],
 			[Date.UTC(2017, 9, 27), 200.0],
+			[Date.UTC(2017, 9, 27), 211.11],
 		]    }]
 }
