@@ -153,6 +153,7 @@ var gsearch_ail_type_searchbox_windows10 = {
 			[Date.UTC(2017, 9, 28), 5.56],
 			[Date.UTC(2017, 9, 28), 66.67],
 			[Date.UTC(2017, 9, 29), 11.11],
+			[Date.UTC(2017, 9, 29), 11.11],
 			[Date.UTC(2017, 9, 29), 33.33],
 		]    }, {
 		name: 'chrome',
@@ -265,6 +266,7 @@ var gsearch_ail_type_searchbox_windows10 = {
 			[Date.UTC(2017, 9, 28), 5.56],
 			[Date.UTC(2017, 9, 28), 5.56],
 			[Date.UTC(2017, 9, 29), 22.22],
+			[Date.UTC(2017, 9, 29), 44.44],
 			[Date.UTC(2017, 9, 29), 5.56],
 			[Date.UTC(2017, 9, 29), 5.56],
 		]    }]
