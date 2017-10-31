@@ -44,10 +44,6 @@ var amazon_ail_select_search_suggestion_windows10 = {
 		name: 'firefox',
 		data: [
 			[Date.UTC(2017, 9, 17), 11.11],
-			[Date.UTC(2017, 9, 17), 22.22],
-			[Date.UTC(2017, 9, 17), 33.33],
-			[Date.UTC(2017, 9, 17), 5.56],
-			[Date.UTC(2017, 9, 17), 11.11],
 			[Date.UTC(2017, 9, 17), 11.11],
 			[Date.UTC(2017, 9, 17), 22.22],
 			[Date.UTC(2017, 9, 17), 33.33],
@@ -232,12 +228,6 @@ var amazon_ail_select_search_suggestion_windows10 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 9, 17), 11.11],
-			[Date.UTC(2017, 9, 17), 5.56],
-			[Date.UTC(2017, 9, 17), 5.56],
-			[Date.UTC(2017, 9, 17), 5.56],
-			[Date.UTC(2017, 9, 17), 5.56],
-			[Date.UTC(2017, 9, 17), 5.56],
 			[Date.UTC(2017, 9, 17), 5.56],
 			[Date.UTC(2017, 9, 17), 5.56],
 			[Date.UTC(2017, 9, 17), 5.56],
