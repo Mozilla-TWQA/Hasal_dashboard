@@ -308,6 +308,7 @@ var gsearch_ail_select_image_cat_windows10 = {
 			[Date.UTC(2017, 9, 30), 188.89],
 			[Date.UTC(2017, 9, 30), 188.89],
 			[Date.UTC(2017, 9, 30), 188.89],
+			[Date.UTC(2017, 9, 30), 188.89],
 			[Date.UTC(2017, 9, 30), 222.22],
 		]    }]
 }
