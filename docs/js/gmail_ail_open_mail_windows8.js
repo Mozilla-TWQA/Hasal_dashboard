@@ -43,12 +43,6 @@ var gmail_ail_open_mail_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 9, 18), 177.78],
-			[Date.UTC(2017, 9, 18), 200.0],
-			[Date.UTC(2017, 9, 18), 211.11],
-			[Date.UTC(2017, 9, 18), 211.11],
-			[Date.UTC(2017, 9, 18), 211.11],
-			[Date.UTC(2017, 9, 18), 222.22],
 			[Date.UTC(2017, 9, 19), 200.0],
 			[Date.UTC(2017, 9, 19), 200.0],
 			[Date.UTC(2017, 9, 19), 200.0],
@@ -231,6 +225,7 @@ var gmail_ail_open_mail_windows8 = {
 			[Date.UTC(2017, 9, 30), 222.22],
 			[Date.UTC(2017, 9, 30), 222.22],
 			[Date.UTC(2017, 9, 30), 222.22],
+			[Date.UTC(2017, 9, 30), 222.22],
 			[Date.UTC(2017, 9, 30), 233.33],
 			[Date.UTC(2017, 9, 30), 233.33],
 			[Date.UTC(2017, 9, 30), 233.33],
@@ -265,12 +260,6 @@ var gmail_ail_open_mail_windows8 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 9, 18), 166.67],
-			[Date.UTC(2017, 9, 18), 177.78],
-			[Date.UTC(2017, 9, 18), 200.0],
-			[Date.UTC(2017, 9, 18), 200.0],
-			[Date.UTC(2017, 9, 18), 200.0],
-			[Date.UTC(2017, 9, 18), 211.11],
 			[Date.UTC(2017, 9, 19), 166.67],
 			[Date.UTC(2017, 9, 19), 166.67],
 			[Date.UTC(2017, 9, 19), 166.67],
@@ -502,6 +491,7 @@ var gmail_ail_open_mail_windows8 = {
 			[Date.UTC(2017, 9, 30), 222.22],
 			[Date.UTC(2017, 9, 30), 222.22],
 			[Date.UTC(2017, 9, 30), 222.22],
+			[Date.UTC(2017, 9, 30), 233.33],
 			[Date.UTC(2017, 9, 30), 233.33],
 			[Date.UTC(2017, 9, 30), 233.33],
 			[Date.UTC(2017, 9, 30), 233.33],
