@@ -199,6 +199,7 @@ var youtube_ail_type_in_search_field_windows10 = {
 			[Date.UTC(2017, 10, 1), 5.56],
 			[Date.UTC(2017, 10, 1), 5.56],
 			[Date.UTC(2017, 10, 1), 5.56],
+			[Date.UTC(2017, 10, 1), 11.11],
 			[Date.UTC(2017, 10, 1), 5.56],
 		]    }, {
 		name: 'chrome',
@@ -346,6 +347,7 @@ var youtube_ail_type_in_search_field_windows10 = {
 			[Date.UTC(2017, 9, 31), 5.56],
 			[Date.UTC(2017, 9, 31), 5.56],
 			[Date.UTC(2017, 10, 1), 22.22],
+			[Date.UTC(2017, 10, 1), 5.56],
 			[Date.UTC(2017, 10, 1), 5.56],
 			[Date.UTC(2017, 10, 1), 5.56],
 			[Date.UTC(2017, 10, 1), 5.56],
