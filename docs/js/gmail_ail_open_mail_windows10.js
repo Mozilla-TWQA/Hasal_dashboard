@@ -234,6 +234,9 @@ var gmail_ail_open_mail_windows10 = {
 			[Date.UTC(2017, 10, 3), 244.44],
 			[Date.UTC(2017, 10, 3), 377.78],
 			[Date.UTC(2017, 10, 3), 388.89],
+			[Date.UTC(2017, 10, 4), 233.33],
+			[Date.UTC(2017, 10, 4), 233.33],
+			[Date.UTC(2017, 10, 4), 500.0],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -415,5 +418,6 @@ var gmail_ail_open_mail_windows10 = {
 			[Date.UTC(2017, 10, 3), 266.67],
 			[Date.UTC(2017, 10, 4), 266.67],
 			[Date.UTC(2017, 10, 4), 266.67],
+			[Date.UTC(2017, 10, 4), 300.0],
 		]    }]
 }
