@@ -43,13 +43,6 @@ var gdoc_ail_pagedown_10_text_windows8 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 9, 22), 44.44],
-			[Date.UTC(2017, 9, 22), 44.44],
-			[Date.UTC(2017, 9, 22), 44.44],
-			[Date.UTC(2017, 9, 22), 44.44],
-			[Date.UTC(2017, 9, 22), 55.56],
-			[Date.UTC(2017, 9, 22), 55.56],
-			[Date.UTC(2017, 9, 22), 55.56],
 			[Date.UTC(2017, 9, 23), 44.44],
 			[Date.UTC(2017, 9, 23), 44.44],
 			[Date.UTC(2017, 9, 23), 44.44],
@@ -322,13 +315,6 @@ var gdoc_ail_pagedown_10_text_windows8 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 9, 22), 33.33],
-			[Date.UTC(2017, 9, 22), 44.44],
-			[Date.UTC(2017, 9, 22), 44.44],
-			[Date.UTC(2017, 9, 22), 44.44],
-			[Date.UTC(2017, 9, 22), 44.44],
-			[Date.UTC(2017, 9, 22), 44.44],
-			[Date.UTC(2017, 9, 22), 55.56],
 			[Date.UTC(2017, 9, 23), 100.0],
 			[Date.UTC(2017, 9, 23), 55.56],
 			[Date.UTC(2017, 9, 23), 55.56],
