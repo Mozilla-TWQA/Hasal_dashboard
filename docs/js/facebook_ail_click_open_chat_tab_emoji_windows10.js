@@ -231,6 +231,7 @@ var facebook_ail_click_open_chat_tab_emoji_windows10 = {
 			[Date.UTC(2017, 10, 5), 122.22],
 			[Date.UTC(2017, 10, 5), 122.22],
 			[Date.UTC(2017, 10, 5), 122.22],
+			[Date.UTC(2017, 10, 5), 122.22],
 			[Date.UTC(2017, 10, 5), 133.33],
 			[Date.UTC(2017, 10, 5), 144.44],
 			[Date.UTC(2017, 10, 5), 155.56],
