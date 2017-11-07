@@ -433,6 +433,7 @@ var gdoc_ail_pagedown_10_text_windows10 = {
 			[Date.UTC(2017, 10, 5), 44.44],
 			[Date.UTC(2017, 10, 5), 44.44],
 			[Date.UTC(2017, 10, 5), 44.44],
+			[Date.UTC(2017, 10, 5), 44.44],
 			[Date.UTC(2017, 10, 5), 5.56],
 			[Date.UTC(2017, 10, 5), 555.56],
 			[Date.UTC(2017, 10, 5), 66.67],
