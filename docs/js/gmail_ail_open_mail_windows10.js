@@ -444,5 +444,6 @@ var gmail_ail_open_mail_windows10 = {
 			[Date.UTC(2017, 10, 5), 311.11],
 			[Date.UTC(2017, 10, 5), 311.11],
 			[Date.UTC(2017, 10, 5), 344.44],
+			[Date.UTC(2017, 10, 5), 377.78],
 		]    }]
 }
