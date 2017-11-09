@@ -2,6 +2,8 @@
  * Created by Askeing on 2017/11/9.
  */
 
+let timestamp_string = new Date().valueOf().toString();
+
 // handle progress
 var my_progress;
 $(window).on('progress_ready', function(){
@@ -44,7 +46,9 @@ $(window).on('progress_ready', function(){
 
 });
 
-$.getJSON('https://gist.githubusercontent.com/askeing/385eecc00262175a67c0540daacbb786/raw/win_dashboard_progress.json', function(response){
+let progress_url = 'https://gist.githubusercontent.com/askeing/385eecc00262175a67c0540daacbb786/raw/win_dashboard_progress.json'
+let update_progress_url = progress_url + '?' + timestamp_string;
+$.getJSON(update_progress_url, function(response){
     my_progress = response;
     $(window).trigger('progress_ready');
 });
