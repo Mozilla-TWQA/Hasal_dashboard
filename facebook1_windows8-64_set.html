@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hasal_amazon_windows10-64</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+
+    <script language="JavaScript" src="./js/theme.js"></script>
+    <script language="JavaScript" src="./js/handle_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/set_page.css">
+</head>
+
+<body>
+
+<div class="content">
+    <div class="row">
+        <div class="data_block_left" id="container1"></div>
+        <div class="data_block_right" id="container2"></div>
+    </div>
+    <div class="row">
+        <div class="data_block_left" id="container3"></div>
+        <div class="data_block_right" id="container4"></div>
+    </div>
+    <div class="row">
+        <div class="date_left">Latest Build (Archive): <span id="latest_build_timestamp">na</span></div>
+        <div class="date_right">Refresh: <span id="refresh_timestamp">na</span></div>
+    </div>
+</div>
+<div class="after_block"></div>
+
+<div class="footer">
+    <div class="row">
+        <a href="daily_progress_all.html">
+            <div class="footer_left">
+                <p class="title">Latest Build Progress (By Suites)</p>
+                <table class="chart">
+                    <tr>
+                        <th ROWSPAN="2">-</th>
+                        <th COLSPAN="2">Amazon</th>
+                        <th COLSPAN="2">Facebook</th>
+                        <th COLSPAN="2">GDoc</th>
+                        <th COLSPAN="2">GMail</th>
+                        <th COLSPAN="2">GSearch</th>
+                        <th COLSPAN="2">Youtube</th>
+                    </tr>
+                    <tr>
+                        <td>Firefox</td>
+                        <td>Chrome</td>
+                        <td>Firefox</td>
+                        <td>Chrome</td>
+                        <td>Firefox</td>
+                        <td>Chrome</td>
+                        <td>Firefox</td>
+                        <td>Chrome</td>
+                        <td>Firefox</td>
+                        <td>Chrome</td>
+                        <td>Firefox</td>
+                        <td>Chrome</td>
+                    </tr>
+                    <tr>
+                        <td>Win7</td>
+                        <td id="windows8-amazon-firefox"></td>
+                        <td id="windows8-amazon-chrome"></td>
+                        <td id="windows8-facebook-firefox"></td>
+                        <td id="windows8-facebook-chrome"></td>
+                        <td id="windows8-gdoc-firefox"></td>
+                        <td id="windows8-gdoc-chrome"></td>
+                        <td id="windows8-gmail-firefox"></td>
+                        <td id="windows8-gmail-chrome"></td>
+                        <td id="windows8-gsearch-firefox"></td>
+                        <td id="windows8-gsearch-chrome"></td>
+                        <td id="windows8-youtube-firefox"></td>
+                        <td id="windows8-youtube-chrome"></td>
+                    </tr>
+                    <tr>
+                        <td>Win10</td>
+                        <td id="windows10-amazon-firefox"></td>
+                        <td id="windows10-amazon-chrome"></td>
+                        <td id="windows10-facebook-firefox"></td>
+                        <td id="windows10-facebook-chrome"></td>
+                        <td id="windows10-gdoc-firefox"></td>
+                        <td id="windows10-gdoc-chrome"></td>
+                        <td id="windows10-gmail-firefox"></td>
+                        <td id="windows10-gmail-chrome"></td>
+                        <td id="windows10-gsearch-firefox"></td>
+                        <td id="windows10-gsearch-chrome"></td>
+                        <td id="windows10-youtube-firefox"></td>
+                        <td id="windows10-youtube-chrome"></td>
+                    </tr>
+                </table>
+            </div>
+        </a>
+        <div class="footer_right">
+            <p class="title">Hasal Daily Progress (Overall)</p>
+            <div class="row">
+                <div class="gauge_left">
+                    <p class="gauge_title">Windows7</p>
+                    <div class="gauge_div" id="container-windows8"></div>
+                </div>
+                <div class="gauge_right">
+                    <p class="gauge_title">Windows10</p>
+                    <div class="gauge_div" id="container-windows10"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script  type="text/javascript">
+    var casename_list = [
+        'facebook_ail_type_composerbox_1_txt_windows8',
+        'facebook_ail_click_open_chat_tab_windows8',
+        'facebook_ail_type_comment_1_txt_windows8',
+        'facebook_ail_click_photo_viewer_right_arrow_windows8'
+    ];
+</script>
+
+</body>
+
+</html>
