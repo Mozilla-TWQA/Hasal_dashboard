@@ -63,6 +63,18 @@ table, th,td {
     font-size: 18px;
 }
 
+td.success {
+    color: #75D701;
+}
+
+td.running {
+    color: #E8A317;
+}
+
+td.error {
+    color: #BD1550;
+}
+
 p {
     margin: 0px;
     padding: 0px;

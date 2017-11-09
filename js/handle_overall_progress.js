@@ -1,0 +1,50 @@
+/**
+ * Created by Askeing on 2017/11/9.
+ */
+
+// handle progress
+var my_progress;
+$(window).on('progress_ready', function(){
+    // latest build datetime
+    let latest_ts = new Date(my_progress.latest_timestamp_js);
+    let latest_ts_text = latest_ts.toUTCString();
+    let latest_ts_elem = document.getElementById('latest_build_timestamp');
+    latest_ts_elem.textContent = latest_ts_text;
+
+    // refresh datetime
+    let refresh_ts = new Date(my_progress.cuttrnt_utc_timestamp_js);
+    let refresh_ts_text = refresh_ts.toUTCString();
+    let refresh_ts_elem = document.getElementById('refresh_timestamp');
+    refresh_ts_elem.textContent = refresh_ts_text;
+
+    // update latest build progress by suite
+    let platforms = ['windows8', 'windows10'];
+    platforms.forEach(function(platform) {
+        let casesnames = Object.keys(my_progress[platform]['cases']);
+        casesnames.forEach(function(casesname){
+            browsers = ['firefox', 'chrome'];
+            browsers.forEach(function(browser){
+                let result_number = my_progress[platform]['cases'][casesname][browser];
+                let html_id = casesname + '-' + platform + '-' + browser;
+                let html_id_elem = document.getElementById(html_id);
+
+                if (result_number >= 6) {
+                    html_id_elem.className = 'success';
+                    html_id_elem.innerText = 'OK (' + result_number + ')';
+                } else if (result_number > 0) {
+                    html_id_elem.className = 'running';
+                    html_id_elem.innerText = 'Running (' + result_number + ')';
+                } else {
+                    html_id_elem.className = 'error';
+                    html_id_elem.innerText = 'Error (' + result_number + ')';
+                }
+            })
+        })
+    });
+
+});
+
+$.getJSON('https://gist.githubusercontent.com/askeing/385eecc00262175a67c0540daacbb786/raw/win_dashboard_progress.json', function(response){
+    my_progress = response;
+    $(window).trigger('progress_ready');
+});

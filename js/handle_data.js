@@ -2,6 +2,8 @@
  * Created by Askeing on 2017/11/9.
  */
 
+let timestamp_string = new Date().valueOf().toString();
+
 // handle data chart
 var my_data;
 $(window).on('data_ready', function(){
@@ -12,7 +14,9 @@ $(window).on('data_ready', function(){
     });
 });
 
-$.getJSON('https://gist.githubusercontent.com/askeing/afb41db54c6a67eee9c9146ff8b193d8/raw/win_dashboard_data.json', function(response){
+let data_url = 'https://gist.githubusercontent.com/askeing/afb41db54c6a67eee9c9146ff8b193d8/raw/win_dashboard_data.json';
+let update_data_url = data_url + '?' + timestamp_string;
+$.getJSON(update_data_url, function(response){
     my_data = response;
     $(window).trigger('data_ready');
 });
@@ -63,7 +67,9 @@ $(window).on('progress_ready', function(){
 
 });
 
-$.getJSON('https://gist.githubusercontent.com/askeing/385eecc00262175a67c0540daacbb786/raw/win_dashboard_progress.json', function(response){
+let progress_url = 'https://gist.githubusercontent.com/askeing/385eecc00262175a67c0540daacbb786/raw/win_dashboard_progress.json'
+let update_progress_url = progress_url + '?' + timestamp_string;
+$.getJSON(update_progress_url, function(response){
     my_progress = response;
     $(window).trigger('progress_ready');
 });
