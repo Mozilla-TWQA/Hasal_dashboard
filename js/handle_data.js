@@ -4,6 +4,12 @@
 
 let timestamp_string = new Date().valueOf().toString();
 
+let data_url = 'https://gist.githubusercontent.com/mozhasaldashboard/ecf936ce6a922ff71ea66365a1091596/raw/win_dashboard_data.json';
+let update_data_url = data_url + '?' + timestamp_string;
+
+let progress_url = 'https://gist.githubusercontent.com/mozhasaldashboard/82bb236b6840d0339bcae048f102f77c/raw/win_dashboard_progress.json'
+let update_progress_url = progress_url + '?' + timestamp_string;
+
 // handle data chart
 var my_data;
 $(window).on('data_ready', function(){
@@ -14,8 +20,6 @@ $(window).on('data_ready', function(){
     });
 });
 
-let data_url = 'https://gist.githubusercontent.com/askeing/afb41db54c6a67eee9c9146ff8b193d8/raw/win_dashboard_data.json';
-let update_data_url = data_url + '?' + timestamp_string;
 $.getJSON(update_data_url, function(response){
     my_data = response;
     $(window).trigger('data_ready');
@@ -67,8 +71,6 @@ $(window).on('progress_ready', function(){
 
 });
 
-let progress_url = 'https://gist.githubusercontent.com/askeing/385eecc00262175a67c0540daacbb786/raw/win_dashboard_progress.json'
-let update_progress_url = progress_url + '?' + timestamp_string;
 $.getJSON(update_progress_url, function(response){
     my_progress = response;
     $(window).trigger('progress_ready');
