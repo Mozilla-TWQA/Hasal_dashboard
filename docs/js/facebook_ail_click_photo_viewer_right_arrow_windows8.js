@@ -411,6 +411,7 @@ var facebook_ail_click_photo_viewer_right_arrow_windows8 = {
 			[Date.UTC(2017, 10, 8), 100.0],
 			[Date.UTC(2017, 10, 8), 100.0],
 			[Date.UTC(2017, 10, 8), 100.0],
+			[Date.UTC(2017, 10, 8), 100.0],
 			[Date.UTC(2017, 10, 8), 111.11],
 			[Date.UTC(2017, 10, 8), 111.11],
 			[Date.UTC(2017, 10, 8), 122.22],
@@ -418,6 +419,7 @@ var facebook_ail_click_photo_viewer_right_arrow_windows8 = {
 			[Date.UTC(2017, 10, 8), 77.78],
 			[Date.UTC(2017, 10, 8), 77.78],
 			[Date.UTC(2017, 10, 8), 77.78],
+			[Date.UTC(2017, 10, 8), 77.78],
 			[Date.UTC(2017, 10, 8), 88.89],
 			[Date.UTC(2017, 10, 8), 88.89],
 			[Date.UTC(2017, 10, 8), 88.89],
@@ -437,6 +439,7 @@ var facebook_ail_click_photo_viewer_right_arrow_windows8 = {
 			[Date.UTC(2017, 10, 8), 88.89],
 			[Date.UTC(2017, 10, 8), 88.89],
 			[Date.UTC(2017, 10, 8), 88.89],
+			[Date.UTC(2017, 10, 9), 88.89],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -842,6 +845,7 @@ var facebook_ail_click_photo_viewer_right_arrow_windows8 = {
 			[Date.UTC(2017, 10, 8), 77.78],
 			[Date.UTC(2017, 10, 8), 77.78],
 			[Date.UTC(2017, 10, 8), 77.78],
+			[Date.UTC(2017, 10, 9), 66.67],
 			[Date.UTC(2017, 10, 9), 66.67],
 		]    }]
 }
