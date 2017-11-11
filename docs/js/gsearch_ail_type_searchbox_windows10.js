@@ -252,6 +252,7 @@ var gsearch_ail_type_searchbox_windows10 = {
 			[Date.UTC(2017, 10, 10), 5.56],
 			[Date.UTC(2017, 10, 10), 5.56],
 			[Date.UTC(2017, 10, 11), 22.22],
+			[Date.UTC(2017, 10, 11), 22.22],
 			[Date.UTC(2017, 10, 11), 33.33],
 			[Date.UTC(2017, 10, 11), 66.67],
 		]    }, {
