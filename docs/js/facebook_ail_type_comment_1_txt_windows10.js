@@ -365,5 +365,6 @@ var facebook_ail_type_comment_1_txt_windows10 = {
 			[Date.UTC(2017, 10, 12), 5.56],
 			[Date.UTC(2017, 10, 12), 5.56],
 			[Date.UTC(2017, 10, 13), 22.22],
+			[Date.UTC(2017, 10, 13), 5.56],
 		]    }]
 }
