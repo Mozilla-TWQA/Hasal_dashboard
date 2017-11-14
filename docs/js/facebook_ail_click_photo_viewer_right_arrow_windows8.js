@@ -407,6 +407,7 @@ var facebook_ail_click_photo_viewer_right_arrow_windows8 = {
 			[Date.UTC(2017, 10, 13), 88.89],
 			[Date.UTC(2017, 10, 14), 100.0],
 			[Date.UTC(2017, 10, 14), 100.0],
+			[Date.UTC(2017, 10, 14), 100.0],
 			[Date.UTC(2017, 10, 14), 111.11],
 			[Date.UTC(2017, 10, 14), 111.11],
 			[Date.UTC(2017, 10, 14), 77.78],
