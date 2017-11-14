@@ -30,7 +30,8 @@ var my_progress;
 $(window).on('progress_ready', function(){
     // latest build datetime
     let latest_ts = new Date(my_progress.latest_timestamp_js);
-    let latest_ts_text = latest_ts.toUTCString();
+    let latest_revsion = my_progress.windows10.revision || '';
+    let latest_ts_text = latest_ts.toUTCString() + ' (' + latest_revsion.substring(0, 12) + ')';;
     let latest_ts_elem = document.getElementById('latest_build_timestamp');
     latest_ts_elem.textContent = latest_ts_text;
 
