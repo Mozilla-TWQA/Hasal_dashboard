@@ -403,10 +403,6 @@ var gsearch_ail_select_search_suggestion_windows8 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 10, 1), 22.22],
-			[Date.UTC(2017, 10, 1), 22.22],
-			[Date.UTC(2017, 10, 1), 22.22],
-			[Date.UTC(2017, 10, 1), 22.22],
 			[Date.UTC(2017, 10, 2), 22.22],
 			[Date.UTC(2017, 10, 2), 22.22],
 			[Date.UTC(2017, 10, 2), 22.22],
