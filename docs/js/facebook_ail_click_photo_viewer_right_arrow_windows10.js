@@ -43,12 +43,6 @@ var facebook_ail_click_photo_viewer_right_arrow_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 10, 1), 144.44],
-			[Date.UTC(2017, 10, 1), 144.44],
-			[Date.UTC(2017, 10, 1), 155.56],
-			[Date.UTC(2017, 10, 1), 166.67],
-			[Date.UTC(2017, 10, 1), 166.67],
-			[Date.UTC(2017, 10, 1), 177.78],
 			[Date.UTC(2017, 10, 1), 111.11],
 			[Date.UTC(2017, 10, 1), 122.22],
 			[Date.UTC(2017, 10, 1), 155.56],
@@ -240,12 +234,6 @@ var facebook_ail_click_photo_viewer_right_arrow_windows10 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 10, 1), 100.0],
-			[Date.UTC(2017, 10, 1), 100.0],
-			[Date.UTC(2017, 10, 1), 100.0],
-			[Date.UTC(2017, 10, 1), 77.78],
-			[Date.UTC(2017, 10, 1), 77.78],
-			[Date.UTC(2017, 10, 1), 88.89],
 			[Date.UTC(2017, 10, 1), 100.0],
 			[Date.UTC(2017, 10, 1), 100.0],
 			[Date.UTC(2017, 10, 1), 88.89],
