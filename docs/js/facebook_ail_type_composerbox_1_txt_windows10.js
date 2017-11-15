@@ -232,6 +232,7 @@ var facebook_ail_type_composerbox_1_txt_windows10 = {
 			[Date.UTC(2017, 10, 14), 33.33],
 			[Date.UTC(2017, 10, 14), 33.33],
 			[Date.UTC(2017, 10, 14), 33.33],
+			[Date.UTC(2017, 10, 14), 33.33],
 			[Date.UTC(2017, 10, 14), 55.56],
 			[Date.UTC(2017, 10, 14), 66.67],
 		]    }, {
@@ -427,6 +428,7 @@ var facebook_ail_type_composerbox_1_txt_windows10 = {
 			[Date.UTC(2017, 10, 14), 5.56],
 			[Date.UTC(2017, 10, 14), 11.11],
 			[Date.UTC(2017, 10, 14), 11.11],
+			[Date.UTC(2017, 10, 14), 5.56],
 			[Date.UTC(2017, 10, 14), 5.56],
 			[Date.UTC(2017, 10, 14), 5.56],
 			[Date.UTC(2017, 10, 14), 5.56],
