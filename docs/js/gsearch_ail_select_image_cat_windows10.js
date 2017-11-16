@@ -43,10 +43,6 @@ var gsearch_ail_select_image_cat_windows10 = {
     series: [{
 		name: 'firefox',
 		data: [
-			[Date.UTC(2017, 10, 2), 100.0],
-			[Date.UTC(2017, 10, 2), 122.22],
-			[Date.UTC(2017, 10, 2), 133.33],
-			[Date.UTC(2017, 10, 2), 233.33],
 			[Date.UTC(2017, 10, 3), 122.22],
 			[Date.UTC(2017, 10, 3), 133.33],
 			[Date.UTC(2017, 10, 3), 133.33],
@@ -249,10 +245,6 @@ var gsearch_ail_select_image_cat_windows10 = {
 		]    }, {
 		name: 'chrome',
 		data: [
-			[Date.UTC(2017, 10, 2), 166.67],
-			[Date.UTC(2017, 10, 2), 166.67],
-			[Date.UTC(2017, 10, 2), 188.89],
-			[Date.UTC(2017, 10, 2), 211.11],
 			[Date.UTC(2017, 10, 3), 155.56],
 			[Date.UTC(2017, 10, 3), 166.67],
 			[Date.UTC(2017, 10, 3), 166.67],
@@ -450,5 +442,6 @@ var gsearch_ail_select_image_cat_windows10 = {
 			[Date.UTC(2017, 10, 15), 177.78],
 			[Date.UTC(2017, 10, 15), 177.78],
 			[Date.UTC(2017, 10, 15), 177.78],
+			[Date.UTC(2017, 10, 15), 222.22],
 		]    }]
 }
