@@ -436,6 +436,7 @@ var gsearch_ail_type_searchbox_windows8 = {
 			[Date.UTC(2017, 10, 15), 22.22],
 			[Date.UTC(2017, 10, 15), 22.22],
 			[Date.UTC(2017, 10, 15), 22.22],
+			[Date.UTC(2017, 10, 15), 22.22],
 			[Date.UTC(2017, 10, 15), 33.33],
 			[Date.UTC(2017, 10, 15), 33.33],
 		]    }, {
@@ -831,6 +832,7 @@ var gsearch_ail_type_searchbox_windows8 = {
 			[Date.UTC(2017, 10, 15), 22.22],
 			[Date.UTC(2017, 10, 15), 22.22],
 			[Date.UTC(2017, 10, 15), 22.22],
+			[Date.UTC(2017, 10, 15), 11.11],
 			[Date.UTC(2017, 10, 15), 11.11],
 			[Date.UTC(2017, 10, 15), 22.22],
 		]    }]
