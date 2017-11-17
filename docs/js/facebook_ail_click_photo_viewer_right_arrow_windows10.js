@@ -241,6 +241,7 @@ var facebook_ail_click_photo_viewer_right_arrow_windows10 = {
 			[Date.UTC(2017, 10, 15), 177.78],
 			[Date.UTC(2017, 10, 15), 200.0],
 			[Date.UTC(2017, 10, 15), 211.11],
+			[Date.UTC(2017, 10, 15), 244.44],
 		]    }, {
 		name: 'chrome',
 		data: [
