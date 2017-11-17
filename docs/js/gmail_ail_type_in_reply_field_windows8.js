@@ -437,6 +437,7 @@ var gmail_ail_type_in_reply_field_windows8 = {
 			[Date.UTC(2017, 10, 16), 44.44],
 			[Date.UTC(2017, 10, 16), 44.44],
 			[Date.UTC(2017, 10, 16), 44.44],
+			[Date.UTC(2017, 10, 17), 44.44],
 		]    }, {
 		name: 'chrome',
 		data: [
