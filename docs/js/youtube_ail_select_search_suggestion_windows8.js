@@ -421,6 +421,7 @@ var youtube_ail_select_search_suggestion_windows8 = {
 			[Date.UTC(2017, 10, 18), 22.22],
 			[Date.UTC(2017, 10, 18), 22.22],
 			[Date.UTC(2017, 10, 18), 22.22],
+			[Date.UTC(2017, 10, 18), 22.22],
 			[Date.UTC(2017, 10, 18), 33.33],
 			[Date.UTC(2017, 10, 18), 33.33],
 		]    }, {
@@ -798,5 +799,6 @@ var youtube_ail_select_search_suggestion_windows8 = {
 			[Date.UTC(2017, 10, 18), 22.22],
 			[Date.UTC(2017, 10, 18), 22.22],
 			[Date.UTC(2017, 10, 18), 22.22],
+			[Date.UTC(2017, 10, 18), 33.33],
 		]    }]
 }
