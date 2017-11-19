@@ -227,6 +227,8 @@ var facebook_ail_type_composerbox_1_txt_windows10 = {
 			[Date.UTC(2017, 10, 18), 55.56],
 			[Date.UTC(2017, 10, 18), 77.78],
 			[Date.UTC(2017, 10, 18), 33.33],
+			[Date.UTC(2017, 10, 18), 33.33],
+			[Date.UTC(2017, 10, 18), 44.44],
 			[Date.UTC(2017, 10, 18), 55.56],
 		]    }, {
 		name: 'chrome',
