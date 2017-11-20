@@ -332,6 +332,7 @@ var gmail_ail_reply_mail_windows8 = {
 			[Date.UTC(2017, 10, 20), 255.56],
 			[Date.UTC(2017, 10, 20), 266.67],
 			[Date.UTC(2017, 10, 20), 266.67],
+			[Date.UTC(2017, 10, 20), 266.67],
 		]    }, {
 		name: 'chrome',
 		data: [
@@ -612,6 +613,7 @@ var gmail_ail_reply_mail_windows8 = {
 			[Date.UTC(2017, 10, 19), 155.56],
 			[Date.UTC(2017, 10, 20), 111.11],
 			[Date.UTC(2017, 10, 20), 133.33],
+			[Date.UTC(2017, 10, 20), 144.44],
 			[Date.UTC(2017, 10, 20), 166.67],
 		]    }]
 }
