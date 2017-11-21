@@ -12,10 +12,22 @@ var my_progress;
 $(window).on('progress_ready', function(){
     // latest build datetime
     let latest_ts = new Date(my_progress.latest_timestamp_js);
-    let latest_revsion = my_progress.windows10.revision || '';
-    let latest_ts_text = latest_ts.toUTCString() + ' (' + latest_revsion.substring(0, 12) + ')';
+    let latest_ts_text = latest_ts.toUTCString();
     let latest_ts_elem = document.getElementById('latest_build_timestamp');
     latest_ts_elem.textContent = latest_ts_text;
+
+    let latest_revsion = my_progress.windows10.revision || '';
+    if (latest_revsion) {
+        let latest_rev_elem = document.getElementById('latest_build_rev');
+        latest_rev_elem.innerHTML = '[<a class="color_silver" href="https://hg.mozilla.org/mozilla-central/rev/' + latest_revsion + '" target="_blank">' + latest_revsion.substring(0, 12) + '</a>]';
+    }
+
+    let latest_archive_dir = my_progress.windows10.archive_dir || '';
+    let latest_archive_url = my_progress.windows10.archive_url || '';
+    if (latest_archive_dir && latest_archive_url) {
+        let latest_archive_elem = document.getElementById('latest_build_archive');
+        latest_archive_elem.innerHTML = '(<a class="color_silver" href="' + latest_archive_url + '" target="_blank">' + latest_archive_dir + '</a>)';
+    }
 
     // refresh datetime
     let refresh_ts = new Date(my_progress.cuttrnt_utc_timestamp_js);

@@ -141,3 +141,8 @@ p {
     margin: 0px;
     padding: 0px;
 }
+
+a.color_silver {
+    color: silver;
+    font-size: 0.5em;
+}
