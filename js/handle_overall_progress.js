@@ -4,7 +4,7 @@
 
 let timestamp_string = new Date().valueOf().toString();
 
-let progress_url = 'https://gist.githubusercontent.com/mozhasaldashboard/82bb236b6840d0339bcae048f102f77c/raw/win_dashboard_progress.json'
+let progress_url = 'https://gist.githubusercontent.com/mozhasaldashboard/bfc6f43f7e8f0ae9eac8e2094308611a/raw/win_dashboard_progress.json'
 let update_progress_url = progress_url + '?' + timestamp_string;
 
 // handle progress
